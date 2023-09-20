@@ -1,0 +1,11 @@
+[0.213s] Invoking command in '/sim_ws/build/wall_follow': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/sim_ws/install/f1tenth_gym_ros:/opt/ros/foxy /usr/bin/cmake --build /sim_ws/build/wall_follow -- -j12 -l12
+[0.250s] [35m[1mScanning dependencies of target wall_follow_node[0m
+[0.277s] [ 50%] [32mBuilding CXX object CMakeFiles/wall_follow_node.dir/src/wall_follow_node.cpp.o[0m
+[1.611s] [01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:[m[K In constructor ‘[01m[KWallFollow::WallFollow()[m[K’:
+[1.611s] [01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:30:56:[m[K [01;31m[Kerror: [m[K‘[01m[KFalse[m[K’ was not declared in this scope
+[1.611s]    30 |         this->declare_parameter("following_left_wall", [01;31m[KFalse[m[K);
+[1.611s]       |                                                        [01;31m[K^~~~~[m[K
+[3.439s] make[2]: *** [CMakeFiles/wall_follow_node.dir/build.make:63: CMakeFiles/wall_follow_node.dir/src/wall_follow_node.cpp.o] Error 1
+[3.440s] make[1]: *** [CMakeFiles/Makefile2:78: CMakeFiles/wall_follow_node.dir/all] Error 2
+[3.440s] make: *** [Makefile:141: all] Error 2
+[3.445s] Invoked command in '/sim_ws/build/wall_follow' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/sim_ws/install/f1tenth_gym_ros:/opt/ros/foxy /usr/bin/cmake --build /sim_ws/build/wall_follow -- -j12 -l12

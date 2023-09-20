@@ -1,0 +1,2 @@
+Invoking command in '/sim_ws/build/wall_follow': /usr/bin/cmake /sim_ws/src/wall_follow -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/sim_ws/install/wall_follow
+Invoked command in '/sim_ws/build/wall_follow' returned '1': /usr/bin/cmake /sim_ws/src/wall_follow -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/sim_ws/install/wall_follow

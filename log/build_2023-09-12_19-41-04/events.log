@@ -1,0 +1,101 @@
+[0.000000] (-) TimerEvent: {}
+[0.000249] (f1tenth_gym_ros) JobQueued: {'identifier': 'f1tenth_gym_ros', 'dependencies': OrderedDict()}
+[0.000318] (safety_node) JobQueued: {'identifier': 'safety_node', 'dependencies': OrderedDict()}
+[0.000345] (f1tenth_gym_ros) JobStarted: {'identifier': 'f1tenth_gym_ros'}
+[0.016928] (safety_node) JobStarted: {'identifier': 'safety_node'}
+[0.099695] (-) TimerEvent: {}
+[0.202177] (-) TimerEvent: {}
+[0.241064] (safety_node) JobProgress: {'identifier': 'safety_node', 'progress': 'cmake'}
+[0.242841] (safety_node) JobProgress: {'identifier': 'safety_node', 'progress': 'build'}
+[0.242936] (safety_node) Command: {'cmd': ['/usr/bin/cmake', '--build', '/sim_ws/build/safety_node', '--', '-j12', '-l12'], 'cwd': '/sim_ws/build/safety_node', 'env': OrderedDict([('TMUX', '/tmp//tmux-0/default,11,0'), ('HOSTNAME', '81873ca321f4'), ('SHLVL', '2'), ('LD_LIBRARY_PATH', '/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/x86_64-linux-gnu:/opt/ros/foxy/lib'), ('HOME', '/root'), ('ROS_PYTHON_VERSION', '3'), ('COLCON_PREFIX_PATH', '/sim_ws/install'), ('ROS_DISTRO', 'foxy'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('NVIDIA_DRIVER_CAPABILITIES', 'all'), ('TERM', 'screen'), ('ROS_LOCALHOST_ONLY', '0'), ('QT_X11_NO_MITSHM', '1'), ('PATH', '/opt/ros/foxy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('DISPLAY', '172.23.224.1:0'), ('LANG', 'C.UTF-8'), ('XAUTHORITY', '/tmp/.docker2mdnt6kx.xauth'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/sim_ws/install/safety_node:/sim_ws/install/f1tenth_gym_ros:/opt/ros/foxy'), ('SHELL', '/bin/bash'), ('PWD', '/sim_ws/build/safety_node'), ('LC_ALL', 'C.UTF-8'), ('PYTHONPATH', '/sim_ws/install/safety_node/lib/python3.8/site-packages:/sim_ws/install/f1tenth_gym_ros/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages'), ('NVIDIA_VISIBLE_DEVICES', 'all'), ('COLCON', '1'), ('TMUX_PANE', '%0'), ('CMAKE_PREFIX_PATH', '/sim_ws/install/safety_node:/sim_ws/install/f1tenth_gym_ros:/opt/ros/foxy')]), 'shell': False}
+[0.279744] (safety_node) StdoutLine: {'line': b'-- Found ament_cmake: 0.9.11 (/opt/ros/foxy/share/ament_cmake/cmake)\n'}
+[0.302342] (-) TimerEvent: {}
+[0.313462] (safety_node) StdoutLine: {'line': b'-- Using PYTHON_EXECUTABLE: /usr/bin/python3\n'}
+[0.402661] (-) TimerEvent: {}
+[0.481739] (safety_node) StdoutLine: {'line': b'-- Override CMake install command with custom implementation using symlinks instead of copying resources\n'}
+[0.493299] (safety_node) StdoutLine: {'line': b'-- Found rclcpp: 2.4.2 (/opt/ros/foxy/share/rclcpp/cmake)\n'}
+[0.503049] (-) TimerEvent: {}
+[0.534690] (safety_node) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[0.538381] (safety_node) StdoutLine: {'line': b'-- Found rosidl_adapter: 1.3.0 (/opt/ros/foxy/share/rosidl_adapter/cmake)\n'}
+[0.603493] (-) TimerEvent: {}
+[0.616400] (f1tenth_gym_ros) Command: {'cmd': ['/usr/bin/python3', 'setup.py', 'develop', '--editable', '--build-directory', '/sim_ws/build/f1tenth_gym_ros/build', '--no-deps', 'install_data'], 'cwd': '/sim_ws/build/f1tenth_gym_ros', 'env': {'TMUX': '/tmp//tmux-0/default,11,0', 'HOSTNAME': '81873ca321f4', 'SHLVL': '2', 'LD_LIBRARY_PATH': '/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/x86_64-linux-gnu:/opt/ros/foxy/lib', 'HOME': '/root', 'ROS_PYTHON_VERSION': '3', 'COLCON_PREFIX_PATH': '/sim_ws/install', 'ROS_DISTRO': 'foxy', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'NVIDIA_DRIVER_CAPABILITIES': 'all', 'TERM': 'screen', 'ROS_LOCALHOST_ONLY': '0', 'QT_X11_NO_MITSHM': '1', 'PATH': '/opt/ros/foxy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'DISPLAY': '172.23.224.1:0', 'LANG': 'C.UTF-8', 'XAUTHORITY': '/tmp/.docker2mdnt6kx.xauth', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'AMENT_PREFIX_PATH': '/sim_ws/install/safety_node:/sim_ws/install/f1tenth_gym_ros:/opt/ros/foxy', 'SHELL': '/bin/bash', 'PWD': '/sim_ws/build/f1tenth_gym_ros', 'LC_ALL': 'C.UTF-8', 'PYTHONPATH': '/sim_ws/build/f1tenth_gym_ros/prefix_override:/sim_ws/install/f1tenth_gym_ros/lib/python3.8/site-packages:/sim_ws/install/safety_node/lib/python3.8/site-packages:/sim_ws/install/f1tenth_gym_ros/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages', 'NVIDIA_VISIBLE_DEVICES': 'all', 'COLCON': '1', 'TMUX_PANE': '%0', 'CMAKE_PREFIX_PATH': '/sim_ws/install/safety_node'}, 'shell': False}
+[0.685262] (safety_node) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[0.703972] (-) TimerEvent: {}
+[0.741352] (safety_node) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 1.0.3 (/opt/ros/foxy/share/rmw_implementation_cmake/cmake)\n'}
+[0.743454] (safety_node) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[0.807018] (-) TimerEvent: {}
+[0.832038] (f1tenth_gym_ros) StdoutLine: {'line': b'running develop\n'}
+[0.907741] (-) TimerEvent: {}
+[0.932857] (safety_node) StdoutLine: {'line': b'-- Found rclpy: 1.0.11 (/opt/ros/foxy/share/rclpy/cmake)\n'}
+[0.933271] (safety_node) StdoutLine: {'line': b'-- Found nav_msgs: 2.0.5 (/opt/ros/foxy/share/nav_msgs/cmake)\n'}
+[0.950805] (f1tenth_gym_ros) StdoutLine: {'line': b'running egg_info\n'}
+[0.951316] (f1tenth_gym_ros) StdoutLine: {'line': b'writing f1tenth_gym_ros.egg-info/PKG-INFO\n'}
+[0.952022] (f1tenth_gym_ros) StdoutLine: {'line': b'writing dependency_links to f1tenth_gym_ros.egg-info/dependency_links.txt\n'}
+[0.952188] (f1tenth_gym_ros) StdoutLine: {'line': b'writing entry points to f1tenth_gym_ros.egg-info/entry_points.txt\n'}
+[0.952642] (f1tenth_gym_ros) StdoutLine: {'line': b'writing requirements to f1tenth_gym_ros.egg-info/requires.txt\n'}
+[0.952861] (f1tenth_gym_ros) StdoutLine: {'line': b'writing top-level names to f1tenth_gym_ros.egg-info/top_level.txt\n'}
+[0.991014] (f1tenth_gym_ros) StdoutLine: {'line': b"reading manifest file 'f1tenth_gym_ros.egg-info/SOURCES.txt'\n"}
+[0.991817] (f1tenth_gym_ros) StdoutLine: {'line': b"writing manifest file 'f1tenth_gym_ros.egg-info/SOURCES.txt'\n"}
+[0.993026] (f1tenth_gym_ros) StdoutLine: {'line': b'running build_ext\n'}
+[0.993394] (f1tenth_gym_ros) StdoutLine: {'line': b'Creating /sim_ws/install/f1tenth_gym_ros/lib/python3.8/site-packages/f1tenth-gym-ros.egg-link (link to .)\n'}
+[0.994229] (f1tenth_gym_ros) StdoutLine: {'line': b'Installing gym_bridge script to /sim_ws/install/f1tenth_gym_ros/lib/f1tenth_gym_ros\n'}
+[0.994554] (f1tenth_gym_ros) StdoutLine: {'line': b'\n'}
+[0.994659] (f1tenth_gym_ros) StdoutLine: {'line': b'Installed /sim_ws/build/f1tenth_gym_ros\n'}
+[0.994736] (f1tenth_gym_ros) StdoutLine: {'line': b'running install_data\n'}
+[1.008598] (-) TimerEvent: {}
+[1.017561] (f1tenth_gym_ros) CommandEnded: {'returncode': 0}
+[1.037281] (f1tenth_gym_ros) JobEnded: {'identifier': 'f1tenth_gym_ros', 'rc': 0}
+[1.052273] (safety_node) StdoutLine: {'line': b'-- Found ackermann_msgs: 2.0.2 (/opt/ros/foxy/share/ackermann_msgs/cmake)\n'}
+[1.085184] (safety_node) StdoutLine: {'line': b'-- Found sensor_msgs: 2.0.5 (/opt/ros/foxy/share/sensor_msgs/cmake)\n'}
+[1.110704] (-) TimerEvent: {}
+[1.172753] (safety_node) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.9.7 (/opt/ros/foxy/share/ament_lint_auto/cmake)\n'}
+[1.212521] (-) TimerEvent: {}
+[1.243783] (safety_node) StdoutLine: {'line': b"-- Added test 'copyright' to check source files copyright and LICENSE\n"}
+[1.244772] (safety_node) StdoutLine: {'line': b"-- Added test 'cppcheck' to perform static code analysis on C / C++ code\n"}
+[1.245046] (safety_node) StdoutLine: {'line': b'-- Configured cppcheck include dirs: /sim_ws/src/safety_node/include\n'}
+[1.245139] (safety_node) StdoutLine: {'line': b'-- Configured cppcheck exclude dirs and/or files: \n'}
+[1.245814] (safety_node) StdoutLine: {'line': b"-- Added test 'cpplint' to check C / C++ code against the Google style\n"}
+[1.245926] (safety_node) StdoutLine: {'line': b'-- Configured cpplint exclude dirs and/or files: \n'}
+[1.246262] (safety_node) StdoutLine: {'line': b"-- Added test 'flake8' to check Python code syntax and style conventions\n"}
+[1.246770] (safety_node) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[1.247339] (safety_node) StdoutLine: {'line': b"-- Added test 'pep257' to check Python code against some of the style conventions in PEP 257\n"}
+[1.248040] (safety_node) StdoutLine: {'line': b"-- Added test 'uncrustify' to check C / C++ code style\n"}
+[1.248162] (safety_node) StdoutLine: {'line': b'-- Configured uncrustify additional arguments: \n'}
+[1.248400] (safety_node) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[1.252232] (safety_node) StdoutLine: {'line': b'-- Configuring done\n'}
+[1.271151] (safety_node) StdoutLine: {'line': b'-- Generating done\n'}
+[1.273138] (safety_node) StdoutLine: {'line': b'-- Build files have been written to: /sim_ws/build/safety_node\n'}
+[1.313084] (-) TimerEvent: {}
+[1.314282] (safety_node) StdoutLine: {'line': b'[100%] Built target safety_node\n'}
+[1.325171] (safety_node) CommandEnded: {'returncode': 0}
+[1.349308] (safety_node) JobProgress: {'identifier': 'safety_node', 'progress': 'install'}
+[1.359506] (safety_node) Command: {'cmd': ['/usr/bin/cmake', '--install', '/sim_ws/build/safety_node'], 'cwd': '/sim_ws/build/safety_node', 'env': OrderedDict([('TMUX', '/tmp//tmux-0/default,11,0'), ('HOSTNAME', '81873ca321f4'), ('SHLVL', '2'), ('LD_LIBRARY_PATH', '/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/x86_64-linux-gnu:/opt/ros/foxy/lib'), ('HOME', '/root'), ('ROS_PYTHON_VERSION', '3'), ('COLCON_PREFIX_PATH', '/sim_ws/install'), ('ROS_DISTRO', 'foxy'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('NVIDIA_DRIVER_CAPABILITIES', 'all'), ('TERM', 'screen'), ('ROS_LOCALHOST_ONLY', '0'), ('QT_X11_NO_MITSHM', '1'), ('PATH', '/opt/ros/foxy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('DISPLAY', '172.23.224.1:0'), ('LANG', 'C.UTF-8'), ('XAUTHORITY', '/tmp/.docker2mdnt6kx.xauth'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/sim_ws/install/safety_node:/sim_ws/install/f1tenth_gym_ros:/opt/ros/foxy'), ('SHELL', '/bin/bash'), ('PWD', '/sim_ws/build/safety_node'), ('LC_ALL', 'C.UTF-8'), ('PYTHONPATH', '/sim_ws/install/safety_node/lib/python3.8/site-packages:/sim_ws/install/f1tenth_gym_ros/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages'), ('NVIDIA_VISIBLE_DEVICES', 'all'), ('COLCON', '1'), ('TMUX_PANE', '%0'), ('CMAKE_PREFIX_PATH', '/sim_ws/install/safety_node:/sim_ws/install/f1tenth_gym_ros:/opt/ros/foxy')]), 'shell': False}
+[1.366910] (safety_node) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[1.367775] (safety_node) StdoutLine: {'line': b'-- Execute custom install script\n'}
+[1.369292] (safety_node) StdoutLine: {'line': b'-- Symlinking: /sim_ws/install/safety_node/share/safety_node/config/params.yaml\n'}
+[1.379100] (safety_node) StdoutLine: {'line': b'-- Symlinking: /sim_ws/install/safety_node/share/safety_node/launch/safety_node_launch.py\n'}
+[1.387691] (safety_node) StdoutLine: {'line': b'-- Up-to-date symlink: /sim_ws/install/safety_node/lib/safety_node/safety_node\n'}
+[1.388111] (safety_node) StdoutLine: {'line': b'-- Up-to-date symlink: /sim_ws/install/safety_node/share/safety_node/environment/pythonpath.sh\n'}
+[1.388252] (safety_node) StdoutLine: {'line': b'-- Up-to-date symlink: /sim_ws/install/safety_node/share/safety_node/environment/pythonpath.dsv\n'}
+[1.388583] (safety_node) StdoutLine: {'line': b'-- Up-to-date symlink: /sim_ws/install/safety_node/lib/python3.8/site-packages/safety_node/__init__.py\n'}
+[1.388774] (safety_node) StdoutLine: {'line': b'-- Up-to-date symlink: /sim_ws/install/safety_node/lib/safety_node/safety_node.py\n'}
+[1.389052] (safety_node) StdoutLine: {'line': b'-- Up-to-date symlink: /sim_ws/install/safety_node/share/ament_index/resource_index/package_run_dependencies/safety_node\n'}
+[1.389272] (safety_node) StdoutLine: {'line': b'-- Up-to-date symlink: /sim_ws/install/safety_node/share/ament_index/resource_index/parent_prefix_path/safety_node\n'}
+[1.389468] (safety_node) StdoutLine: {'line': b'-- Up-to-date symlink: /sim_ws/install/safety_node/share/safety_node/environment/ament_prefix_path.sh\n'}
+[1.389780] (safety_node) StdoutLine: {'line': b'-- Up-to-date symlink: /sim_ws/install/safety_node/share/safety_node/environment/ament_prefix_path.dsv\n'}
+[1.389970] (safety_node) StdoutLine: {'line': b'-- Up-to-date symlink: /sim_ws/install/safety_node/share/safety_node/environment/path.sh\n'}
+[1.390197] (safety_node) StdoutLine: {'line': b'-- Up-to-date symlink: /sim_ws/install/safety_node/share/safety_node/environment/path.dsv\n'}
+[1.390459] (safety_node) StdoutLine: {'line': b'-- Up-to-date symlink: /sim_ws/install/safety_node/share/safety_node/local_setup.bash\n'}
+[1.390738] (safety_node) StdoutLine: {'line': b'-- Up-to-date symlink: /sim_ws/install/safety_node/share/safety_node/local_setup.sh\n'}
+[1.391000] (safety_node) StdoutLine: {'line': b'-- Up-to-date symlink: /sim_ws/install/safety_node/share/safety_node/local_setup.zsh\n'}
+[1.391248] (safety_node) StdoutLine: {'line': b'-- Up-to-date symlink: /sim_ws/install/safety_node/share/safety_node/local_setup.dsv\n'}
+[1.391443] (safety_node) StdoutLine: {'line': b'-- Symlinking: /sim_ws/install/safety_node/share/safety_node/package.dsv\n'}
+[1.401493] (safety_node) StdoutLine: {'line': b'-- Up-to-date symlink: /sim_ws/install/safety_node/share/ament_index/resource_index/packages/safety_node\n'}
+[1.401910] (safety_node) StdoutLine: {'line': b'-- Up-to-date symlink: /sim_ws/install/safety_node/share/safety_node/cmake/safety_nodeConfig.cmake\n'}
+[1.402299] (safety_node) StdoutLine: {'line': b'-- Up-to-date symlink: /sim_ws/install/safety_node/share/safety_node/cmake/safety_nodeConfig-version.cmake\n'}
+[1.402550] (safety_node) StdoutLine: {'line': b'-- Up-to-date symlink: /sim_ws/install/safety_node/share/safety_node/package.xml\n'}
+[1.414097] (-) TimerEvent: {}
+[1.432595] (safety_node) StdoutLine: {'line': b"Listing '/sim_ws/install/safety_node/lib/python3.8/site-packages/safety_node'...\n"}
+[1.440746] (safety_node) CommandEnded: {'returncode': 0}
+[1.492278] (safety_node) JobEnded: {'identifier': 'safety_node', 'rc': 0}
+[1.494136] (-) EventReactorShutdown: {}

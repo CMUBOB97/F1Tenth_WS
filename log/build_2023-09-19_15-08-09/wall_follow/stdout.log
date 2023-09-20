@@ -1,0 +1,3 @@
+[35m[1mScanning dependencies of target wall_follow_node[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/wall_follow_node.dir/src/wall_follow_node.cpp.o[0m
+[100%] [32m[1mLinking CXX executable wall_follow_node[0m

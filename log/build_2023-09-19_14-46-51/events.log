@@ -1,0 +1,49 @@
+[0.000000] (-) TimerEvent: {}
+[0.000924] (-) JobUnselected: {'identifier': 'f1tenth_gym_ros'}
+[0.001054] (-) JobUnselected: {'identifier': 'safety_node'}
+[0.001174] (wall_follow) JobQueued: {'identifier': 'wall_follow', 'dependencies': OrderedDict()}
+[0.002506] (wall_follow) JobStarted: {'identifier': 'wall_follow'}
+[0.023216] (wall_follow) JobProgress: {'identifier': 'wall_follow', 'progress': 'cmake'}
+[0.023633] (wall_follow) Command: {'cmd': ['/usr/bin/cmake', '/sim_ws/src/wall_follow', '-DAMENT_CMAKE_SYMLINK_INSTALL=1', '-DCMAKE_INSTALL_PREFIX=/sim_ws/install/wall_follow'], 'cwd': '/sim_ws/build/wall_follow', 'env': OrderedDict([('TMUX', '/tmp//tmux-0/default,46392,0'), ('HOSTNAME', '832d7c209844'), ('SHLVL', '2'), ('HOME', '/root'), ('ROS_DISTRO', 'foxy'), ('_', '/usr/bin/colcon'), ('NVIDIA_DRIVER_CAPABILITIES', 'all'), ('TERM', 'screen'), ('QT_X11_NO_MITSHM', '1'), ('PATH', '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('DISPLAY', '172.23.224.1:0'), ('LANG', 'C.UTF-8'), ('XAUTHORITY', '/tmp/.dockerqhg60rb5.xauth'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('SHELL', '/bin/bash'), ('PWD', '/sim_ws/build/wall_follow'), ('LC_ALL', 'C.UTF-8'), ('NVIDIA_VISIBLE_DEVICES', 'all'), ('COLCON', '1'), ('TMUX_PANE', '%0')]), 'shell': False}
+[0.100038] (-) TimerEvent: {}
+[0.193625] (wall_follow) StdoutLine: {'line': b'-- The C compiler identification is GNU 9.4.0\n'}
+[0.200141] (-) TimerEvent: {}
+[0.300468] (-) TimerEvent: {}
+[0.321466] (wall_follow) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 9.4.0\n'}
+[0.333380] (wall_follow) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc\n'}
+[0.396973] (wall_follow) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc -- works\n'}
+[0.399133] (wall_follow) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.400571] (-) TimerEvent: {}
+[0.460492] (wall_follow) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.471175] (wall_follow) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.471875] (wall_follow) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.476049] (wall_follow) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++\n'}
+[0.500794] (-) TimerEvent: {}
+[0.550876] (wall_follow) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ -- works\n'}
+[0.551834] (wall_follow) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.600918] (-) TimerEvent: {}
+[0.618586] (wall_follow) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.628561] (wall_follow) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.628967] (wall_follow) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.638723] (wall_follow) StderrLine: {'line': b'CMake Error at CMakeLists.txt:25 (find_package):\n'}
+[0.638995] (wall_follow) StderrLine: {'line': b'  By not providing "Findament_cmake.cmake" in CMAKE_MODULE_PATH this project\n'}
+[0.639209] (wall_follow) StderrLine: {'line': b'  has asked CMake to find a package configuration file provided by\n'}
+[0.639399] (wall_follow) StderrLine: {'line': b'  "ament_cmake", but CMake did not find one.\n'}
+[0.639587] (wall_follow) StderrLine: {'line': b'\n'}
+[0.639773] (wall_follow) StderrLine: {'line': b'  Could not find a package configuration file provided by "ament_cmake" with\n'}
+[0.639958] (wall_follow) StderrLine: {'line': b'  any of the following names:\n'}
+[0.640142] (wall_follow) StderrLine: {'line': b'\n'}
+[0.640326] (wall_follow) StderrLine: {'line': b'    ament_cmakeConfig.cmake\n'}
+[0.640510] (wall_follow) StderrLine: {'line': b'    ament_cmake-config.cmake\n'}
+[0.640697] (wall_follow) StderrLine: {'line': b'\n'}
+[0.640881] (wall_follow) StderrLine: {'line': b'  Add the installation prefix of "ament_cmake" to CMAKE_PREFIX_PATH or set\n'}
+[0.641094] (wall_follow) StderrLine: {'line': b'  "ament_cmake_DIR" to a directory containing one of the above files.  If\n'}
+[0.641301] (wall_follow) StderrLine: {'line': b'  "ament_cmake" provides a separate development package or SDK, be sure it\n'}
+[0.641504] (wall_follow) StderrLine: {'line': b'  has been installed.\n'}
+[0.641868] (wall_follow) StderrLine: {'line': b'\n'}
+[0.642061] (wall_follow) StderrLine: {'line': b'\n'}
+[0.643018] (wall_follow) StdoutLine: {'line': b'-- Configuring incomplete, errors occurred!\n'}
+[0.643454] (wall_follow) StdoutLine: {'line': b'See also "/sim_ws/build/wall_follow/CMakeFiles/CMakeOutput.log".\n'}
+[0.644440] (wall_follow) CommandEnded: {'returncode': 1}
+[0.681586] (wall_follow) JobEnded: {'identifier': 'wall_follow', 'rc': 1}
+[0.692392] (-) EventReactorShutdown: {}

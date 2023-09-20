@@ -1,0 +1,3 @@
+source;share/wall_follow/environment/ament_prefix_path.sh
+source;share/wall_follow/environment/path.sh
+source;share/wall_follow/environment/pythonpath.sh

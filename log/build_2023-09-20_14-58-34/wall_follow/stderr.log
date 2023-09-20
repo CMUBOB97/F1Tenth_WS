@@ -1,0 +1,4 @@
+[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:[m[K In member function ‘[01m[Kdouble WallFollow::get_range(std::vector<float>&, double)[m[K’:
+[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:86:19:[m[K [01;35m[Kwarning: [m[Kcomparison of unsigned expression < 0 is always false [[01;35m[K-Wtype-limits[m[K]
+   86 |         if ([01;35m[Kindex < 0[m[K || index > range_data.size()) {
+      |             [01;35m[K~~~~~~^~~[m[K

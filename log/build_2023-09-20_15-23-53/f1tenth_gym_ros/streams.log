@@ -1,0 +1,17 @@
+[0.576s] Invoking command in '/sim_ws/build/f1tenth_gym_ros': PYTHONPATH=/sim_ws/build/f1tenth_gym_ros/prefix_override:/sim_ws/install/f1tenth_gym_ros/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /sim_ws/build/f1tenth_gym_ros/build --no-deps install_data
+[0.777s] running develop
+[0.851s] running egg_info
+[0.851s] writing f1tenth_gym_ros.egg-info/PKG-INFO
+[0.851s] writing dependency_links to f1tenth_gym_ros.egg-info/dependency_links.txt
+[0.852s] writing entry points to f1tenth_gym_ros.egg-info/entry_points.txt
+[0.852s] writing requirements to f1tenth_gym_ros.egg-info/requires.txt
+[0.852s] writing top-level names to f1tenth_gym_ros.egg-info/top_level.txt
+[0.885s] reading manifest file 'f1tenth_gym_ros.egg-info/SOURCES.txt'
+[0.886s] writing manifest file 'f1tenth_gym_ros.egg-info/SOURCES.txt'
+[0.887s] running build_ext
+[0.888s] Creating /sim_ws/install/f1tenth_gym_ros/lib/python3.8/site-packages/f1tenth-gym-ros.egg-link (link to .)
+[0.889s] Installing gym_bridge script to /sim_ws/install/f1tenth_gym_ros/lib/f1tenth_gym_ros
+[0.889s] 
+[0.889s] Installed /sim_ws/build/f1tenth_gym_ros
+[0.889s] running install_data
+[0.910s] Invoked command in '/sim_ws/build/f1tenth_gym_ros' returned '0': PYTHONPATH=/sim_ws/build/f1tenth_gym_ros/prefix_override:/sim_ws/install/f1tenth_gym_ros/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /sim_ws/build/f1tenth_gym_ros/build --no-deps install_data

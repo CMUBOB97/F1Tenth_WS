@@ -1,0 +1,5 @@
+safety_node:
+  ros__parameters:
+    car_length: 0.3302
+    ttc_threshold: 1.0
+    laser_threshold: 20.0

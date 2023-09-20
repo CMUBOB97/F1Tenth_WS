@@ -1,0 +1,9 @@
+[35m[1mScanning dependencies of target wall_follow_node[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/wall_follow_node.dir/src/wall_follow_node.cpp.o[0m
+[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:[m[K In constructor ‘[01m[KWallFollow::WallFollow()[m[K’:
+[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:30:56:[m[K [01;31m[Kerror: [m[K‘[01m[KFalse[m[K’ was not declared in this scope
+   30 |         this->declare_parameter("following_left_wall", [01;31m[KFalse[m[K);
+      |                                                        [01;31m[K^~~~~[m[K
+make[2]: *** [CMakeFiles/wall_follow_node.dir/build.make:63: CMakeFiles/wall_follow_node.dir/src/wall_follow_node.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:78: CMakeFiles/wall_follow_node.dir/all] Error 2
+make: *** [Makefile:141: all] Error 2

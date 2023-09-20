@@ -1,0 +1,30 @@
+[35m[1mScanning dependencies of target wall_follow_node[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/wall_follow_node.dir/src/wall_follow_node.cpp.o[0m
+[100%] [32m[1mLinking CXX executable wall_follow_node[0m
+[100%] Built target wall_follow_node
+-- Install configuration: ""
+-- Execute custom install script
+-- Symlinking: /sim_ws/install/wall_follow/lib/wall_follow/wall_follow_node
+-- Symlinking: /sim_ws/install/wall_follow/share/wall_follow/environment/pythonpath.sh
+-- Symlinking: /sim_ws/install/wall_follow/share/wall_follow/environment/pythonpath.dsv
+-- Symlinking: /sim_ws/install/wall_follow/lib/python3.8/site-packages/wall_follow/__init__.py
+-- Symlinking: /sim_ws/install/wall_follow/lib/wall_follow/wall_follow_node.py
+-- Symlinking: /sim_ws/install/wall_follow/share/wall_follow/config/wall_follow_params.yaml
+-- Symlinking: /sim_ws/install/wall_follow/share/wall_follow/launch/wall_follow_launch.py
+-- Symlinking: /sim_ws/install/wall_follow/share/ament_index/resource_index/package_run_dependencies/wall_follow
+-- Symlinking: /sim_ws/install/wall_follow/share/ament_index/resource_index/parent_prefix_path/wall_follow
+-- Symlinking: /sim_ws/install/wall_follow/share/wall_follow/environment/ament_prefix_path.sh
+-- Symlinking: /sim_ws/install/wall_follow/share/wall_follow/environment/ament_prefix_path.dsv
+-- Symlinking: /sim_ws/install/wall_follow/share/wall_follow/environment/path.sh
+-- Symlinking: /sim_ws/install/wall_follow/share/wall_follow/environment/path.dsv
+-- Symlinking: /sim_ws/install/wall_follow/share/wall_follow/local_setup.bash
+-- Symlinking: /sim_ws/install/wall_follow/share/wall_follow/local_setup.sh
+-- Symlinking: /sim_ws/install/wall_follow/share/wall_follow/local_setup.zsh
+-- Symlinking: /sim_ws/install/wall_follow/share/wall_follow/local_setup.dsv
+-- Symlinking: /sim_ws/install/wall_follow/share/wall_follow/package.dsv
+-- Symlinking: /sim_ws/install/wall_follow/share/ament_index/resource_index/packages/wall_follow
+-- Symlinking: /sim_ws/install/wall_follow/share/wall_follow/cmake/wall_followConfig.cmake
+-- Symlinking: /sim_ws/install/wall_follow/share/wall_follow/cmake/wall_followConfig-version.cmake
+-- Symlinking: /sim_ws/install/wall_follow/share/wall_follow/package.xml
+Listing '/sim_ws/install/wall_follow/lib/python3.8/site-packages/wall_follow'...
+Compiling '/sim_ws/install/wall_follow/lib/python3.8/site-packages/wall_follow/__init__.py'...

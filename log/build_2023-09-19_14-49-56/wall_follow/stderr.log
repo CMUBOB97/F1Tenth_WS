@@ -1,0 +1,49 @@
+[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:[m[K In constructor ‘[01m[KWallFollow::WallFollow()[m[K’:
+[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:30:75:[m[K [01;31m[Kerror: [m[K‘[01m[K_1[m[K’ was not declared in this scope; did you mean ‘[01m[Kstd::placeholders::_1[m[K’?
+   30 |                std::bind(&WallFollow::scan_callback, this, [01;31m[K_1[m[K));
+      |                                                            [01;31m[K^~[m[K
+      |                                                            [32m[Kstd::placeholders::_1[m[K
+In file included from [01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:4[m[K:
+[01m[K/usr/include/c++/9/functional:211:34:[m[K [01;36m[Knote: [m[K‘[01m[Kstd::placeholders::_1[m[K’ declared here
+  211 |     extern const _Placeholder<1> [01;36m[K_1[m[K;
+      |                                  [01;36m[K^~[m[K
+[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:[m[K In member function ‘[01m[Kdouble WallFollow::get_range(float*, double)[m[K’:
+[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:81:33:[m[K [01;31m[Kerror: [m[Krequest for member ‘[01m[Ksize[m[K’ in ‘[01m[Krange_data[m[K’, which is of non-class type ‘[01m[Kfloat*[m[K’
+   81 |         int index = (range_data.[01;31m[Ksize[m[K() * (angle - angle_min)) / (angle_max - angle_min);
+      |                                 [01;31m[K^~~~[m[K
+[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:[m[K In member function ‘[01m[Kdouble WallFollow::get_error(float*, double, double)[m[K’:
+[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:118:78:[m[K [01;31m[Kerror: [m[Krequest for member ‘[01m[Ksize[m[K’ in ‘[01m[Krange_data[m[K’, which is of non-class type ‘[01m[Kfloat*[m[K’
+  118 | ble angle_increment = (angle_max - angle_min) / range_data.[01;31m[Ksize[m[K();
+      |                                                            [01;31m[K^~~~[m[K
+
+[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:135:66:[m[K [01;31m[Kerror: [m[K‘[01m[Ka[m[K’ was not declared in this scope
+  135 |         double alpha = atan2(a_valid * cos(theta) - b_valid, [01;31m[Ka[m[K * sin(theta));
+      |                                                              [01;31m[K^[m[K
+
+In file included from [01m[K/opt/ros/foxy/include/rclcpp/client.hpp:40[m[K,
+                 from [01m[K/opt/ros/foxy/include/rclcpp/callback_group.hpp:23[m[K,
+                 from [01m[K/opt/ros/foxy/include/rclcpp/any_executable.hpp:20[m[K,
+                 from [01m[K/opt/ros/foxy/include/rclcpp/memory_strategy.hpp:24[m[K,
+                 from [01m[K/opt/ros/foxy/include/rclcpp/memory_strategies.hpp:18[m[K,
+                 from [01m[K/opt/ros/foxy/include/rclcpp/executor_options.hpp:20[m[K,
+                 from [01m[K/opt/ros/foxy/include/rclcpp/executor.hpp:33[m[K,
+                 from [01m[K/opt/ros/foxy/include/rclcpp/executors/multi_threaded_executor.hpp:26[m[K,
+                 from [01m[K/opt/ros/foxy/include/rclcpp/executors.hpp:21[m[K,
+                 from [01m[K/opt/ros/foxy/include/rclcpp/rclcpp.hpp:146[m[K,
+                 from [01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:7[m[K:
+[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:[m[K In member function ‘[01m[Kvoid WallFollow::drive_callback(nav_msgs::msg::Odometry_<std::allocator<void> >::ConstSharedPtr)[m[K’:
+[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:199:61:[m[K [01;31m[Kerror: [m[K‘[01m[Kspeed[m[K’ was not declared in this scope
+  199 |         RCLCPP_INFO(this->get_logger(), "speed update: %f", [01;31m[Kspeed[m[K);
+      |                                                             [01;31m[K^~~~~[m[K
+[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:[m[K In member function ‘[01m[Kvoid WallFollow::scan_callback(sensor_msgs::msg::LaserScan_<std::allocator<void> >::ConstSharedPtr)[m[K’:
+[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:219:49:[m[K [01;31m[Kerror: [m[Kcannot convert ‘[01m[Kconst _ranges_type[m[K’ {aka ‘[01m[Kconst std::vector<float>[m[K’} to ‘[01m[Kfloat*[m[K’
+  219 |         double curr_error = get_error([01;31m[Kscan_msg->ranges[m[K, dist, current_velocity);
+      |                                       [01;31m[K~~~~~~~~~~^~~~~~[m[K
+      |                                                 [01;31m[K|[m[K
+      |                                                 [01;31m[Kconst _ranges_type {aka const std::vector<float>}[m[K
+[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:87:29:[m[K [01;36m[Knote: [m[K  initializing argument 1 of ‘[01m[Kdouble WallFollow::get_error(float*, double, double)[m[K’
+   87 |     double get_error([01;36m[Kfloat* range_data[m[K, double dist, double velocity)
+      |                      [01;36m[K~~~~~~~^~~~~~~~~~[m[K
+make[2]: *** [CMakeFiles/wall_follow_node.dir/build.make:63: CMakeFiles/wall_follow_node.dir/src/wall_follow_node.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:78: CMakeFiles/wall_follow_node.dir/all] Error 2
+make: *** [Makefile:141: all] Error 2

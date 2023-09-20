@@ -1,0 +1,140 @@
+[0.000000] (-) TimerEvent: {}
+[0.001150] (-) JobUnselected: {'identifier': 'f1tenth_gym_ros'}
+[0.002773] (-) JobUnselected: {'identifier': 'safety_node'}
+[0.003150] (wall_follow) JobQueued: {'identifier': 'wall_follow', 'dependencies': OrderedDict()}
+[0.003518] (wall_follow) JobStarted: {'identifier': 'wall_follow'}
+[0.015579] (wall_follow) JobProgress: {'identifier': 'wall_follow', 'progress': 'cmake'}
+[0.016236] (wall_follow) Command: {'cmd': ['/usr/bin/cmake', '/sim_ws/src/wall_follow', '-DAMENT_CMAKE_SYMLINK_INSTALL=1', '-DCMAKE_INSTALL_PREFIX=/sim_ws/install/wall_follow'], 'cwd': '/sim_ws/build/wall_follow', 'env': OrderedDict([('TMUX', '/tmp//tmux-0/default,46392,0'), ('HOSTNAME', '832d7c209844'), ('SHLVL', '2'), ('LD_LIBRARY_PATH', '/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/x86_64-linux-gnu:/opt/ros/foxy/lib'), ('HOME', '/root'), ('ROS_PYTHON_VERSION', '3'), ('COLCON_PREFIX_PATH', '/sim_ws/install'), ('ROS_DISTRO', 'foxy'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('NVIDIA_DRIVER_CAPABILITIES', 'all'), ('TERM', 'screen'), ('ROS_LOCALHOST_ONLY', '0'), ('QT_X11_NO_MITSHM', '1'), ('PATH', '/opt/ros/foxy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('DISPLAY', '172.23.224.1:0'), ('LANG', 'C.UTF-8'), ('XAUTHORITY', '/tmp/.dockerqhg60rb5.xauth'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/sim_ws/install/safety_node:/sim_ws/install/f1tenth_gym_ros:/opt/ros/foxy'), ('SHELL', '/bin/bash'), ('PWD', '/sim_ws/build/wall_follow'), ('LC_ALL', 'C.UTF-8'), ('PYTHONPATH', '/sim_ws/install/safety_node/lib/python3.8/site-packages:/sim_ws/build/f1tenth_gym_ros:/sim_ws/install/f1tenth_gym_ros/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages'), ('NVIDIA_VISIBLE_DEVICES', 'all'), ('COLCON', '1'), ('TMUX_PANE', '%0'), ('CMAKE_PREFIX_PATH', '/sim_ws/install/safety_node:/sim_ws/install/f1tenth_gym_ros:/opt/ros/foxy')]), 'shell': False}
+[0.032709] (wall_follow) StdoutLine: {'line': b'-- Found ament_cmake: 0.9.11 (/opt/ros/foxy/share/ament_cmake/cmake)\n'}
+[0.063593] (wall_follow) StdoutLine: {'line': b'-- Found PythonInterp: /usr/bin/python3 (found suitable version "3.8.10", minimum required is "3") \n'}
+[0.063786] (wall_follow) StdoutLine: {'line': b'-- Using PYTHON_EXECUTABLE: /usr/bin/python3\n'}
+[0.099386] (-) TimerEvent: {}
+[0.198363] (wall_follow) StdoutLine: {'line': b'-- Override CMake install command with custom implementation using symlinks instead of copying resources\n'}
+[0.199479] (-) TimerEvent: {}
+[0.237233] (wall_follow) StdoutLine: {'line': b'-- Found rclcpp: 2.4.2 (/opt/ros/foxy/share/rclcpp/cmake)\n'}
+[0.292667] (wall_follow) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[0.299590] (-) TimerEvent: {}
+[0.301172] (wall_follow) StdoutLine: {'line': b'-- Found rosidl_adapter: 1.3.0 (/opt/ros/foxy/share/rosidl_adapter/cmake)\n'}
+[0.379777] (wall_follow) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "1.1.1f")  \n'}
+[0.397508] (wall_follow) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/foxy/include  \n'}
+[0.399699] (-) TimerEvent: {}
+[0.469677] (wall_follow) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[0.499838] (-) TimerEvent: {}
+[0.540997] (wall_follow) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 1.0.3 (/opt/ros/foxy/share/rmw_implementation_cmake/cmake)\n'}
+[0.544000] (wall_follow) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[0.546259] (wall_follow) StdoutLine: {'line': b'-- Looking for pthread.h\n'}
+[0.599974] (-) TimerEvent: {}
+[0.632072] (wall_follow) StdoutLine: {'line': b'-- Looking for pthread.h - found\n'}
+[0.632595] (wall_follow) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[0.695638] (wall_follow) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed\n'}
+[0.695882] (wall_follow) StdoutLine: {'line': b'-- Looking for pthread_create in pthreads\n'}
+[0.700063] (-) TimerEvent: {}
+[0.746019] (wall_follow) StdoutLine: {'line': b'-- Looking for pthread_create in pthreads - not found\n'}
+[0.746244] (wall_follow) StdoutLine: {'line': b'-- Looking for pthread_create in pthread\n'}
+[0.800282] (-) TimerEvent: {}
+[0.802113] (wall_follow) StdoutLine: {'line': b'-- Looking for pthread_create in pthread - found\n'}
+[0.803011] (wall_follow) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[0.900422] (-) TimerEvent: {}
+[0.966247] (wall_follow) StdoutLine: {'line': b'-- Found rclpy: 1.0.11 (/opt/ros/foxy/share/rclpy/cmake)\n'}
+[0.968007] (wall_follow) StdoutLine: {'line': b'-- Found geometry_msgs: 2.0.5 (/opt/ros/foxy/share/geometry_msgs/cmake)\n'}
+[1.000532] (-) TimerEvent: {}
+[1.003050] (wall_follow) StdoutLine: {'line': b'-- Found nav_msgs: 2.0.5 (/opt/ros/foxy/share/nav_msgs/cmake)\n'}
+[1.071158] (wall_follow) StdoutLine: {'line': b'-- Found ackermann_msgs: 2.0.2 (/opt/ros/foxy/share/ackermann_msgs/cmake)\n'}
+[1.100699] (-) TimerEvent: {}
+[1.105187] (wall_follow) StdoutLine: {'line': b'-- Found sensor_msgs: 2.0.5 (/opt/ros/foxy/share/sensor_msgs/cmake)\n'}
+[1.200823] (-) TimerEvent: {}
+[1.201210] (wall_follow) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.9.7 (/opt/ros/foxy/share/ament_lint_auto/cmake)\n'}
+[1.281739] (wall_follow) StdoutLine: {'line': b"-- Added test 'copyright' to check source files copyright and LICENSE\n"}
+[1.283250] (wall_follow) StdoutLine: {'line': b"-- Added test 'cppcheck' to perform static code analysis on C / C++ code\n"}
+[1.283593] (wall_follow) StdoutLine: {'line': b'-- Configured cppcheck include dirs: /sim_ws/src/wall_follow/include\n'}
+[1.283673] (wall_follow) StdoutLine: {'line': b'-- Configured cppcheck exclude dirs and/or files: \n'}
+[1.285011] (wall_follow) StdoutLine: {'line': b"-- Added test 'cpplint' to check C / C++ code against the Google style\n"}
+[1.285141] (wall_follow) StdoutLine: {'line': b'-- Configured cpplint exclude dirs and/or files: \n'}
+[1.286012] (wall_follow) StdoutLine: {'line': b"-- Added test 'flake8' to check Python code syntax and style conventions\n"}
+[1.286815] (wall_follow) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[1.287636] (wall_follow) StdoutLine: {'line': b"-- Added test 'pep257' to check Python code against some of the style conventions in PEP 257\n"}
+[1.288753] (wall_follow) StdoutLine: {'line': b"-- Added test 'uncrustify' to check C / C++ code style\n"}
+[1.288869] (wall_follow) StdoutLine: {'line': b'-- Configured uncrustify additional arguments: \n'}
+[1.289730] (wall_follow) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[1.293346] (wall_follow) StdoutLine: {'line': b'-- Configuring done\n'}
+[1.300976] (-) TimerEvent: {}
+[1.304587] (wall_follow) StdoutLine: {'line': b'-- Generating done\n'}
+[1.305850] (wall_follow) StdoutLine: {'line': b'-- Build files have been written to: /sim_ws/build/wall_follow\n'}
+[1.310006] (wall_follow) CommandEnded: {'returncode': 0}
+[1.310790] (wall_follow) JobProgress: {'identifier': 'wall_follow', 'progress': 'build'}
+[1.312766] (wall_follow) Command: {'cmd': ['/usr/bin/cmake', '--build', '/sim_ws/build/wall_follow', '--', '-j12', '-l12'], 'cwd': '/sim_ws/build/wall_follow', 'env': OrderedDict([('TMUX', '/tmp//tmux-0/default,46392,0'), ('HOSTNAME', '832d7c209844'), ('SHLVL', '2'), ('LD_LIBRARY_PATH', '/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/x86_64-linux-gnu:/opt/ros/foxy/lib'), ('HOME', '/root'), ('ROS_PYTHON_VERSION', '3'), ('COLCON_PREFIX_PATH', '/sim_ws/install'), ('ROS_DISTRO', 'foxy'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('NVIDIA_DRIVER_CAPABILITIES', 'all'), ('TERM', 'screen'), ('ROS_LOCALHOST_ONLY', '0'), ('QT_X11_NO_MITSHM', '1'), ('PATH', '/opt/ros/foxy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('DISPLAY', '172.23.224.1:0'), ('LANG', 'C.UTF-8'), ('XAUTHORITY', '/tmp/.dockerqhg60rb5.xauth'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/sim_ws/install/safety_node:/sim_ws/install/f1tenth_gym_ros:/opt/ros/foxy'), ('SHELL', '/bin/bash'), ('PWD', '/sim_ws/build/wall_follow'), ('LC_ALL', 'C.UTF-8'), ('PYTHONPATH', '/sim_ws/install/safety_node/lib/python3.8/site-packages:/sim_ws/build/f1tenth_gym_ros:/sim_ws/install/f1tenth_gym_ros/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages'), ('NVIDIA_VISIBLE_DEVICES', 'all'), ('COLCON', '1'), ('TMUX_PANE', '%0'), ('CMAKE_PREFIX_PATH', '/sim_ws/install/safety_node:/sim_ws/install/f1tenth_gym_ros:/opt/ros/foxy')]), 'shell': False}
+[1.346473] (wall_follow) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target wall_follow_node\x1b[0m\n'}
+[1.401112] (-) TimerEvent: {}
+[1.469094] (wall_follow) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/wall_follow_node.dir/src/wall_follow_node.cpp.o\x1b[0m\n'}
+[1.501314] (-) TimerEvent: {}
+[1.601691] (-) TimerEvent: {}
+[1.702028] (-) TimerEvent: {}
+[1.802403] (-) TimerEvent: {}
+[1.902784] (-) TimerEvent: {}
+[2.009465] (-) TimerEvent: {}
+[2.109882] (-) TimerEvent: {}
+[2.210234] (-) TimerEvent: {}
+[2.310635] (-) TimerEvent: {}
+[2.411072] (-) TimerEvent: {}
+[2.511512] (-) TimerEvent: {}
+[2.611902] (-) TimerEvent: {}
+[2.637380] (wall_follow) StderrLine: {'line': b'\x1b[01m\x1b[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:\x1b[m\x1b[K In constructor \xe2\x80\x98\x1b[01m\x1b[KWallFollow::WallFollow()\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[2.637760] (wall_follow) StderrLine: {'line': b'\x1b[01m\x1b[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:30:75:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[K_1\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope; did you mean \xe2\x80\x98\x1b[01m\x1b[Kstd::placeholders::_1\x1b[m\x1b[K\xe2\x80\x99?\n'}
+[2.637928] (wall_follow) StderrLine: {'line': b'   30 |                std::bind(&WallFollow::scan_callback, this, \x1b[01;31m\x1b[K_1\x1b[m\x1b[K));\n'}
+[2.638003] (wall_follow) StderrLine: {'line': b'      |                                                            \x1b[01;31m\x1b[K^~\x1b[m\x1b[K\n'}
+[2.638064] (wall_follow) StderrLine: {'line': b'      |                                                            \x1b[32m\x1b[Kstd::placeholders::_1\x1b[m\x1b[K\n'}
+[2.638123] (wall_follow) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:4\x1b[m\x1b[K:\n'}
+[2.638181] (wall_follow) StderrLine: {'line': b'\x1b[01m\x1b[K/usr/include/c++/9/functional:211:34:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kstd::placeholders::_1\x1b[m\x1b[K\xe2\x80\x99 declared here\n'}
+[2.638244] (wall_follow) StderrLine: {'line': b'  211 |     extern const _Placeholder<1> \x1b[01;36m\x1b[K_1\x1b[m\x1b[K;\n'}
+[2.638301] (wall_follow) StderrLine: {'line': b'      |                                  \x1b[01;36m\x1b[K^~\x1b[m\x1b[K\n'}
+[2.639145] (wall_follow) StderrLine: {'line': b'\x1b[01m\x1b[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:\x1b[m\x1b[K In member function \xe2\x80\x98\x1b[01m\x1b[Kdouble WallFollow::get_range(float*, double)\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[2.639263] (wall_follow) StderrLine: {'line': b'\x1b[01m\x1b[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:81:33:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Krequest for member \xe2\x80\x98\x1b[01m\x1b[Ksize\x1b[m\x1b[K\xe2\x80\x99 in \xe2\x80\x98\x1b[01m\x1b[Krange_data\x1b[m\x1b[K\xe2\x80\x99, which is of non-class type \xe2\x80\x98\x1b[01m\x1b[Kfloat*\x1b[m\x1b[K\xe2\x80\x99\n'}
+[2.639349] (wall_follow) StderrLine: {'line': b'   81 |         int index = (range_data.\x1b[01;31m\x1b[Ksize\x1b[m\x1b[K() * (angle - angle_min)) / (angle_max - angle_min);\n'}
+[2.639524] (wall_follow) StderrLine: {'line': b'      |                                 \x1b[01;31m\x1b[K^~~~\x1b[m\x1b[K\n'}
+[2.640076] (wall_follow) StderrLine: {'line': b'\x1b[01m\x1b[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:\x1b[m\x1b[K In member function \xe2\x80\x98\x1b[01m\x1b[Kdouble WallFollow::get_error(float*, double, double)\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[2.640176] (wall_follow) StderrLine: {'line': b'\x1b[01m\x1b[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:118:78:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Krequest for member \xe2\x80\x98\x1b[01m\x1b[Ksize\x1b[m\x1b[K\xe2\x80\x99 in \xe2\x80\x98\x1b[01m\x1b[Krange_data\x1b[m\x1b[K\xe2\x80\x99, which is of non-class type \xe2\x80\x98\x1b[01m\x1b[Kfloat*\x1b[m\x1b[K\xe2\x80\x99\n'}
+[2.640246] (wall_follow) StderrLine: {'line': b'  118 | ble angle_increment = (angle_max - angle_min) / range_data.\x1b[01;31m\x1b[Ksize\x1b[m\x1b[K();\n'}
+[2.640307] (wall_follow) StderrLine: {'line': b'      |                                                            \x1b[01;31m\x1b[K^~~~\x1b[m\x1b[K\n'}
+[2.640388] (wall_follow) StderrLine: {'line': b'\n'}
+[2.641860] (wall_follow) StderrLine: {'line': b'\x1b[01m\x1b[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:135:66:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Ka\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope\n'}
+[2.642067] (wall_follow) StderrLine: {'line': b'  135 |         double alpha = atan2(a_valid * cos(theta) - b_valid, \x1b[01;31m\x1b[Ka\x1b[m\x1b[K * sin(theta));\n'}
+[2.642213] (wall_follow) StderrLine: {'line': b'      |                                                              \x1b[01;31m\x1b[K^\x1b[m\x1b[K\n'}
+[2.642280] (wall_follow) StderrLine: {'line': b'\n'}
+[2.652779] (wall_follow) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/foxy/include/rclcpp/client.hpp:40\x1b[m\x1b[K,\n'}
+[2.653049] (wall_follow) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/foxy/include/rclcpp/callback_group.hpp:23\x1b[m\x1b[K,\n'}
+[2.653140] (wall_follow) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/foxy/include/rclcpp/any_executable.hpp:20\x1b[m\x1b[K,\n'}
+[2.653202] (wall_follow) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/foxy/include/rclcpp/memory_strategy.hpp:24\x1b[m\x1b[K,\n'}
+[2.653261] (wall_follow) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/foxy/include/rclcpp/memory_strategies.hpp:18\x1b[m\x1b[K,\n'}
+[2.653320] (wall_follow) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/foxy/include/rclcpp/executor_options.hpp:20\x1b[m\x1b[K,\n'}
+[2.653379] (wall_follow) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/foxy/include/rclcpp/executor.hpp:33\x1b[m\x1b[K,\n'}
+[2.653437] (wall_follow) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/foxy/include/rclcpp/executors/multi_threaded_executor.hpp:26\x1b[m\x1b[K,\n'}
+[2.653495] (wall_follow) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/foxy/include/rclcpp/executors.hpp:21\x1b[m\x1b[K,\n'}
+[2.653552] (wall_follow) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/foxy/include/rclcpp/rclcpp.hpp:146\x1b[m\x1b[K,\n'}
+[2.653609] (wall_follow) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:7\x1b[m\x1b[K:\n'}
+[2.653666] (wall_follow) StderrLine: {'line': b'\x1b[01m\x1b[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:\x1b[m\x1b[K In member function \xe2\x80\x98\x1b[01m\x1b[Kvoid WallFollow::drive_callback(nav_msgs::msg::Odometry_<std::allocator<void> >::ConstSharedPtr)\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[2.653725] (wall_follow) StderrLine: {'line': b'\x1b[01m\x1b[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:199:61:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kspeed\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope\n'}
+[2.653784] (wall_follow) StderrLine: {'line': b'  199 |         RCLCPP_INFO(this->get_logger(), "speed update: %f", \x1b[01;31m\x1b[Kspeed\x1b[m\x1b[K);\n'}
+[2.653871] (wall_follow) StderrLine: {'line': b'      |                                                             \x1b[01;31m\x1b[K^~~~~\x1b[m\x1b[K\n'}
+[2.655923] (wall_follow) StderrLine: {'line': b'\x1b[01m\x1b[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:\x1b[m\x1b[K In member function \xe2\x80\x98\x1b[01m\x1b[Kvoid WallFollow::scan_callback(sensor_msgs::msg::LaserScan_<std::allocator<void> >::ConstSharedPtr)\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[2.656122] (wall_follow) StderrLine: {'line': b'\x1b[01m\x1b[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:219:49:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kcannot convert \xe2\x80\x98\x1b[01m\x1b[Kconst _ranges_type\x1b[m\x1b[K\xe2\x80\x99 {aka \xe2\x80\x98\x1b[01m\x1b[Kconst std::vector<float>\x1b[m\x1b[K\xe2\x80\x99} to \xe2\x80\x98\x1b[01m\x1b[Kfloat*\x1b[m\x1b[K\xe2\x80\x99\n'}
+[2.656199] (wall_follow) StderrLine: {'line': b'  219 |         double curr_error = get_error(\x1b[01;31m\x1b[Kscan_msg->ranges\x1b[m\x1b[K, dist, current_velocity);\n'}
+[2.656263] (wall_follow) StderrLine: {'line': b'      |                                       \x1b[01;31m\x1b[K~~~~~~~~~~^~~~~~\x1b[m\x1b[K\n'}
+[2.656324] (wall_follow) StderrLine: {'line': b'      |                                                 \x1b[01;31m\x1b[K|\x1b[m\x1b[K\n'}
+[2.656383] (wall_follow) StderrLine: {'line': b'      |                                                 \x1b[01;31m\x1b[Kconst _ranges_type {aka const std::vector<float>}\x1b[m\x1b[K\n'}
+[2.656484] (wall_follow) StderrLine: {'line': b'\x1b[01m\x1b[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:87:29:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K  initializing argument 1 of \xe2\x80\x98\x1b[01m\x1b[Kdouble WallFollow::get_error(float*, double, double)\x1b[m\x1b[K\xe2\x80\x99\n'}
+[2.656562] (wall_follow) StderrLine: {'line': b'   87 |     double get_error(\x1b[01;36m\x1b[Kfloat* range_data\x1b[m\x1b[K, double dist, double velocity)\n'}
+[2.656623] (wall_follow) StderrLine: {'line': b'      |                      \x1b[01;36m\x1b[K~~~~~~~^~~~~~~~~~\x1b[m\x1b[K\n'}
+[2.712071] (-) TimerEvent: {}
+[2.812593] (-) TimerEvent: {}
+[2.913178] (-) TimerEvent: {}
+[3.013527] (-) TimerEvent: {}
+[3.114046] (-) TimerEvent: {}
+[3.214584] (-) TimerEvent: {}
+[3.314984] (-) TimerEvent: {}
+[3.384997] (wall_follow) StderrLine: {'line': b'make[2]: *** [CMakeFiles/wall_follow_node.dir/build.make:63: CMakeFiles/wall_follow_node.dir/src/wall_follow_node.cpp.o] Error 1\n'}
+[3.385720] (wall_follow) StderrLine: {'line': b'make[1]: *** [CMakeFiles/Makefile2:78: CMakeFiles/wall_follow_node.dir/all] Error 2\n'}
+[3.385797] (wall_follow) StderrLine: {'line': b'make: *** [Makefile:141: all] Error 2\n'}
+[3.388552] (wall_follow) CommandEnded: {'returncode': 2}
+[3.415768] (-) TimerEvent: {}
+[3.421634] (wall_follow) JobEnded: {'identifier': 'wall_follow', 'rc': 2}
+[3.433600] (-) EventReactorShutdown: {}

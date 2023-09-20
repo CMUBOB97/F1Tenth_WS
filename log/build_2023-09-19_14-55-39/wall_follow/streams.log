@@ -1,0 +1,25 @@
+[0.021s] Invoking command in '/sim_ws/build/wall_follow': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/sim_ws/install/f1tenth_gym_ros:/opt/ros/foxy /usr/bin/cmake --build /sim_ws/build/wall_follow -- -j12 -l12
+[0.065s] [35m[1mScanning dependencies of target wall_follow_node[0m
+[0.091s] [ 50%] [32mBuilding CXX object CMakeFiles/wall_follow_node.dir/src/wall_follow_node.cpp.o[0m
+[1.363s] [01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:[m[K In member function ‘[01m[Kdouble WallFollow::get_range(float*, double)[m[K’:
+[1.363s] [01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:83:33:[m[K [01;31m[Kerror: [m[Krequest for member ‘[01m[Ksize[m[K’ in ‘[01m[Krange_data[m[K’, which is of non-class type ‘[01m[Kfloat*[m[K’
+[1.363s]    83 |         int index = (range_data.[01;31m[Ksize[m[K() * (angle - angle_min)) / (angle_max - angle_min);
+[1.363s]       |                                 [01;31m[K^~~~[m[K
+[1.363s] [01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:[m[K In member function ‘[01m[Kdouble WallFollow::get_error(float*, double, double)[m[K’:
+[1.363s] [01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:120:78:[m[K [01;31m[Kerror: [m[Krequest for member ‘[01m[Ksize[m[K’ in ‘[01m[Krange_data[m[K’, which is of non-class type ‘[01m[Kfloat*[m[K’
+[1.363s]   120 | ble angle_increment = (angle_max - angle_min) / range_data.[01;31m[Ksize[m[K();
+[1.363s]       |                                                            [01;31m[K^~~~[m[K
+[1.364s] 
+[1.376s] [01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:[m[K In member function ‘[01m[Kvoid WallFollow::scan_callback(sensor_msgs::msg::LaserScan_<std::allocator<void> >::ConstSharedPtr)[m[K’:
+[1.376s] [01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:221:49:[m[K [01;31m[Kerror: [m[Kcannot convert ‘[01m[Kconst _ranges_type[m[K’ {aka ‘[01m[Kconst std::vector<float>[m[K’} to ‘[01m[Kfloat*[m[K’
+[1.376s]   221 |         double curr_error = get_error([01;31m[Kscan_msg->ranges[m[K, dist, current_velocity);
+[1.376s]       |                                       [01;31m[K~~~~~~~~~~^~~~~~[m[K
+[1.376s]       |                                                 [01;31m[K|[m[K
+[1.376s]       |                                                 [01;31m[Kconst _ranges_type {aka const std::vector<float>}[m[K
+[1.377s] [01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:89:29:[m[K [01;36m[Knote: [m[K  initializing argument 1 of ‘[01m[Kdouble WallFollow::get_error(float*, double, double)[m[K’
+[1.377s]    89 |     double get_error([01;36m[Kfloat* range_data[m[K, double dist, double velocity)
+[1.377s]       |                      [01;36m[K~~~~~~~^~~~~~~~~~[m[K
+[3.110s] make[2]: *** [CMakeFiles/wall_follow_node.dir/build.make:63: CMakeFiles/wall_follow_node.dir/src/wall_follow_node.cpp.o] Error 1
+[3.110s] make[1]: *** [CMakeFiles/Makefile2:78: CMakeFiles/wall_follow_node.dir/all] Error 2
+[3.110s] make: *** [Makefile:141: all] Error 2
+[3.112s] Invoked command in '/sim_ws/build/wall_follow' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/sim_ws/install/f1tenth_gym_ros:/opt/ros/foxy /usr/bin/cmake --build /sim_ws/build/wall_follow -- -j12 -l12

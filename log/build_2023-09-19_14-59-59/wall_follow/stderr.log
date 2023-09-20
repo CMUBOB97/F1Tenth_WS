@@ -1,0 +1,43 @@
+[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:62:22:[m[K [01;31m[Kerror: [m[K‘[01m[Kvector[m[K’ has not been declared
+   62 |     double get_range([01;31m[Kvector[m[K<float>& range_data, double angle)
+      |                      [01;31m[K^~~~~~[m[K
+[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:62:28:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K,[m[K’ or ‘[01m[K...[m[K’ before ‘[01m[K<[m[K’ token
+   62 |     double get_range(vector[01;31m[K<[m[Kfloat>& range_data, double angle)
+      |                            [01;31m[K^[m[K
+[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:89:22:[m[K [01;31m[Kerror: [m[K‘[01m[Kvector[m[K’ has not been declared
+   89 |     double get_error([01;31m[Kvector[m[K<float>& range_data, double dist, double velocity)
+      |                      [01;31m[K^~~~~~[m[K
+[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:89:28:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K,[m[K’ or ‘[01m[K...[m[K’ before ‘[01m[K<[m[K’ token
+   89 |     double get_error(vector[01;31m[K<[m[Kfloat>& range_data, double dist, double velocity)
+      |                            [01;31m[K^[m[K
+[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:[m[K In member function ‘[01m[Kdouble WallFollow::get_range(int)[m[K’:
+[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:83:22:[m[K [01;31m[Kerror: [m[K‘[01m[Krange_data[m[K’ was not declared in this scope; did you mean ‘[01m[Krandom_data[m[K’?
+   83 |         int index = ([01;31m[Krange_data[m[K.size() * (angle - angle_min)) / (angle_max - angle_min);
+      |                      [01;31m[K^~~~~~~~~~[m[K
+      |                      [32m[Krandom_data[m[K
+[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:83:43:[m[K [01;31m[Kerror: [m[K‘[01m[Kangle[m[K’ was not declared in this scope
+   83 |         int index = (range_data.size() * ([01;31m[Kangle[m[K - angle_min)) / (angle_max - angle_min);
+      |                                           [01;31m[K^~~~~[m[K
+[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:[m[K In member function ‘[01m[Kdouble WallFollow::get_error(int)[m[K’:
+[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:120:67:[m[K [01;31m[Kerror: [m[K‘[01m[Krange_data[m[K’ was not declared in this scope; did you mean ‘[01m[Krandom_data[m[K’?
+  120 |  static double angle_increment = (angle_max - angle_min) / [01;31m[Krange_data[m[K.size();
+      |                                                            [01;31m[K^~~~~~~~~~[m[K
+      |                                                            [32m[Krandom_data[m[K
+[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:139:21:[m[K [01;31m[Kerror: [m[K‘[01m[Kdist[m[K’ was not declared in this scope
+  139 |             error = [01;31m[Kdist[m[K + velocity * sin(alpha) - dist_actual;
+      |                     [01;31m[K^~~~[m[K
+[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:139:28:[m[K [01;31m[Kerror: [m[K‘[01m[Kvelocity[m[K’ was not declared in this scope
+  139 |             error = dist + [01;31m[Kvelocity[m[K * sin(alpha) - dist_actual;
+      |                            [01;31m[K^~~~~~~~[m[K
+[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:[m[K In member function ‘[01m[Kvoid WallFollow::scan_callback(sensor_msgs::msg::LaserScan_<std::allocator<void> >::ConstSharedPtr)[m[K’:
+[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:221:79:[m[K [01;31m[Kerror: [m[Kno matching function for call to ‘[01m[KWallFollow::get_error(const _ranges_type&, double&, double&)[m[K’
+  221 | _error = get_error(scan_msg->ranges, dist, current_velocity[01;31m[K)[m[K;
+      |                                                            [01;31m[K^[m[K
+
+[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:89:12:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kdouble WallFollow::get_error(int)[m[K’
+   89 |     double [01;36m[Kget_error[m[K(vector<float>& range_data, double dist, double velocity)
+      |            [01;36m[K^~~~~~~~~[m[K
+[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:89:12:[m[K [01;36m[Knote: [m[K  candidate expects 1 argument, 3 provided
+make[2]: *** [CMakeFiles/wall_follow_node.dir/build.make:63: CMakeFiles/wall_follow_node.dir/src/wall_follow_node.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:78: CMakeFiles/wall_follow_node.dir/all] Error 2
+make: *** [Makefile:141: all] Error 2

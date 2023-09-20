@@ -1,0 +1,12 @@
+[35m[1mScanning dependencies of target wall_follow_node[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/wall_follow_node.dir/src/wall_follow_node.cpp.o[0m
+[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:[m[K In member function ‘[01m[Kvoid WallFollow::scan_callback(sensor_msgs::msg::LaserScan_<std::allocator<void> >::ConstSharedPtr)[m[K’:
+[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:221:49:[m[K [01;31m[Kerror: [m[Kbinding reference of type ‘[01m[Kstd::vector<float>&[m[K’ to ‘[01m[Kconst _ranges_type[m[K’ {aka ‘[01m[Kconst std::vector<float>[m[K’} discards qualifiers
+  221 |         double curr_error = get_error([01;31m[Kscan_msg->ranges[m[K, dist, current_velocity);
+      |                                       [01;31m[K~~~~~~~~~~^~~~~~[m[K
+[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:89:42:[m[K [01;36m[Knote: [m[K  initializing argument 1 of ‘[01m[Kdouble WallFollow::get_error(std::vector<float>&, double, double)[m[K’
+   89 |     double get_error([01;36m[Kstd::vector<float>& range_data[m[K, double dist, double velocity)
+      |                      [01;36m[K~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~[m[K
+make[2]: *** [CMakeFiles/wall_follow_node.dir/build.make:63: CMakeFiles/wall_follow_node.dir/src/wall_follow_node.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:78: CMakeFiles/wall_follow_node.dir/all] Error 2
+make: *** [Makefile:141: all] Error 2

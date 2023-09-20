@@ -1,0 +1,4 @@
+Invoking command in '/sim_ws/build/wall_follow': /usr/bin/cmake --build /sim_ws/build/wall_follow -- -j12 -l12
+Invoked command in '/sim_ws/build/wall_follow' returned '0': /usr/bin/cmake --build /sim_ws/build/wall_follow -- -j12 -l12
+Invoking command in '/sim_ws/build/wall_follow': /usr/bin/cmake --install /sim_ws/build/wall_follow
+Invoked command in '/sim_ws/build/wall_follow' returned '0': /usr/bin/cmake --install /sim_ws/build/wall_follow
