@@ -1,1 +1,0 @@
-/home/nvidia/F1Tenth_WS/build/vesc/ament_cmake_core/vescConfig-version.cmake

@@ -1,1 +1,0 @@
-/home/nvidia/F1Tenth_WS/src/f1tenth_system/vesc/vesc_ackermann/include/vesc_ackermann/vesc_to_odom.hpp

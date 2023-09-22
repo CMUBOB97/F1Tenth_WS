@@ -1,1 +1,0 @@
-/home/nvidia/F1Tenth_WS/build/safety_node/ament_cmake_core/safety_nodeConfig.cmake
