@@ -1,1 +1,0 @@
-Invoking command in '/sim_ws/build/safety_node': /usr/bin/cmake --build /sim_ws/build/safety_node -- -j12 -l12

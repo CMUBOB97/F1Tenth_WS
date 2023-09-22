@@ -1,8 +1,8 @@
-# Install script for directory: /sim_ws/src/wall_follow
+# Install script for directory: /home/nvidia/F1Tenth_WS/src/wall_follow
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/sim_ws/install/wall_follow")
+  set(CMAKE_INSTALL_PREFIX "/home/nvidia/F1Tenth_WS/install/wall_follow")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,14 +38,14 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  include("/sim_ws/build/wall_follow/ament_cmake_symlink_install/ament_cmake_symlink_install.cmake")
+  include("/home/nvidia/F1Tenth_WS/build/wall_follow/ament_cmake_symlink_install/ament_cmake_symlink_install.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   execute_process(
         COMMAND
         "/usr/bin/python3" "-m" "compileall"
-        "/sim_ws/install/wall_follow/lib/python3.8/site-packages/wall_follow"
+        "/home/nvidia/F1Tenth_WS/install/wall_follow/lib/python3.8/site-packages/wall_follow"
       )
 endif()
 
@@ -57,5 +57,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/sim_ws/build/wall_follow/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/nvidia/F1Tenth_WS/build/wall_follow/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

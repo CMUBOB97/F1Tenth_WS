@@ -1,0 +1,17 @@
+[4.378s] Invoking command in '/home/nvidia/F1Tenth_WS/build/key_teleop': PYTHONPATH=/home/nvidia/F1Tenth_WS/build/key_teleop/prefix_override:/home/nvidia/F1Tenth_WS/install/key_teleop/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/nvidia/F1Tenth_WS/build/key_teleop/build --no-deps install_data
+[5.501s] running develop
+[6.219s] running egg_info
+[6.220s] writing key_teleop.egg-info/PKG-INFO
+[6.220s] writing dependency_links to key_teleop.egg-info/dependency_links.txt
+[6.221s] writing entry points to key_teleop.egg-info/entry_points.txt
+[6.221s] writing requirements to key_teleop.egg-info/requires.txt
+[6.221s] writing top-level names to key_teleop.egg-info/top_level.txt
+[6.373s] reading manifest file 'key_teleop.egg-info/SOURCES.txt'
+[6.377s] writing manifest file 'key_teleop.egg-info/SOURCES.txt'
+[6.535s] running build_ext
+[6.537s] Creating /home/nvidia/F1Tenth_WS/install/key_teleop/lib/python3.8/site-packages/key-teleop.egg-link (link to .)
+[6.552s] Installing key_teleop script to /home/nvidia/F1Tenth_WS/install/key_teleop/lib/key_teleop
+[6.564s] 
+[6.565s] Installed /home/nvidia/F1Tenth_WS/build/key_teleop
+[6.569s] running install_data
+[6.706s] Invoked command in '/home/nvidia/F1Tenth_WS/build/key_teleop' returned '0': PYTHONPATH=/home/nvidia/F1Tenth_WS/build/key_teleop/prefix_override:/home/nvidia/F1Tenth_WS/install/key_teleop/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/nvidia/F1Tenth_WS/build/key_teleop/build --no-deps install_data

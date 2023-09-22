@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /sim_ws/src/wall_follow
+CMAKE_SOURCE_DIR = /home/nvidia/F1Tenth_WS/src/wall_follow
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /sim_ws/build/wall_follow
+CMAKE_BINARY_DIR = /home/nvidia/F1Tenth_WS/build/wall_follow
 
 # Utility rule file for wall_follow_uninstall.
 
@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /sim_ws/build/wall_follow
 include CMakeFiles/wall_follow_uninstall.dir/progress.make
 
 CMakeFiles/wall_follow_uninstall:
-	/usr/bin/cmake -P /sim_ws/build/wall_follow/ament_cmake_uninstall_target/ament_cmake_uninstall_target.cmake
+	/usr/bin/cmake -P /home/nvidia/F1Tenth_WS/build/wall_follow/ament_cmake_uninstall_target/ament_cmake_uninstall_target.cmake
 
 wall_follow_uninstall: CMakeFiles/wall_follow_uninstall
 wall_follow_uninstall: CMakeFiles/wall_follow_uninstall.dir/build.make
@@ -71,6 +71,6 @@ CMakeFiles/wall_follow_uninstall.dir/clean:
 .PHONY : CMakeFiles/wall_follow_uninstall.dir/clean
 
 CMakeFiles/wall_follow_uninstall.dir/depend:
-	cd /sim_ws/build/wall_follow && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /sim_ws/src/wall_follow /sim_ws/src/wall_follow /sim_ws/build/wall_follow /sim_ws/build/wall_follow /sim_ws/build/wall_follow/CMakeFiles/wall_follow_uninstall.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/nvidia/F1Tenth_WS/build/wall_follow && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nvidia/F1Tenth_WS/src/wall_follow /home/nvidia/F1Tenth_WS/src/wall_follow /home/nvidia/F1Tenth_WS/build/wall_follow /home/nvidia/F1Tenth_WS/build/wall_follow /home/nvidia/F1Tenth_WS/build/wall_follow/CMakeFiles/wall_follow_uninstall.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/wall_follow_uninstall.dir/depend
 

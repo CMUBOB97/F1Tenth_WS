@@ -1,0 +1,102 @@
+[0.357s] Invoking command in '/home/nvidia/F1Tenth_WS/build/ackermann_mux': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/nvidia/F1Tenth_WS/install/f1tenth_stack:/home/nvidia/F1Tenth_WS/install/joy_teleop:/home/nvidia/F1Tenth_WS/install/mouse_teleop:/home/nvidia/F1Tenth_WS/install/key_teleop:/opt/ros/foxy /usr/bin/cmake /home/nvidia/F1Tenth_WS/src/f1tenth_system/ackermann_mux -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/nvidia/F1Tenth_WS/install/ackermann_mux
+[0.669s] -- The C compiler identification is GNU 9.4.0
+[1.022s] -- The CXX compiler identification is GNU 9.4.0
+[1.175s] -- Check for working C compiler: /usr/bin/cc
+[1.655s] -- Check for working C compiler: /usr/bin/cc -- works
+[1.662s] -- Detecting C compiler ABI info
+[2.048s] -- Detecting C compiler ABI info - done
+[2.097s] -- Detecting C compile features
+[2.103s] -- Detecting C compile features - done
+[2.122s] -- Check for working CXX compiler: /usr/bin/c++
+[2.713s] -- Check for working CXX compiler: /usr/bin/c++ -- works
+[2.725s] -- Detecting CXX compiler ABI info
+[3.446s] -- Detecting CXX compiler ABI info - done
+[3.502s] -- Detecting CXX compile features
+[3.505s] -- Detecting CXX compile features - done
+[3.523s] -- Found ament_cmake: 0.9.12 (/opt/ros/foxy/share/ament_cmake/cmake)
+[3.653s] -- Found PythonInterp: /usr/bin/python3 (found suitable version "3.8.10", minimum required is "3") 
+[3.654s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[4.571s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[4.709s] -- Found rclcpp: 2.4.3 (/opt/ros/foxy/share/rclcpp/cmake)
+[4.945s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[4.982s] -- Found rosidl_adapter: 1.3.1 (/opt/ros/foxy/share/rosidl_adapter/cmake)
+[5.512s] -- Found OpenSSL: /usr/lib/aarch64-linux-gnu/libcrypto.so (found version "1.1.1f")  
+[5.674s] -- Found FastRTPS: /opt/ros/foxy/include  
+[6.079s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[6.394s] -- Found rmw_implementation_cmake: 1.0.4 (/opt/ros/foxy/share/rmw_implementation_cmake/cmake)
+[6.405s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[6.411s] -- Looking for pthread.h
+[7.053s] -- Looking for pthread.h - found
+[7.055s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[7.928s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+[7.928s] -- Looking for pthread_create in pthreads
+[8.697s] -- Looking for pthread_create in pthreads - not found
+[8.699s] -- Looking for pthread_create in pthread
+[9.376s] -- Looking for pthread_create in pthread - found
+[9.384s] -- Found Threads: TRUE  
+[10.354s] -- Found ackermann_msgs: 2.0.2 (/opt/ros/foxy/share/ackermann_msgs/cmake)
+[10.406s] -- Found diagnostic_updater: 3.1.2 (/opt/ros/foxy/share/diagnostic_updater/cmake)
+[10.657s] -- Found ament_lint_auto: 0.9.8 (/opt/ros/foxy/share/ament_lint_auto/cmake)
+[11.368s] -- Found python_cmake_module: 0.8.1 (/opt/ros/foxy/share/python_cmake_module/cmake)
+[11.627s] -- Found PythonInterp: /usr/bin/python3 (found suitable version "3.8.10", minimum required is "3.5") 
+[11.654s] -- Found PythonLibs: /usr/lib/aarch64-linux-gnu/libpython3.8.so (found suitable version "3.8.10", minimum required is "3.5") 
+[11.656s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[11.656s] -- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.8
+[11.657s] -- Using PYTHON_LIBRARIES: /usr/lib/aarch64-linux-gnu/libpython3.8.so
+[11.992s] -- Found PythonExtra: .so  
+[12.088s] -- Added test 'xmllint' to check XML markup files
+[12.097s] -- Added test 'copyright' to check source files copyright and LICENSE
+[12.130s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[12.133s] -- Configured cppcheck include dirs: /home/nvidia/F1Tenth_WS/src/f1tenth_system/ackermann_mux/include
+[12.133s] -- Configured cppcheck exclude dirs and/or files: 
+[12.151s] -- Added test 'cpplint' to check C / C++ code against the Google style
+[12.151s] -- Configured cpplint exclude dirs and/or files: 
+[12.155s] -- Added test 'flake8' to check Python code syntax and style conventions
+[12.177s] -- Added test 'lint_cmake' to check CMake code style
+[12.189s] -- Added test 'pep257' to check Python code against some of the style conventions in PEP 257
+[12.220s] -- Added test 'uncrustify' to check C / C++ code style
+[12.220s] -- Configured uncrustify additional arguments: 
+[12.375s] -- Configuring done
+[12.515s] -- Generating done
+[12.542s] -- Build files have been written to: /home/nvidia/F1Tenth_WS/build/ackermann_mux
+[12.653s] Invoked command in '/home/nvidia/F1Tenth_WS/build/ackermann_mux' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/nvidia/F1Tenth_WS/install/f1tenth_stack:/home/nvidia/F1Tenth_WS/install/joy_teleop:/home/nvidia/F1Tenth_WS/install/mouse_teleop:/home/nvidia/F1Tenth_WS/install/key_teleop:/opt/ros/foxy /usr/bin/cmake /home/nvidia/F1Tenth_WS/src/f1tenth_system/ackermann_mux -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/nvidia/F1Tenth_WS/install/ackermann_mux
+[12.656s] Invoking command in '/home/nvidia/F1Tenth_WS/build/ackermann_mux': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/nvidia/F1Tenth_WS/install/f1tenth_stack:/home/nvidia/F1Tenth_WS/install/joy_teleop:/home/nvidia/F1Tenth_WS/install/mouse_teleop:/home/nvidia/F1Tenth_WS/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --build /home/nvidia/F1Tenth_WS/build/ackermann_mux -- -j4 -l4
+[13.162s] [35m[1mScanning dependencies of target ackermann_mux[0m
+[13.695s] [ 25%] [32mBuilding CXX object CMakeFiles/ackermann_mux.dir/src/ackermann_mux.cpp.o[0m
+[13.834s] [ 75%] [32mBuilding CXX object CMakeFiles/ackermann_mux.dir/src/ackermann_mux_node.cpp.o[0m
+[13.852s] [ 75%] [32mBuilding CXX object CMakeFiles/ackermann_mux.dir/src/ackermann_mux_diagnostics.cpp.o[0m
+[63.834s] [100%] [32m[1mLinking CXX executable ackermann_mux[0m
+[65.991s] [100%] Built target ackermann_mux
+[66.062s] Invoked command in '/home/nvidia/F1Tenth_WS/build/ackermann_mux' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/nvidia/F1Tenth_WS/install/f1tenth_stack:/home/nvidia/F1Tenth_WS/install/joy_teleop:/home/nvidia/F1Tenth_WS/install/mouse_teleop:/home/nvidia/F1Tenth_WS/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --build /home/nvidia/F1Tenth_WS/build/ackermann_mux -- -j4 -l4
+[66.466s] Invoking command in '/home/nvidia/F1Tenth_WS/build/ackermann_mux': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/nvidia/F1Tenth_WS/install/f1tenth_stack:/home/nvidia/F1Tenth_WS/install/joy_teleop:/home/nvidia/F1Tenth_WS/install/mouse_teleop:/home/nvidia/F1Tenth_WS/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --install /home/nvidia/F1Tenth_WS/build/ackermann_mux
+[66.517s] -- Install configuration: ""
+[66.519s] -- Execute custom install script
+[66.521s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/ackermann_mux/lib/ackermann_mux/ackermann_mux
+[66.566s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/launch/ackermann_mux_launch.py
+[66.618s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/config/ackermann_mux_locks.yaml
+[66.662s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/config/ackermann_mux_topics.yaml
+[66.709s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/config/joystick.yaml
+[66.767s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/ackermann_mux/include/ackermann_mux/ackermann_mux.hpp
+[66.812s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/ackermann_mux/include/ackermann_mux/ackermann_mux_diagnostics.hpp
+[66.853s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/ackermann_mux/include/ackermann_mux/ackermann_mux_diagnostics_status.hpp
+[66.894s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/ackermann_mux/include/ackermann_mux/params_helpers.hpp
+[66.938s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/ackermann_mux/include/ackermann_mux/topic_handle.hpp
+[66.982s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/ackermann_mux/include/ackermann_mux/utils.hpp
+[67.025s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ament_index/resource_index/package_run_dependencies/ackermann_mux
+[67.069s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ament_index/resource_index/parent_prefix_path/ackermann_mux
+[67.111s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/environment/ament_prefix_path.sh
+[67.157s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/environment/ament_prefix_path.dsv
+[67.199s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/environment/path.sh
+[67.246s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/environment/path.dsv
+[67.290s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/local_setup.bash
+[67.335s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/local_setup.sh
+[67.388s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/local_setup.zsh
+[67.445s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/local_setup.dsv
+[67.521s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/package.dsv
+[67.602s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ament_index/resource_index/packages/ackermann_mux
+[67.712s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/cmake/ament_cmake_export_include_directories-extras.cmake
+[67.812s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/cmake/ament_cmake_export_dependencies-extras.cmake
+[67.857s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/cmake/ackermann_muxConfig.cmake
+[67.917s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/cmake/ackermann_muxConfig-version.cmake
+[67.961s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/package.xml
+[68.012s] Invoked command in '/home/nvidia/F1Tenth_WS/build/ackermann_mux' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/nvidia/F1Tenth_WS/install/f1tenth_stack:/home/nvidia/F1Tenth_WS/install/joy_teleop:/home/nvidia/F1Tenth_WS/install/mouse_teleop:/home/nvidia/F1Tenth_WS/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --install /home/nvidia/F1Tenth_WS/build/ackermann_mux

@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/sim_ws/src/wall_follow/src/wall_follow_node.cpp" "/sim_ws/build/wall_follow/CMakeFiles/wall_follow_node.dir/src/wall_follow_node.cpp.o"
+  "/home/nvidia/F1Tenth_WS/src/wall_follow/src/wall_follow_node.cpp" "/home/nvidia/F1Tenth_WS/build/wall_follow/CMakeFiles/wall_follow_node.dir/src/wall_follow_node.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -17,7 +17,7 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "/sim_ws/src/wall_follow/include"
+  "/home/nvidia/F1Tenth_WS/src/wall_follow/include"
   "/opt/ros/foxy/include"
   )
 

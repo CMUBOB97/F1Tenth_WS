@@ -1,1 +1,1 @@
-/sim_ws/src/safety_node/scripts/safety_node.py
+/home/nvidia/F1Tenth_WS/src/safety_node/scripts/safety_node.py

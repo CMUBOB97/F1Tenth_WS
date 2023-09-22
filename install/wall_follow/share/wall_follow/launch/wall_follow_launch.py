@@ -1,1 +1,1 @@
-/sim_ws/src/wall_follow/launch/wall_follow_launch.py
+/home/nvidia/F1Tenth_WS/src/wall_follow/launch/wall_follow_launch.py

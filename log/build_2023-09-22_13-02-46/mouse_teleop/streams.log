@@ -1,0 +1,17 @@
+[3.648s] Invoking command in '/home/nvidia/F1Tenth_WS/build/mouse_teleop': PYTHONPATH=/home/nvidia/F1Tenth_WS/build/mouse_teleop/prefix_override:/home/nvidia/F1Tenth_WS/install/mouse_teleop/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/nvidia/F1Tenth_WS/build/mouse_teleop/build --no-deps install_data
+[5.236s] running develop
+[5.962s] running egg_info
+[5.983s] writing mouse_teleop.egg-info/PKG-INFO
+[5.984s] writing dependency_links to mouse_teleop.egg-info/dependency_links.txt
+[5.987s] writing entry points to mouse_teleop.egg-info/entry_points.txt
+[5.988s] writing requirements to mouse_teleop.egg-info/requires.txt
+[5.988s] writing top-level names to mouse_teleop.egg-info/top_level.txt
+[6.206s] reading manifest file 'mouse_teleop.egg-info/SOURCES.txt'
+[6.209s] writing manifest file 'mouse_teleop.egg-info/SOURCES.txt'
+[6.381s] running build_ext
+[6.383s] Creating /home/nvidia/F1Tenth_WS/install/mouse_teleop/lib/python3.8/site-packages/mouse-teleop.egg-link (link to .)
+[6.405s] Installing mouse_teleop script to /home/nvidia/F1Tenth_WS/install/mouse_teleop/lib/mouse_teleop
+[6.417s] 
+[6.419s] Installed /home/nvidia/F1Tenth_WS/build/mouse_teleop
+[6.421s] running install_data
+[6.670s] Invoked command in '/home/nvidia/F1Tenth_WS/build/mouse_teleop' returned '0': PYTHONPATH=/home/nvidia/F1Tenth_WS/build/mouse_teleop/prefix_override:/home/nvidia/F1Tenth_WS/install/mouse_teleop/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/nvidia/F1Tenth_WS/build/mouse_teleop/build --no-deps install_data

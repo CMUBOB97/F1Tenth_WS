@@ -1,8 +1,8 @@
-# Install script for directory: /sim_ws/src/safety_node
+# Install script for directory: /home/nvidia/F1Tenth_WS/src/safety_node
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/sim_ws/install/safety_node")
+  set(CMAKE_INSTALL_PREFIX "/home/nvidia/F1Tenth_WS/install/safety_node")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,14 +38,14 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  include("/sim_ws/build/safety_node/ament_cmake_symlink_install/ament_cmake_symlink_install.cmake")
+  include("/home/nvidia/F1Tenth_WS/build/safety_node/ament_cmake_symlink_install/ament_cmake_symlink_install.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   execute_process(
         COMMAND
         "/usr/bin/python3" "-m" "compileall"
-        "/sim_ws/install/safety_node/lib/python3.8/site-packages/safety_node"
+        "/home/nvidia/F1Tenth_WS/install/safety_node/lib/python3.8/site-packages/safety_node"
       )
 endif()
 
@@ -57,5 +57,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/sim_ws/build/safety_node/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/nvidia/F1Tenth_WS/build/safety_node/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -1,1 +1,1 @@
-/sim_ws/build/wall_follow/ament_cmake_environment_hooks/local_setup.sh
+/home/nvidia/F1Tenth_WS/build/wall_follow/ament_cmake_environment_hooks/local_setup.sh

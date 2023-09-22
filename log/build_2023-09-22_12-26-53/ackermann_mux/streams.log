@@ -1,0 +1,35 @@
+[0.232s] Invoking command in '/home/nvidia/F1Tenth_WS/build/ackermann_mux': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/nvidia/F1Tenth_WS/install/f1tenth_stack:/home/nvidia/F1Tenth_WS/install/joy_teleop:/home/nvidia/F1Tenth_WS/install/mouse_teleop:/home/nvidia/F1Tenth_WS/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --build /home/nvidia/F1Tenth_WS/build/ackermann_mux -- -j4 -l4
+[0.776s] [100%] Built target ackermann_mux
+[1.795s] Invoked command in '/home/nvidia/F1Tenth_WS/build/ackermann_mux' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/nvidia/F1Tenth_WS/install/f1tenth_stack:/home/nvidia/F1Tenth_WS/install/joy_teleop:/home/nvidia/F1Tenth_WS/install/mouse_teleop:/home/nvidia/F1Tenth_WS/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --build /home/nvidia/F1Tenth_WS/build/ackermann_mux -- -j4 -l4
+[2.080s] Invoking command in '/home/nvidia/F1Tenth_WS/build/ackermann_mux': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/nvidia/F1Tenth_WS/install/f1tenth_stack:/home/nvidia/F1Tenth_WS/install/joy_teleop:/home/nvidia/F1Tenth_WS/install/mouse_teleop:/home/nvidia/F1Tenth_WS/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --install /home/nvidia/F1Tenth_WS/build/ackermann_mux
+[2.184s] -- Install configuration: ""
+[2.185s] -- Execute custom install script
+[2.188s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/ackermann_mux/lib/ackermann_mux/ackermann_mux
+[2.191s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/launch/ackermann_mux_launch.py
+[2.194s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/config/ackermann_mux_locks.yaml
+[2.195s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/config/ackermann_mux_topics.yaml
+[2.196s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/config/joystick.yaml
+[2.200s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/ackermann_mux/include/ackermann_mux/ackermann_mux.hpp
+[2.201s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/ackermann_mux/include/ackermann_mux/ackermann_mux_diagnostics.hpp
+[2.202s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/ackermann_mux/include/ackermann_mux/ackermann_mux_diagnostics_status.hpp
+[2.204s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/ackermann_mux/include/ackermann_mux/params_helpers.hpp
+[2.204s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/ackermann_mux/include/ackermann_mux/topic_handle.hpp
+[2.205s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/ackermann_mux/include/ackermann_mux/utils.hpp
+[2.207s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ament_index/resource_index/package_run_dependencies/ackermann_mux
+[2.209s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ament_index/resource_index/parent_prefix_path/ackermann_mux
+[2.211s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/environment/ament_prefix_path.sh
+[2.214s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/environment/ament_prefix_path.dsv
+[2.216s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/environment/path.sh
+[2.217s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/environment/path.dsv
+[2.220s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/local_setup.bash
+[2.222s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/local_setup.sh
+[2.224s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/local_setup.zsh
+[2.225s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/local_setup.dsv
+[2.226s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/package.dsv
+[2.274s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ament_index/resource_index/packages/ackermann_mux
+[2.276s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/cmake/ament_cmake_export_include_directories-extras.cmake
+[2.277s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/cmake/ament_cmake_export_dependencies-extras.cmake
+[2.279s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/cmake/ackermann_muxConfig.cmake
+[2.280s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/cmake/ackermann_muxConfig-version.cmake
+[2.281s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/ackermann_mux/share/ackermann_mux/package.xml
+[2.296s] Invoked command in '/home/nvidia/F1Tenth_WS/build/ackermann_mux' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/nvidia/F1Tenth_WS/install/f1tenth_stack:/home/nvidia/F1Tenth_WS/install/joy_teleop:/home/nvidia/F1Tenth_WS/install/mouse_teleop:/home/nvidia/F1Tenth_WS/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --install /home/nvidia/F1Tenth_WS/build/ackermann_mux

@@ -1,0 +1,97 @@
+[0.152s] Invoking command in '/home/nvidia/F1Tenth_WS/build/vesc_ackermann': CMAKE_PREFIX_PATH=/home/nvidia/F1Tenth_WS/install/vesc_msgs:/home/nvidia/F1Tenth_WS/install/wall_follow:/home/nvidia/F1Tenth_WS/install/vesc:/home/nvidia/F1Tenth_WS/install/vesc_driver:/home/nvidia/F1Tenth_WS/install/vesc_ackermann:/home/nvidia/F1Tenth_WS/install/teleop_tools:/home/nvidia/F1Tenth_WS/install/teleop_tools_msgs:/home/nvidia/F1Tenth_WS/install/safety_node:/home/nvidia/F1Tenth_WS/install/ackermann_mux:/home/nvidia/F1Tenth_WS/install/f1tenth_stack:/home/nvidia/F1Tenth_WS/install/joy_teleop:/home/nvidia/F1Tenth_WS/install/mouse_teleop:/home/nvidia/F1Tenth_WS/install/key_teleop:/opt/ros/foxy LD_LIBRARY_PATH=/home/nvidia/F1Tenth_WS/install/vesc_msgs/lib:/home/nvidia/F1Tenth_WS/install/vesc_driver/lib:/home/nvidia/F1Tenth_WS/install/vesc_ackermann/lib:/home/nvidia/F1Tenth_WS/install/teleop_tools_msgs/lib:/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/aarch64-linux-gnu:/opt/ros/foxy/lib PYTHONPATH=/home/nvidia/F1Tenth_WS/install/vesc_msgs/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/install/wall_follow/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/build/f1tenth_stack:/home/nvidia/F1Tenth_WS/install/f1tenth_stack/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/build/joy_teleop:/home/nvidia/F1Tenth_WS/install/joy_teleop/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/install/teleop_tools_msgs/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/install/safety_node/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/build/mouse_teleop:/home/nvidia/F1Tenth_WS/install/mouse_teleop/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/build/key_teleop:/home/nvidia/F1Tenth_WS/install/key_teleop/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages /usr/bin/cmake /home/nvidia/F1Tenth_WS/src/f1tenth_system/vesc/vesc_ackermann -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/nvidia/F1Tenth_WS/install/vesc_ackermann
+[0.506s] -- The C compiler identification is GNU 9.4.0
+[0.824s] -- The CXX compiler identification is GNU 9.4.0
+[0.849s] -- Check for working C compiler: /usr/bin/cc
+[1.232s] -- Check for working C compiler: /usr/bin/cc -- works
+[1.238s] -- Detecting C compiler ABI info
+[1.622s] -- Detecting C compiler ABI info - done
+[1.666s] -- Detecting C compile features
+[1.673s] -- Detecting C compile features - done
+[1.681s] -- Check for working CXX compiler: /usr/bin/c++
+[2.108s] -- Check for working CXX compiler: /usr/bin/c++ -- works
+[2.112s] -- Detecting CXX compiler ABI info
+[2.552s] -- Detecting CXX compiler ABI info - done
+[2.601s] -- Detecting CXX compile features
+[2.603s] -- Detecting CXX compile features - done
+[2.783s] -- Found ament_cmake_auto: 0.9.12 (/opt/ros/foxy/share/ament_cmake_auto/cmake)
+[2.992s] -- Found PythonInterp: /usr/bin/python3 (found suitable version "3.8.10", minimum required is "3") 
+[2.993s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[3.822s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[4.474s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[4.516s] -- Found rosidl_adapter: 1.3.1 (/opt/ros/foxy/share/rosidl_adapter/cmake)
+[4.995s] -- Found OpenSSL: /usr/lib/aarch64-linux-gnu/libcrypto.so (found version "1.1.1f")  
+[5.125s] -- Found FastRTPS: /opt/ros/foxy/include  
+[5.476s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[6.431s] -- Found rmw_implementation_cmake: 1.0.4 (/opt/ros/foxy/share/rmw_implementation_cmake/cmake)
+[6.441s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[6.446s] -- Looking for pthread.h
+[6.967s] -- Looking for pthread.h - found
+[6.970s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[7.413s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+[7.416s] -- Looking for pthread_create in pthreads
+[7.971s] -- Looking for pthread_create in pthreads - not found
+[7.972s] -- Looking for pthread_create in pthread
+[8.450s] -- Looking for pthread_create in pthread - found
+[8.455s] -- Found Threads: TRUE  
+[10.529s] -- Found ament_lint_auto: 0.9.8 (/opt/ros/foxy/share/ament_lint_auto/cmake)
+[10.661s] -- Added test 'copyright' to check source files copyright and LICENSE
+[10.669s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[10.669s] -- Configured cppcheck include dirs: /home/nvidia/F1Tenth_WS/src/f1tenth_system/vesc/vesc_ackermann/include
+[10.671s] -- Configured cppcheck exclude dirs and/or files: 
+[10.677s] -- Added test 'cpplint' to check C / C++ code against the Google style
+[10.677s] -- Configured cpplint exclude dirs and/or files: 
+[10.682s] -- Added test 'lint_cmake' to check CMake code style
+[10.690s] -- Added test 'uncrustify' to check C / C++ code style
+[10.690s] -- Configured uncrustify additional arguments: 
+[10.693s] -- Added test 'xmllint' to check XML markup files
+[10.732s] -- Configuring done
+[10.831s] -- Generating done
+[10.843s] -- Build files have been written to: /home/nvidia/F1Tenth_WS/build/vesc_ackermann
+[10.901s] Invoked command in '/home/nvidia/F1Tenth_WS/build/vesc_ackermann' returned '0': CMAKE_PREFIX_PATH=/home/nvidia/F1Tenth_WS/install/vesc_msgs:/home/nvidia/F1Tenth_WS/install/wall_follow:/home/nvidia/F1Tenth_WS/install/vesc:/home/nvidia/F1Tenth_WS/install/vesc_driver:/home/nvidia/F1Tenth_WS/install/vesc_ackermann:/home/nvidia/F1Tenth_WS/install/teleop_tools:/home/nvidia/F1Tenth_WS/install/teleop_tools_msgs:/home/nvidia/F1Tenth_WS/install/safety_node:/home/nvidia/F1Tenth_WS/install/ackermann_mux:/home/nvidia/F1Tenth_WS/install/f1tenth_stack:/home/nvidia/F1Tenth_WS/install/joy_teleop:/home/nvidia/F1Tenth_WS/install/mouse_teleop:/home/nvidia/F1Tenth_WS/install/key_teleop:/opt/ros/foxy LD_LIBRARY_PATH=/home/nvidia/F1Tenth_WS/install/vesc_msgs/lib:/home/nvidia/F1Tenth_WS/install/vesc_driver/lib:/home/nvidia/F1Tenth_WS/install/vesc_ackermann/lib:/home/nvidia/F1Tenth_WS/install/teleop_tools_msgs/lib:/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/aarch64-linux-gnu:/opt/ros/foxy/lib PYTHONPATH=/home/nvidia/F1Tenth_WS/install/vesc_msgs/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/install/wall_follow/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/build/f1tenth_stack:/home/nvidia/F1Tenth_WS/install/f1tenth_stack/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/build/joy_teleop:/home/nvidia/F1Tenth_WS/install/joy_teleop/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/install/teleop_tools_msgs/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/install/safety_node/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/build/mouse_teleop:/home/nvidia/F1Tenth_WS/install/mouse_teleop/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/build/key_teleop:/home/nvidia/F1Tenth_WS/install/key_teleop/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages /usr/bin/cmake /home/nvidia/F1Tenth_WS/src/f1tenth_system/vesc/vesc_ackermann -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/nvidia/F1Tenth_WS/install/vesc_ackermann
+[10.909s] Invoking command in '/home/nvidia/F1Tenth_WS/build/vesc_ackermann': CMAKE_PREFIX_PATH=/home/nvidia/F1Tenth_WS/install/vesc_msgs:/home/nvidia/F1Tenth_WS/install/wall_follow:/home/nvidia/F1Tenth_WS/install/vesc:/home/nvidia/F1Tenth_WS/install/vesc_driver:/home/nvidia/F1Tenth_WS/install/vesc_ackermann:/home/nvidia/F1Tenth_WS/install/teleop_tools:/home/nvidia/F1Tenth_WS/install/teleop_tools_msgs:/home/nvidia/F1Tenth_WS/install/safety_node:/home/nvidia/F1Tenth_WS/install/ackermann_mux:/home/nvidia/F1Tenth_WS/install/f1tenth_stack:/home/nvidia/F1Tenth_WS/install/joy_teleop:/home/nvidia/F1Tenth_WS/install/mouse_teleop:/home/nvidia/F1Tenth_WS/install/key_teleop:/opt/ros/foxy LD_LIBRARY_PATH=/home/nvidia/F1Tenth_WS/install/vesc_msgs/lib:/home/nvidia/F1Tenth_WS/install/vesc_driver/lib:/home/nvidia/F1Tenth_WS/install/vesc_ackermann/lib:/home/nvidia/F1Tenth_WS/install/teleop_tools_msgs/lib:/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/aarch64-linux-gnu:/opt/ros/foxy/lib PYTHONPATH=/home/nvidia/F1Tenth_WS/install/vesc_msgs/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/install/wall_follow/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/build/f1tenth_stack:/home/nvidia/F1Tenth_WS/install/f1tenth_stack/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/build/joy_teleop:/home/nvidia/F1Tenth_WS/install/joy_teleop/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/install/teleop_tools_msgs/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/install/safety_node/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/build/mouse_teleop:/home/nvidia/F1Tenth_WS/install/mouse_teleop/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/build/key_teleop:/home/nvidia/F1Tenth_WS/install/key_teleop/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages /usr/bin/cmake --build /home/nvidia/F1Tenth_WS/build/vesc_ackermann -- -j4 -l4
+[11.154s] [35m[1mScanning dependencies of target ackermann_to_vesc_node[0m
+[11.445s] [ 14%] [32mBuilding CXX object CMakeFiles/ackermann_to_vesc_node.dir/rclcpp_components/node_main_ackermann_to_vesc_node.cpp.o[0m
+[19.986s] [ 28%] [32m[1mLinking CXX executable ackermann_to_vesc_node[0m
+[20.466s] [ 28%] Built target ackermann_to_vesc_node
+[20.527s] [35m[1mScanning dependencies of target vesc_ackermann[0m
+[20.800s] [ 42%] [32mBuilding CXX object CMakeFiles/vesc_ackermann.dir/src/ackermann_to_vesc.cpp.o[0m
+[39.675s] [ 57%] [32mBuilding CXX object CMakeFiles/vesc_ackermann.dir/src/vesc_to_odom.cpp.o[0m
+[65.058s] [ 71%] [32m[1mLinking CXX shared library libvesc_ackermann.so[0m
+[66.923s] [ 71%] Built target vesc_ackermann
+[66.980s] [35m[1mScanning dependencies of target vesc_to_odom_node[0m
+[67.189s] [ 85%] [32mBuilding CXX object CMakeFiles/vesc_to_odom_node.dir/rclcpp_components/node_main_vesc_to_odom_node.cpp.o[0m
+[74.663s] [100%] [32m[1mLinking CXX executable vesc_to_odom_node[0m
+[75.127s] [100%] Built target vesc_to_odom_node
+[75.302s] Invoked command in '/home/nvidia/F1Tenth_WS/build/vesc_ackermann' returned '0': CMAKE_PREFIX_PATH=/home/nvidia/F1Tenth_WS/install/vesc_msgs:/home/nvidia/F1Tenth_WS/install/wall_follow:/home/nvidia/F1Tenth_WS/install/vesc:/home/nvidia/F1Tenth_WS/install/vesc_driver:/home/nvidia/F1Tenth_WS/install/vesc_ackermann:/home/nvidia/F1Tenth_WS/install/teleop_tools:/home/nvidia/F1Tenth_WS/install/teleop_tools_msgs:/home/nvidia/F1Tenth_WS/install/safety_node:/home/nvidia/F1Tenth_WS/install/ackermann_mux:/home/nvidia/F1Tenth_WS/install/f1tenth_stack:/home/nvidia/F1Tenth_WS/install/joy_teleop:/home/nvidia/F1Tenth_WS/install/mouse_teleop:/home/nvidia/F1Tenth_WS/install/key_teleop:/opt/ros/foxy LD_LIBRARY_PATH=/home/nvidia/F1Tenth_WS/install/vesc_msgs/lib:/home/nvidia/F1Tenth_WS/install/vesc_driver/lib:/home/nvidia/F1Tenth_WS/install/vesc_ackermann/lib:/home/nvidia/F1Tenth_WS/install/teleop_tools_msgs/lib:/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/aarch64-linux-gnu:/opt/ros/foxy/lib PYTHONPATH=/home/nvidia/F1Tenth_WS/install/vesc_msgs/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/install/wall_follow/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/build/f1tenth_stack:/home/nvidia/F1Tenth_WS/install/f1tenth_stack/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/build/joy_teleop:/home/nvidia/F1Tenth_WS/install/joy_teleop/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/install/teleop_tools_msgs/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/install/safety_node/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/build/mouse_teleop:/home/nvidia/F1Tenth_WS/install/mouse_teleop/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/build/key_teleop:/home/nvidia/F1Tenth_WS/install/key_teleop/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages /usr/bin/cmake --build /home/nvidia/F1Tenth_WS/build/vesc_ackermann -- -j4 -l4
+[75.474s] Invoking command in '/home/nvidia/F1Tenth_WS/build/vesc_ackermann': CMAKE_PREFIX_PATH=/home/nvidia/F1Tenth_WS/install/vesc_msgs:/home/nvidia/F1Tenth_WS/install/wall_follow:/home/nvidia/F1Tenth_WS/install/vesc:/home/nvidia/F1Tenth_WS/install/vesc_driver:/home/nvidia/F1Tenth_WS/install/vesc_ackermann:/home/nvidia/F1Tenth_WS/install/teleop_tools:/home/nvidia/F1Tenth_WS/install/teleop_tools_msgs:/home/nvidia/F1Tenth_WS/install/safety_node:/home/nvidia/F1Tenth_WS/install/ackermann_mux:/home/nvidia/F1Tenth_WS/install/f1tenth_stack:/home/nvidia/F1Tenth_WS/install/joy_teleop:/home/nvidia/F1Tenth_WS/install/mouse_teleop:/home/nvidia/F1Tenth_WS/install/key_teleop:/opt/ros/foxy LD_LIBRARY_PATH=/home/nvidia/F1Tenth_WS/install/vesc_msgs/lib:/home/nvidia/F1Tenth_WS/install/vesc_driver/lib:/home/nvidia/F1Tenth_WS/install/vesc_ackermann/lib:/home/nvidia/F1Tenth_WS/install/teleop_tools_msgs/lib:/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/aarch64-linux-gnu:/opt/ros/foxy/lib PYTHONPATH=/home/nvidia/F1Tenth_WS/install/vesc_msgs/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/install/wall_follow/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/build/f1tenth_stack:/home/nvidia/F1Tenth_WS/install/f1tenth_stack/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/build/joy_teleop:/home/nvidia/F1Tenth_WS/install/joy_teleop/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/install/teleop_tools_msgs/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/install/safety_node/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/build/mouse_teleop:/home/nvidia/F1Tenth_WS/install/mouse_teleop/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/build/key_teleop:/home/nvidia/F1Tenth_WS/install/key_teleop/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages /usr/bin/cmake --install /home/nvidia/F1Tenth_WS/build/vesc_ackermann
+[75.511s] -- Install configuration: ""
+[75.513s] -- Execute custom install script
+[75.517s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/vesc_ackermann/lib/vesc_ackermann/ackermann_to_vesc_node
+[75.558s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/vesc_ackermann/lib/vesc_ackermann/vesc_to_odom_node
+[75.600s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/vesc_ackermann/include/vesc_ackermann/ackermann_to_vesc.hpp
+[75.639s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/vesc_ackermann/include/vesc_ackermann/vesc_to_odom.hpp
+[75.680s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/vesc_ackermann/share/vesc_ackermann/environment/library_path.sh
+[75.720s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/vesc_ackermann/share/vesc_ackermann/environment/library_path.dsv
+[75.761s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/vesc_ackermann/lib/libvesc_ackermann.so
+[75.959s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/vesc_ackermann/share/vesc_ackermann/launch/ackermann_to_vesc_node.launch.xml
+[75.999s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/vesc_ackermann/share/vesc_ackermann/launch/vesc_to_odom_node.launch.xml
+[76.043s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/vesc_ackermann/share/ament_index/resource_index/package_run_dependencies/vesc_ackermann
+[76.083s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/vesc_ackermann/share/ament_index/resource_index/parent_prefix_path/vesc_ackermann
+[76.126s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/vesc_ackermann/share/vesc_ackermann/environment/ament_prefix_path.sh
+[76.167s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/vesc_ackermann/share/vesc_ackermann/environment/ament_prefix_path.dsv
+[76.207s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/vesc_ackermann/share/vesc_ackermann/environment/path.sh
+[76.251s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/vesc_ackermann/share/vesc_ackermann/environment/path.dsv
+[76.292s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/vesc_ackermann/share/vesc_ackermann/local_setup.bash
+[76.335s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/vesc_ackermann/share/vesc_ackermann/local_setup.sh
+[76.374s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/vesc_ackermann/share/vesc_ackermann/local_setup.zsh
+[76.415s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/vesc_ackermann/share/vesc_ackermann/local_setup.dsv
+[76.455s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/vesc_ackermann/share/vesc_ackermann/package.dsv
+[76.495s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/vesc_ackermann/share/ament_index/resource_index/packages/vesc_ackermann
+[76.537s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/vesc_ackermann/share/ament_index/resource_index/rclcpp_components/vesc_ackermann
+[76.577s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/vesc_ackermann/share/vesc_ackermann/cmake/ament_cmake_export_dependencies-extras.cmake
+[76.619s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/vesc_ackermann/share/vesc_ackermann/cmake/ament_cmake_export_include_directories-extras.cmake
+[76.660s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/vesc_ackermann/share/vesc_ackermann/cmake/ament_cmake_export_libraries-extras.cmake
+[76.702s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/vesc_ackermann/share/vesc_ackermann/cmake/vesc_ackermannConfig.cmake
+[76.742s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/vesc_ackermann/share/vesc_ackermann/cmake/vesc_ackermannConfig-version.cmake
+[76.783s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/vesc_ackermann/share/vesc_ackermann/package.xml
+[76.845s] Invoked command in '/home/nvidia/F1Tenth_WS/build/vesc_ackermann' returned '0': CMAKE_PREFIX_PATH=/home/nvidia/F1Tenth_WS/install/vesc_msgs:/home/nvidia/F1Tenth_WS/install/wall_follow:/home/nvidia/F1Tenth_WS/install/vesc:/home/nvidia/F1Tenth_WS/install/vesc_driver:/home/nvidia/F1Tenth_WS/install/vesc_ackermann:/home/nvidia/F1Tenth_WS/install/teleop_tools:/home/nvidia/F1Tenth_WS/install/teleop_tools_msgs:/home/nvidia/F1Tenth_WS/install/safety_node:/home/nvidia/F1Tenth_WS/install/ackermann_mux:/home/nvidia/F1Tenth_WS/install/f1tenth_stack:/home/nvidia/F1Tenth_WS/install/joy_teleop:/home/nvidia/F1Tenth_WS/install/mouse_teleop:/home/nvidia/F1Tenth_WS/install/key_teleop:/opt/ros/foxy LD_LIBRARY_PATH=/home/nvidia/F1Tenth_WS/install/vesc_msgs/lib:/home/nvidia/F1Tenth_WS/install/vesc_driver/lib:/home/nvidia/F1Tenth_WS/install/vesc_ackermann/lib:/home/nvidia/F1Tenth_WS/install/teleop_tools_msgs/lib:/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/aarch64-linux-gnu:/opt/ros/foxy/lib PYTHONPATH=/home/nvidia/F1Tenth_WS/install/vesc_msgs/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/install/wall_follow/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/build/f1tenth_stack:/home/nvidia/F1Tenth_WS/install/f1tenth_stack/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/build/joy_teleop:/home/nvidia/F1Tenth_WS/install/joy_teleop/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/install/teleop_tools_msgs/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/install/safety_node/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/build/mouse_teleop:/home/nvidia/F1Tenth_WS/install/mouse_teleop/lib/python3.8/site-packages:/home/nvidia/F1Tenth_WS/build/key_teleop:/home/nvidia/F1Tenth_WS/install/key_teleop/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages /usr/bin/cmake --install /home/nvidia/F1Tenth_WS/build/vesc_ackermann

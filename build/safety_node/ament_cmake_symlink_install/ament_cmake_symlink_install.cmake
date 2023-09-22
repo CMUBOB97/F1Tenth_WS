@@ -23,7 +23,7 @@ function(ament_cmake_symlink_install_directory cmake_current_source_dir)
 
   # make destination absolute path and ensure that it exists
   if(NOT IS_ABSOLUTE "${ARG_DESTINATION}")
-    set(ARG_DESTINATION "/sim_ws/install/safety_node/${ARG_DESTINATION}")
+    set(ARG_DESTINATION "/home/nvidia/F1Tenth_WS/install/safety_node/${ARG_DESTINATION}")
   endif()
   if(NOT EXISTS "${ARG_DESTINATION}")
     file(MAKE_DIRECTORY "${ARG_DESTINATION}")
@@ -123,7 +123,7 @@ function(ament_cmake_symlink_install_files cmake_current_source_dir)
 
   # make destination an absolute path and ensure that it exists
   if(NOT IS_ABSOLUTE "${ARG_DESTINATION}")
-    set(ARG_DESTINATION "/sim_ws/install/safety_node/${ARG_DESTINATION}")
+    set(ARG_DESTINATION "/home/nvidia/F1Tenth_WS/install/safety_node/${ARG_DESTINATION}")
   endif()
   if(NOT EXISTS "${ARG_DESTINATION}")
     file(MAKE_DIRECTORY "${ARG_DESTINATION}")
@@ -181,7 +181,7 @@ function(ament_cmake_symlink_install_programs cmake_current_source_dir)
 
   # make destination an absolute path and ensure that it exists
   if(NOT IS_ABSOLUTE "${ARG_DESTINATION}")
-    set(ARG_DESTINATION "/sim_ws/install/safety_node/${ARG_DESTINATION}")
+    set(ARG_DESTINATION "/home/nvidia/F1Tenth_WS/install/safety_node/${ARG_DESTINATION}")
   endif()
   if(NOT EXISTS "${ARG_DESTINATION}")
     file(MAKE_DIRECTORY "${ARG_DESTINATION}")
@@ -251,7 +251,7 @@ function(ament_cmake_symlink_install_targets)
 
     # make destination an absolute path and ensure that it exists
     if(NOT IS_ABSOLUTE "${destination}")
-      set(destination "/sim_ws/install/safety_node/${destination}")
+      set(destination "/home/nvidia/F1Tenth_WS/install/safety_node/${destination}")
     endif()
     if(NOT EXISTS "${destination}")
       file(MAKE_DIRECTORY "${destination}")
@@ -311,64 +311,64 @@ message(STATUS "Execute custom install script")
 # begin of custom install code
 
 # install(DIRECTORY "config" "DESTINATION" "share/safety_node")
-ament_cmake_symlink_install_directory("/sim_ws/src/safety_node" DIRECTORY "config" "DESTINATION" "share/safety_node")
+ament_cmake_symlink_install_directory("/home/nvidia/F1Tenth_WS/src/safety_node" DIRECTORY "config" "DESTINATION" "share/safety_node")
 
 # install(DIRECTORY "launch" "DESTINATION" "share/safety_node")
-ament_cmake_symlink_install_directory("/sim_ws/src/safety_node" DIRECTORY "launch" "DESTINATION" "share/safety_node")
+ament_cmake_symlink_install_directory("/home/nvidia/F1Tenth_WS/src/safety_node" DIRECTORY "launch" "DESTINATION" "share/safety_node")
 
 # install("TARGETS" "safety_node" "DESTINATION" "lib/safety_node")
-include("/sim_ws/build/safety_node/ament_cmake_symlink_install_targets_0_${CMAKE_INSTALL_CONFIG_NAME}.cmake")
+include("/home/nvidia/F1Tenth_WS/build/safety_node/ament_cmake_symlink_install_targets_0_${CMAKE_INSTALL_CONFIG_NAME}.cmake")
 
-# install(FILES "/sim_ws/build/safety_node/ament_cmake_environment_hooks/pythonpath.sh" "DESTINATION" "share/safety_node/environment")
-ament_cmake_symlink_install_files("/sim_ws/src/safety_node" FILES "/sim_ws/build/safety_node/ament_cmake_environment_hooks/pythonpath.sh" "DESTINATION" "share/safety_node/environment")
+# install(FILES "/home/nvidia/F1Tenth_WS/build/safety_node/ament_cmake_environment_hooks/pythonpath.sh" "DESTINATION" "share/safety_node/environment")
+ament_cmake_symlink_install_files("/home/nvidia/F1Tenth_WS/src/safety_node" FILES "/home/nvidia/F1Tenth_WS/build/safety_node/ament_cmake_environment_hooks/pythonpath.sh" "DESTINATION" "share/safety_node/environment")
 
-# install(FILES "/sim_ws/build/safety_node/ament_cmake_environment_hooks/pythonpath.dsv" "DESTINATION" "share/safety_node/environment")
-ament_cmake_symlink_install_files("/sim_ws/src/safety_node" FILES "/sim_ws/build/safety_node/ament_cmake_environment_hooks/pythonpath.dsv" "DESTINATION" "share/safety_node/environment")
+# install(FILES "/home/nvidia/F1Tenth_WS/build/safety_node/ament_cmake_environment_hooks/pythonpath.dsv" "DESTINATION" "share/safety_node/environment")
+ament_cmake_symlink_install_files("/home/nvidia/F1Tenth_WS/src/safety_node" FILES "/home/nvidia/F1Tenth_WS/build/safety_node/ament_cmake_environment_hooks/pythonpath.dsv" "DESTINATION" "share/safety_node/environment")
 
-# install(DIRECTORY "/sim_ws/src/safety_node/safety_node/" "DESTINATION" "lib/python3.8/site-packages/safety_node" "PATTERN_EXCLUDE" "*.pyc" "PATTERN_EXCLUDE" "__pycache__")
-ament_cmake_symlink_install_directory("/sim_ws/src/safety_node" DIRECTORY "/sim_ws/src/safety_node/safety_node/" "DESTINATION" "lib/python3.8/site-packages/safety_node" "PATTERN_EXCLUDE" "*.pyc" "PATTERN_EXCLUDE" "__pycache__")
+# install(DIRECTORY "/home/nvidia/F1Tenth_WS/src/safety_node/safety_node/" "DESTINATION" "lib/python3.8/site-packages/safety_node" "PATTERN_EXCLUDE" "*.pyc" "PATTERN_EXCLUDE" "__pycache__")
+ament_cmake_symlink_install_directory("/home/nvidia/F1Tenth_WS/src/safety_node" DIRECTORY "/home/nvidia/F1Tenth_WS/src/safety_node/safety_node/" "DESTINATION" "lib/python3.8/site-packages/safety_node" "PATTERN_EXCLUDE" "*.pyc" "PATTERN_EXCLUDE" "__pycache__")
 
 # install(PROGRAMS "scripts/safety_node.py" "DESTINATION" "lib/safety_node")
-ament_cmake_symlink_install_programs("/sim_ws/src/safety_node" PROGRAMS "scripts/safety_node.py" "DESTINATION" "lib/safety_node")
+ament_cmake_symlink_install_programs("/home/nvidia/F1Tenth_WS/src/safety_node" PROGRAMS "scripts/safety_node.py" "DESTINATION" "lib/safety_node")
 
-# install(FILES "/sim_ws/build/safety_node/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/safety_node" "DESTINATION" "share/ament_index/resource_index/package_run_dependencies")
-ament_cmake_symlink_install_files("/sim_ws/src/safety_node" FILES "/sim_ws/build/safety_node/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/safety_node" "DESTINATION" "share/ament_index/resource_index/package_run_dependencies")
+# install(FILES "/home/nvidia/F1Tenth_WS/build/safety_node/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/safety_node" "DESTINATION" "share/ament_index/resource_index/package_run_dependencies")
+ament_cmake_symlink_install_files("/home/nvidia/F1Tenth_WS/src/safety_node" FILES "/home/nvidia/F1Tenth_WS/build/safety_node/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/safety_node" "DESTINATION" "share/ament_index/resource_index/package_run_dependencies")
 
-# install(FILES "/sim_ws/build/safety_node/ament_cmake_index/share/ament_index/resource_index/parent_prefix_path/safety_node" "DESTINATION" "share/ament_index/resource_index/parent_prefix_path")
-ament_cmake_symlink_install_files("/sim_ws/src/safety_node" FILES "/sim_ws/build/safety_node/ament_cmake_index/share/ament_index/resource_index/parent_prefix_path/safety_node" "DESTINATION" "share/ament_index/resource_index/parent_prefix_path")
+# install(FILES "/home/nvidia/F1Tenth_WS/build/safety_node/ament_cmake_index/share/ament_index/resource_index/parent_prefix_path/safety_node" "DESTINATION" "share/ament_index/resource_index/parent_prefix_path")
+ament_cmake_symlink_install_files("/home/nvidia/F1Tenth_WS/src/safety_node" FILES "/home/nvidia/F1Tenth_WS/build/safety_node/ament_cmake_index/share/ament_index/resource_index/parent_prefix_path/safety_node" "DESTINATION" "share/ament_index/resource_index/parent_prefix_path")
 
 # install(FILES "/opt/ros/foxy/share/ament_cmake_core/cmake/environment_hooks/environment/ament_prefix_path.sh" "DESTINATION" "share/safety_node/environment")
-ament_cmake_symlink_install_files("/sim_ws/src/safety_node" FILES "/opt/ros/foxy/share/ament_cmake_core/cmake/environment_hooks/environment/ament_prefix_path.sh" "DESTINATION" "share/safety_node/environment")
+ament_cmake_symlink_install_files("/home/nvidia/F1Tenth_WS/src/safety_node" FILES "/opt/ros/foxy/share/ament_cmake_core/cmake/environment_hooks/environment/ament_prefix_path.sh" "DESTINATION" "share/safety_node/environment")
 
-# install(FILES "/sim_ws/build/safety_node/ament_cmake_environment_hooks/ament_prefix_path.dsv" "DESTINATION" "share/safety_node/environment")
-ament_cmake_symlink_install_files("/sim_ws/src/safety_node" FILES "/sim_ws/build/safety_node/ament_cmake_environment_hooks/ament_prefix_path.dsv" "DESTINATION" "share/safety_node/environment")
+# install(FILES "/home/nvidia/F1Tenth_WS/build/safety_node/ament_cmake_environment_hooks/ament_prefix_path.dsv" "DESTINATION" "share/safety_node/environment")
+ament_cmake_symlink_install_files("/home/nvidia/F1Tenth_WS/src/safety_node" FILES "/home/nvidia/F1Tenth_WS/build/safety_node/ament_cmake_environment_hooks/ament_prefix_path.dsv" "DESTINATION" "share/safety_node/environment")
 
 # install(FILES "/opt/ros/foxy/share/ament_cmake_core/cmake/environment_hooks/environment/path.sh" "DESTINATION" "share/safety_node/environment")
-ament_cmake_symlink_install_files("/sim_ws/src/safety_node" FILES "/opt/ros/foxy/share/ament_cmake_core/cmake/environment_hooks/environment/path.sh" "DESTINATION" "share/safety_node/environment")
+ament_cmake_symlink_install_files("/home/nvidia/F1Tenth_WS/src/safety_node" FILES "/opt/ros/foxy/share/ament_cmake_core/cmake/environment_hooks/environment/path.sh" "DESTINATION" "share/safety_node/environment")
 
-# install(FILES "/sim_ws/build/safety_node/ament_cmake_environment_hooks/path.dsv" "DESTINATION" "share/safety_node/environment")
-ament_cmake_symlink_install_files("/sim_ws/src/safety_node" FILES "/sim_ws/build/safety_node/ament_cmake_environment_hooks/path.dsv" "DESTINATION" "share/safety_node/environment")
+# install(FILES "/home/nvidia/F1Tenth_WS/build/safety_node/ament_cmake_environment_hooks/path.dsv" "DESTINATION" "share/safety_node/environment")
+ament_cmake_symlink_install_files("/home/nvidia/F1Tenth_WS/src/safety_node" FILES "/home/nvidia/F1Tenth_WS/build/safety_node/ament_cmake_environment_hooks/path.dsv" "DESTINATION" "share/safety_node/environment")
 
-# install(FILES "/sim_ws/build/safety_node/ament_cmake_environment_hooks/local_setup.bash" "DESTINATION" "share/safety_node")
-ament_cmake_symlink_install_files("/sim_ws/src/safety_node" FILES "/sim_ws/build/safety_node/ament_cmake_environment_hooks/local_setup.bash" "DESTINATION" "share/safety_node")
+# install(FILES "/home/nvidia/F1Tenth_WS/build/safety_node/ament_cmake_environment_hooks/local_setup.bash" "DESTINATION" "share/safety_node")
+ament_cmake_symlink_install_files("/home/nvidia/F1Tenth_WS/src/safety_node" FILES "/home/nvidia/F1Tenth_WS/build/safety_node/ament_cmake_environment_hooks/local_setup.bash" "DESTINATION" "share/safety_node")
 
-# install(FILES "/sim_ws/build/safety_node/ament_cmake_environment_hooks/local_setup.sh" "DESTINATION" "share/safety_node")
-ament_cmake_symlink_install_files("/sim_ws/src/safety_node" FILES "/sim_ws/build/safety_node/ament_cmake_environment_hooks/local_setup.sh" "DESTINATION" "share/safety_node")
+# install(FILES "/home/nvidia/F1Tenth_WS/build/safety_node/ament_cmake_environment_hooks/local_setup.sh" "DESTINATION" "share/safety_node")
+ament_cmake_symlink_install_files("/home/nvidia/F1Tenth_WS/src/safety_node" FILES "/home/nvidia/F1Tenth_WS/build/safety_node/ament_cmake_environment_hooks/local_setup.sh" "DESTINATION" "share/safety_node")
 
-# install(FILES "/sim_ws/build/safety_node/ament_cmake_environment_hooks/local_setup.zsh" "DESTINATION" "share/safety_node")
-ament_cmake_symlink_install_files("/sim_ws/src/safety_node" FILES "/sim_ws/build/safety_node/ament_cmake_environment_hooks/local_setup.zsh" "DESTINATION" "share/safety_node")
+# install(FILES "/home/nvidia/F1Tenth_WS/build/safety_node/ament_cmake_environment_hooks/local_setup.zsh" "DESTINATION" "share/safety_node")
+ament_cmake_symlink_install_files("/home/nvidia/F1Tenth_WS/src/safety_node" FILES "/home/nvidia/F1Tenth_WS/build/safety_node/ament_cmake_environment_hooks/local_setup.zsh" "DESTINATION" "share/safety_node")
 
-# install(FILES "/sim_ws/build/safety_node/ament_cmake_environment_hooks/local_setup.dsv" "DESTINATION" "share/safety_node")
-ament_cmake_symlink_install_files("/sim_ws/src/safety_node" FILES "/sim_ws/build/safety_node/ament_cmake_environment_hooks/local_setup.dsv" "DESTINATION" "share/safety_node")
+# install(FILES "/home/nvidia/F1Tenth_WS/build/safety_node/ament_cmake_environment_hooks/local_setup.dsv" "DESTINATION" "share/safety_node")
+ament_cmake_symlink_install_files("/home/nvidia/F1Tenth_WS/src/safety_node" FILES "/home/nvidia/F1Tenth_WS/build/safety_node/ament_cmake_environment_hooks/local_setup.dsv" "DESTINATION" "share/safety_node")
 
-# install(FILES "/sim_ws/build/safety_node/ament_cmake_environment_hooks/package.dsv" "DESTINATION" "share/safety_node")
-ament_cmake_symlink_install_files("/sim_ws/src/safety_node" FILES "/sim_ws/build/safety_node/ament_cmake_environment_hooks/package.dsv" "DESTINATION" "share/safety_node")
+# install(FILES "/home/nvidia/F1Tenth_WS/build/safety_node/ament_cmake_environment_hooks/package.dsv" "DESTINATION" "share/safety_node")
+ament_cmake_symlink_install_files("/home/nvidia/F1Tenth_WS/src/safety_node" FILES "/home/nvidia/F1Tenth_WS/build/safety_node/ament_cmake_environment_hooks/package.dsv" "DESTINATION" "share/safety_node")
 
-# install(FILES "/sim_ws/build/safety_node/ament_cmake_index/share/ament_index/resource_index/packages/safety_node" "DESTINATION" "share/ament_index/resource_index/packages")
-ament_cmake_symlink_install_files("/sim_ws/src/safety_node" FILES "/sim_ws/build/safety_node/ament_cmake_index/share/ament_index/resource_index/packages/safety_node" "DESTINATION" "share/ament_index/resource_index/packages")
+# install(FILES "/home/nvidia/F1Tenth_WS/build/safety_node/ament_cmake_index/share/ament_index/resource_index/packages/safety_node" "DESTINATION" "share/ament_index/resource_index/packages")
+ament_cmake_symlink_install_files("/home/nvidia/F1Tenth_WS/src/safety_node" FILES "/home/nvidia/F1Tenth_WS/build/safety_node/ament_cmake_index/share/ament_index/resource_index/packages/safety_node" "DESTINATION" "share/ament_index/resource_index/packages")
 
-# install(FILES "/sim_ws/build/safety_node/ament_cmake_core/safety_nodeConfig.cmake" "/sim_ws/build/safety_node/ament_cmake_core/safety_nodeConfig-version.cmake" "DESTINATION" "share/safety_node/cmake")
-ament_cmake_symlink_install_files("/sim_ws/src/safety_node" FILES "/sim_ws/build/safety_node/ament_cmake_core/safety_nodeConfig.cmake" "/sim_ws/build/safety_node/ament_cmake_core/safety_nodeConfig-version.cmake" "DESTINATION" "share/safety_node/cmake")
+# install(FILES "/home/nvidia/F1Tenth_WS/build/safety_node/ament_cmake_core/safety_nodeConfig.cmake" "/home/nvidia/F1Tenth_WS/build/safety_node/ament_cmake_core/safety_nodeConfig-version.cmake" "DESTINATION" "share/safety_node/cmake")
+ament_cmake_symlink_install_files("/home/nvidia/F1Tenth_WS/src/safety_node" FILES "/home/nvidia/F1Tenth_WS/build/safety_node/ament_cmake_core/safety_nodeConfig.cmake" "/home/nvidia/F1Tenth_WS/build/safety_node/ament_cmake_core/safety_nodeConfig-version.cmake" "DESTINATION" "share/safety_node/cmake")
 
-# install(FILES "/sim_ws/src/safety_node/package.xml" "DESTINATION" "share/safety_node")
-ament_cmake_symlink_install_files("/sim_ws/src/safety_node" FILES "/sim_ws/src/safety_node/package.xml" "DESTINATION" "share/safety_node")
+# install(FILES "/home/nvidia/F1Tenth_WS/src/safety_node/package.xml" "DESTINATION" "share/safety_node")
+ament_cmake_symlink_install_files("/home/nvidia/F1Tenth_WS/src/safety_node" FILES "/home/nvidia/F1Tenth_WS/src/safety_node/package.xml" "DESTINATION" "share/safety_node")

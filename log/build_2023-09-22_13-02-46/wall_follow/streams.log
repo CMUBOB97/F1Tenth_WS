@@ -1,0 +1,33 @@
+[0.173s] Invoking command in '/home/nvidia/F1Tenth_WS/build/wall_follow': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/nvidia/F1Tenth_WS/install/f1tenth_stack:/home/nvidia/F1Tenth_WS/install/joy_teleop:/home/nvidia/F1Tenth_WS/install/mouse_teleop:/home/nvidia/F1Tenth_WS/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --build /home/nvidia/F1Tenth_WS/build/wall_follow -- -j4 -l4
+[0.521s] [35m[1mScanning dependencies of target wall_follow_node[0m
+[0.778s] [ 50%] [32mBuilding CXX object CMakeFiles/wall_follow_node.dir/src/wall_follow_node.cpp.o[0m
+[25.798s] [100%] [32m[1mLinking CXX executable wall_follow_node[0m
+[27.029s] [100%] Built target wall_follow_node
+[27.205s] Invoked command in '/home/nvidia/F1Tenth_WS/build/wall_follow' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/nvidia/F1Tenth_WS/install/f1tenth_stack:/home/nvidia/F1Tenth_WS/install/joy_teleop:/home/nvidia/F1Tenth_WS/install/mouse_teleop:/home/nvidia/F1Tenth_WS/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --build /home/nvidia/F1Tenth_WS/build/wall_follow -- -j4 -l4
+[27.346s] Invoking command in '/home/nvidia/F1Tenth_WS/build/wall_follow': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/nvidia/F1Tenth_WS/install/f1tenth_stack:/home/nvidia/F1Tenth_WS/install/joy_teleop:/home/nvidia/F1Tenth_WS/install/mouse_teleop:/home/nvidia/F1Tenth_WS/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --install /home/nvidia/F1Tenth_WS/build/wall_follow
+[27.375s] -- Install configuration: ""
+[27.377s] -- Execute custom install script
+[27.379s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/wall_follow/lib/wall_follow/wall_follow_node
+[27.380s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/wall_follow/share/wall_follow/environment/pythonpath.sh
+[27.382s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/wall_follow/share/wall_follow/environment/pythonpath.dsv
+[27.385s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/wall_follow/lib/python3.8/site-packages/wall_follow/__init__.py
+[27.386s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/wall_follow/lib/wall_follow/wall_follow_node.py
+[27.388s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/wall_follow/share/wall_follow/config/wall_follow_params.yaml
+[27.391s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/wall_follow/share/wall_follow/launch/wall_follow_launch.py
+[27.392s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/wall_follow/share/ament_index/resource_index/package_run_dependencies/wall_follow
+[27.394s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/wall_follow/share/ament_index/resource_index/parent_prefix_path/wall_follow
+[27.395s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/wall_follow/share/wall_follow/environment/ament_prefix_path.sh
+[27.396s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/wall_follow/share/wall_follow/environment/ament_prefix_path.dsv
+[27.398s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/wall_follow/share/wall_follow/environment/path.sh
+[27.399s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/wall_follow/share/wall_follow/environment/path.dsv
+[27.400s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/wall_follow/share/wall_follow/local_setup.bash
+[27.402s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/wall_follow/share/wall_follow/local_setup.sh
+[27.403s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/wall_follow/share/wall_follow/local_setup.zsh
+[27.404s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/wall_follow/share/wall_follow/local_setup.dsv
+[27.405s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/wall_follow/share/wall_follow/package.dsv
+[27.447s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/wall_follow/share/ament_index/resource_index/packages/wall_follow
+[27.447s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/wall_follow/share/wall_follow/cmake/wall_followConfig.cmake
+[27.448s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/wall_follow/share/wall_follow/cmake/wall_followConfig-version.cmake
+[27.450s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/wall_follow/share/wall_follow/package.xml
+[27.612s] Listing '/home/nvidia/F1Tenth_WS/install/wall_follow/lib/python3.8/site-packages/wall_follow'...
+[27.646s] Invoked command in '/home/nvidia/F1Tenth_WS/build/wall_follow' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/nvidia/F1Tenth_WS/install/f1tenth_stack:/home/nvidia/F1Tenth_WS/install/joy_teleop:/home/nvidia/F1Tenth_WS/install/mouse_teleop:/home/nvidia/F1Tenth_WS/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --install /home/nvidia/F1Tenth_WS/build/wall_follow

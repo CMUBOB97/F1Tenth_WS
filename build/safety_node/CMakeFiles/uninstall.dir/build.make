@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /sim_ws/src/safety_node
+CMAKE_SOURCE_DIR = /home/nvidia/F1Tenth_WS/src/safety_node
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /sim_ws/build/safety_node
+CMAKE_BINARY_DIR = /home/nvidia/F1Tenth_WS/build/safety_node
 
 # Utility rule file for uninstall.
 
@@ -67,6 +67,6 @@ CMakeFiles/uninstall.dir/clean:
 .PHONY : CMakeFiles/uninstall.dir/clean
 
 CMakeFiles/uninstall.dir/depend:
-	cd /sim_ws/build/safety_node && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /sim_ws/src/safety_node /sim_ws/src/safety_node /sim_ws/build/safety_node /sim_ws/build/safety_node /sim_ws/build/safety_node/CMakeFiles/uninstall.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/nvidia/F1Tenth_WS/build/safety_node && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nvidia/F1Tenth_WS/src/safety_node /home/nvidia/F1Tenth_WS/src/safety_node /home/nvidia/F1Tenth_WS/build/safety_node /home/nvidia/F1Tenth_WS/build/safety_node /home/nvidia/F1Tenth_WS/build/safety_node/CMakeFiles/uninstall.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/uninstall.dir/depend
 

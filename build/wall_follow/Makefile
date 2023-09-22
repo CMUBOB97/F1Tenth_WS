@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /sim_ws/src/wall_follow
+CMAKE_SOURCE_DIR = /home/nvidia/F1Tenth_WS/src/wall_follow
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /sim_ws/build/wall_follow
+CMAKE_BINARY_DIR = /home/nvidia/F1Tenth_WS/build/wall_follow
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -137,9 +137,9 @@ test/fast: test
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /sim_ws/build/wall_follow/CMakeFiles /sim_ws/build/wall_follow/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/nvidia/F1Tenth_WS/build/wall_follow/CMakeFiles /home/nvidia/F1Tenth_WS/build/wall_follow/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /sim_ws/build/wall_follow/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/nvidia/F1Tenth_WS/build/wall_follow/CMakeFiles 0
 .PHONY : all
 
 # The main clean target

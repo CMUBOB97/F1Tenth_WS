@@ -1,0 +1,1 @@
+/home/nvidia/F1Tenth_WS/build/vesc_msgs/rosidl_typesupport_fastrtps_cpp/vesc_msgs/msg/detail/vesc_imu__rosidl_typesupport_fastrtps_cpp.hpp

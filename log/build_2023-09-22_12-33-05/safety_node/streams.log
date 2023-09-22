@@ -1,0 +1,30 @@
+[0.097s] Invoking command in '/home/nvidia/F1Tenth_WS/build/safety_node': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/nvidia/F1Tenth_WS/install/f1tenth_stack:/home/nvidia/F1Tenth_WS/install/joy_teleop:/home/nvidia/F1Tenth_WS/install/mouse_teleop:/home/nvidia/F1Tenth_WS/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --build /home/nvidia/F1Tenth_WS/build/safety_node -- -j4 -l4
+[0.567s] [100%] Built target safety_node
+[0.669s] Invoked command in '/home/nvidia/F1Tenth_WS/build/safety_node' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/nvidia/F1Tenth_WS/install/f1tenth_stack:/home/nvidia/F1Tenth_WS/install/joy_teleop:/home/nvidia/F1Tenth_WS/install/mouse_teleop:/home/nvidia/F1Tenth_WS/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --build /home/nvidia/F1Tenth_WS/build/safety_node -- -j4 -l4
+[0.954s] Invoking command in '/home/nvidia/F1Tenth_WS/build/safety_node': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/nvidia/F1Tenth_WS/install/f1tenth_stack:/home/nvidia/F1Tenth_WS/install/joy_teleop:/home/nvidia/F1Tenth_WS/install/mouse_teleop:/home/nvidia/F1Tenth_WS/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --install /home/nvidia/F1Tenth_WS/build/safety_node
+[1.018s] -- Install configuration: ""
+[1.020s] -- Execute custom install script
+[1.023s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/safety_node/share/safety_node/config/params.yaml
+[1.025s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/safety_node/share/safety_node/launch/safety_node_launch.py
+[1.026s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/safety_node/lib/safety_node/safety_node
+[1.028s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/safety_node/share/safety_node/environment/pythonpath.sh
+[1.028s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/safety_node/share/safety_node/environment/pythonpath.dsv
+[1.028s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/safety_node/lib/python3.8/site-packages/safety_node/__init__.py
+[1.029s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/safety_node/lib/safety_node/safety_node.py
+[1.032s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/safety_node/share/ament_index/resource_index/package_run_dependencies/safety_node
+[1.035s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/safety_node/share/ament_index/resource_index/parent_prefix_path/safety_node
+[1.036s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/safety_node/share/safety_node/environment/ament_prefix_path.sh
+[1.047s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/safety_node/share/safety_node/environment/ament_prefix_path.dsv
+[1.058s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/safety_node/share/safety_node/environment/path.sh
+[1.058s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/safety_node/share/safety_node/environment/path.dsv
+[1.059s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/safety_node/share/safety_node/local_setup.bash
+[1.059s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/safety_node/share/safety_node/local_setup.sh
+[1.059s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/safety_node/share/safety_node/local_setup.zsh
+[1.060s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/safety_node/share/safety_node/local_setup.dsv
+[1.060s] -- Symlinking: /home/nvidia/F1Tenth_WS/install/safety_node/share/safety_node/package.dsv
+[1.107s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/safety_node/share/ament_index/resource_index/packages/safety_node
+[1.109s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/safety_node/share/safety_node/cmake/safety_nodeConfig.cmake
+[1.109s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/safety_node/share/safety_node/cmake/safety_nodeConfig-version.cmake
+[1.109s] -- Up-to-date symlink: /home/nvidia/F1Tenth_WS/install/safety_node/share/safety_node/package.xml
+[1.446s] Listing '/home/nvidia/F1Tenth_WS/install/safety_node/lib/python3.8/site-packages/safety_node'...
+[1.454s] Invoked command in '/home/nvidia/F1Tenth_WS/build/safety_node' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/nvidia/F1Tenth_WS/install/f1tenth_stack:/home/nvidia/F1Tenth_WS/install/joy_teleop:/home/nvidia/F1Tenth_WS/install/mouse_teleop:/home/nvidia/F1Tenth_WS/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --install /home/nvidia/F1Tenth_WS/build/safety_node

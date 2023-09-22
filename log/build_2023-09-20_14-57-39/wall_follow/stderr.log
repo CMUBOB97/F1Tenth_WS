@@ -1,4 +1,0 @@
-[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:[m[K In member function ‘[01m[Kdouble WallFollow::get_range(std::vector<float>&, double)[m[K’:
-[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:86:32:[m[K [01;35m[Kwarning: [m[Kcomparison of integer expressions of different signedness: ‘[01m[Kint[m[K’ and ‘[01m[Kstd::vector<float>::size_type[m[K’ {aka ‘[01m[Klong unsigned int[m[K’} [[01;35m[K-Wsign-compare[m[K]
-   86 |         if (index < 0 || [01;35m[Kindex > range_data.size()[m[K) {
-      |                          [01;35m[K~~~~~~^~~~~~~~~~~~~~~~~~~[m[K

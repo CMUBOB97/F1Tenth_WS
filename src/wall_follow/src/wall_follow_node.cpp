@@ -32,7 +32,7 @@ public:
         // subscribers
         laser_subscription_ = this->create_subscription<sensor_msgs::msg::LaserScan>("scan", 10,
                               std::bind(&WallFollow::scan_callback, this, _1));
-        odom_subscription_ = this->create_subscription<nav_msgs::msg::Odometry>("ego_racecar/odom", 10,
+        odom_subscription_ = this->create_subscription<nav_msgs::msg::Odometry>("odom", 10,
                               std::bind(&WallFollow::drive_callback, this, _1));
 
         // publishers
