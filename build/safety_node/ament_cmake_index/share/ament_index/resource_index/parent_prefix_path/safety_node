@@ -1,1 +1,1 @@
-/sim_ws/install/safety_node:/sim_ws/install/f1tenth_gym_ros:/opt/ros/foxy
+/sim_ws/install/wall_follow:/sim_ws/install/safety_node:/sim_ws/install/gap_follow:/sim_ws/install/f1tenth_gym_ros:/opt/ros/foxy

@@ -1,0 +1,13 @@
+reactive_node:
+  ros__parameters:
+    odom_topic_name: ego_racecar/odom
+    look_ahead_dist: 20.0
+    width_heuristic: 0.0
+    dist_heuristic: 0.5
+    car_width: 0.4064
+    gap_depth_diff: 1.0
+    gap_velocity_ratio: 2.0
+    disparity_threshold: 0.5
+    throttle_level_1: 2.0
+    throttle_level_2: 1.0
+    throttle_level_3: 0.5 
