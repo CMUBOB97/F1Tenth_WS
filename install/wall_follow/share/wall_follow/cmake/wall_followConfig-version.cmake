@@ -1,1 +1,0 @@
-/sim_ws/build/wall_follow/ament_cmake_core/wall_followConfig-version.cmake

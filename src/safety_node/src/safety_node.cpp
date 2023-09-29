@@ -39,7 +39,7 @@ public:
         // subscriber and callback functions
         laser_subscription_ = this->create_subscription<sensor_msgs::msg::LaserScan>("scan", 10,
                               std::bind(&Safety::scan_callback, this, _1));
-        odom_subscription_ = this->create_subscription<nav_msgs::msg::Odometry>("ego_racecar/odom", 10,
+        odom_subscription_ = this->create_subscription<nav_msgs::msg::Odometry>("odom", 10,
                               std::bind(&Safety::drive_callback, this, _1));
 
         // ackermann message publisher

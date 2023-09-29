@@ -1,1 +1,0 @@
-/sim_ws/build/safety_node/ament_cmake_core/safety_nodeConfig-version.cmake

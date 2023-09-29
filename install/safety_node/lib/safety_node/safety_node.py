@@ -1,1 +1,0 @@
-/sim_ws/src/safety_node/scripts/safety_node.py

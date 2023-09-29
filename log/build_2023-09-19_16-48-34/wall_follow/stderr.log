@@ -1,4 +1,0 @@
-[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:[m[K In member function ‘[01m[Kdouble WallFollow::get_error(std::vector<float>&, double, double)[m[K’:
-[01m[K/sim_ws/src/wall_follow/src/wall_follow_node.cpp:144:20:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kdist_actual[m[K’ [[01;35m[K-Wunused-variable[m[K]
-  144 |             double [01;35m[Kdist_actual[m[K = b_valid * cos(alpha);
-      |                    [01;35m[K^~~~~~~~~~~[m[K

@@ -1,1 +1,0 @@
-/sim_ws/src/safety_node/launch/safety_node_launch.py

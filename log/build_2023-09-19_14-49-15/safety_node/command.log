@@ -1,4 +1,0 @@
-Invoking command in '/sim_ws/build/safety_node': /usr/bin/cmake --build /sim_ws/build/safety_node -- -j12 -l12
-Invoked command in '/sim_ws/build/safety_node' returned '0': /usr/bin/cmake --build /sim_ws/build/safety_node -- -j12 -l12
-Invoking command in '/sim_ws/build/safety_node': /usr/bin/cmake --install /sim_ws/build/safety_node
-Invoked command in '/sim_ws/build/safety_node' returned '0': /usr/bin/cmake --install /sim_ws/build/safety_node
