@@ -211,7 +211,7 @@ private:
         // calculate desired velocity based on steering angle
         double velocity;
         if (fabs(angle) >= 0 && fabs(angle) <= 10) {
-            velocity = 1.5;
+            velocity = 2.0;
         } else if (fabs(angle) <= 20) {
             velocity = 1.0;
         } else {
