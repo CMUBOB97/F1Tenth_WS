@@ -7,3 +7,6 @@
 3. here are the gains:
 - steering\_angle\_to\_servo\_offset: 0.4604
 - steering\_angle\_to\_servo\_gain:
+
+4. the teleop scale factors and axis assignments can be found in src/f1tenth\_system/f1tenth\_stack/config/joy\_teleop.yaml
+
