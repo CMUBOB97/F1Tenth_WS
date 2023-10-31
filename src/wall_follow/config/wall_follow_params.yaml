@@ -2,10 +2,11 @@ wall_follow_node:
   ros__parameters:
     kp: 0.5
     ki: 0.0
-    kd: 0.01
-    dist: 0.85
-    beam_a_start: -0.8475
-    beam_b_start: -1.5708
+    kd: 0.1
+    dist: 1.0
+    beam_a_start: 1.5708
+    beam_b_start: 0.6345
     angle_range: 1.2217
     valid_reading_range: 20.0
-    following_left_wall: False
+    following_left_wall: True
+    odom_topic_name: ego_racecar/odom

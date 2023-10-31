@@ -26,13 +26,17 @@ public:
         this->declare_parameter("beam_a_start", -1.5708);
         this->declare_parameter("beam_b_start", -1.0472);
         this->declare_parameter("angle_range", 1.2276);
+        this->declare_parameter("odom_topic_name", "ego_racecar/odom");
         this->declare_parameter("valid_reading_range", 20.0);
         this->declare_parameter("following_left_wall", false);
+
+        // read odom topic name
+        std::string odom_topic = (this->get_parameter("odom_topic_name")).as_string();
 
         // subscribers
         laser_subscription_ = this->create_subscription<sensor_msgs::msg::LaserScan>("scan", 10,
                               std::bind(&WallFollow::scan_callback, this, _1));
-        odom_subscription_ = this->create_subscription<nav_msgs::msg::Odometry>("odom", 10,
+        odom_subscription_ = this->create_subscription<nav_msgs::msg::Odometry>(odom_topic, 10,
                               std::bind(&WallFollow::drive_callback, this, _1));
 
         // publishers
@@ -208,14 +212,21 @@ private:
         
         double angle = kp * current_error + ki * error_sum + kd * (current_error - previous_error);
 
+        // cap at +/- pi
+        if (angle > 3.14) {
+            angle = 3;
+        } else if (angle < -3.14) {
+            angle = -3;
+        }
+
         // calculate desired velocity based on steering angle
         double velocity;
-        if (fabs(angle) >= 0 && fabs(angle) <= 10) {
-            velocity = 3.0;
-        } else if (fabs(angle) <= 20) {
+        if (fabs(angle) >= 0 && fabs(angle) <= 0.15) {
+            velocity = 1.0;
+        } else if (fabs(angle) <= 0.5) {
             velocity = 1.0;
         } else {
-            velocity = 0.5;
+            velocity = 1.0;
         }
 
         auto drive_msg = ackermann_msgs::msg::AckermannDriveStamped();

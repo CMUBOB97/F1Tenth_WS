@@ -29,11 +29,12 @@ public:
         this->declare_parameter("dist_heuristic", 0.5);
         this->declare_parameter("car_width", 0.2032);
         this->declare_parameter("gap_depth_diff", 1.0);
-        this->declare_parameter("gap_velocity_ratio", 1.0);
+        this->declare_parameter("bubble_radius", 0.5);
         this->declare_parameter("disparity_threshold", 0.5);
         this->declare_parameter("throttle_level_1", 0.0);
         this->declare_parameter("throttle_level_2", 0.0);
         this->declare_parameter("throttle_level_3", 0.0);
+        this->declare_parameter("panic_threshold", 0.5);
 
         // read parameters
         std::string odom_topic = (this->get_parameter("odom_topic_name")).as_string();
@@ -42,11 +43,12 @@ public:
         k_dist = (this->get_parameter("dist_heuristic")).as_double();
         car_width = (this->get_parameter("car_width")).as_double();
         gap_depth_diff = (this->get_parameter("gap_depth_diff")).as_double();
-        k_gap_v = (this->get_parameter("gap_velocity_ratio")).as_double();
+        bubble_radius = (this->get_parameter("bubble_radius")).as_double();
         disp_thres = (this->get_parameter("disparity_threshold")).as_double();
         throttle_lvl_1 = (this->get_parameter("throttle_level_1")).as_double();
         throttle_lvl_2 = (this->get_parameter("throttle_level_2")).as_double();
         throttle_lvl_3 = (this->get_parameter("throttle_level_3")).as_double();
+        panic_threshold = (this->get_parameter("panic_threshold")).as_double();
 
         // subscribers
         laser_subscription_ = this->create_subscription<sensor_msgs::msg::LaserScan>("scan", 10,
@@ -80,7 +82,8 @@ private:
     // look ahead threshold and width/dist heuristics
     // all set with parameters in yaml file
     double look_ahead_dist, car_width, gap_depth_diff, disp_thres;
-    double k_width, k_dist, k_gap_v;
+    double k_width, k_dist;
+    double bubble_radius, panic_threshold;
 
     /// TODO: create ROS subscribers and publishers
     rclcpp::Publisher<ackermann_msgs::msg::AckermannDriveStamped>::SharedPtr ackermann_publisher_;
@@ -105,6 +108,7 @@ private:
         // record which direction this disparity should extend
         std::vector<bool> disp_to_left;
 
+        /*
         // step 0: smoothing over a 3-beam window
         for (int i = 0; i < (int)range_data.size(); i++) {
             double avg_range = range_data[i];
@@ -119,9 +123,10 @@ private:
             }
             range_data[i] = avg_range / beam_num;
         }
+        */
 
         // step 1: record disparity
-        for (size_t i = 0; i < (range_data.size() - 1); i++) {
+        for (size_t i = 1; i < (range_data.size() - 1); i++) {
 
             /*
              * rule for disparity evaluation:
@@ -131,12 +136,13 @@ private:
 
             double laser_diff_1 = range_data[i + 1] - range_data[i];
             double laser_diff_2 = range_data[i] - range_data[i + 1];
+            double prev_laser_diff = abs(range_data[i] - range_data[i - 1]);
 
             // if beam i + 1 is greater than beam i, extend to left
-            if (laser_diff_1 > disp_thres) {
+            if (laser_diff_1 > disp_thres && (laser_diff_1 / prev_laser_diff) > 10.0) {
                 disp_location.push_back(i);
                 disp_to_left.push_back(true);
-            } else if (laser_diff_2 > disp_thres) {
+            } else if (laser_diff_2 > disp_thres && (laser_diff_2 / prev_laser_diff) > 10.0) {
                 // if beam i is greater than beam i + 1, extend to right
                 disp_location.push_back(i + 1);
                 disp_to_left.push_back(false);
@@ -147,15 +153,15 @@ private:
         }
 
         // step 2: while loop, extend disparity
-        double half_car_width = car_width / 2;
+        
         double extend_radian_range;
-        int extend_index_range;
+        int extend_index_range, buffer = 5;
         size_t disp_index;
         bool disp_is_left;
 
         while (!disp_location.empty()) {
 
-            /*
+             /*
              * rule for extending disparity:
              * take the direction to extend
              * calculate extend angle range based on radian = w/2 / lidar
@@ -166,35 +172,63 @@ private:
             disp_is_left = disp_to_left.back();
             disp_to_left.pop_back();
 
-            extend_radian_range = half_car_width / range_data[disp_index];
-            extend_index_range = (int)ceil(extend_radian_range / angle_increment);
+            extend_radian_range = car_width / range_data[disp_index];
+            extend_index_range = (int)ceil(extend_radian_range / angle_increment) + buffer;
 
             if (disp_is_left) {
                 int left_end = ((disp_index + extend_index_range) >= range_data.size()) ?
                                 (range_data.size() - 1) : (disp_index + extend_index_range);
 
+                // RCLCPP_INFO(this->get_logger(), "mark %zu to %d to 0", disp_index + 1, left_end);
+
                 for (int j = disp_index + 1; j <= left_end; j++) {
                     range_data[j] = range_data[disp_index];
                 }
             } else {
-                int right_end = (((int)disp_index - (int)extend_index_range) < 0) ?
-                                 0 : (disp_index - extend_index_range); 
+                int right_end = (((int)disp_index - extend_index_range) < 0) ?
+                                 0 : ((int)disp_index - extend_index_range); 
 
-                for (int j = disp_index; j >= right_end; j--) {
+                // RCLCPP_INFO(this->get_logger(), "mark %zu to %d to 0", disp_index - 1, right_end);
+
+                for (int j = disp_index - 1; j >= right_end; j--) {
                     range_data[j] = range_data[disp_index];
                 }
             }
         }
 
-        // step 3: threshold distances proportional to velocity and too far away distance
-        double gap_dist_threshold = current_velocity * k_gap_v;
-        for (size_t k = 0; k < range_data.size(); k++) {
-            if (range_data[k] < gap_dist_threshold) {
+        // step 3: set safety bubble based on smallest distance and constrain look ahead
+        
+        double smallest_dist = look_ahead_dist;
+        int smallest_index = 0;
+        for (int k = 180; k < 900; k++) {
+            if (range_data[k] < smallest_dist) {
+                smallest_dist = range_data[k];
+                smallest_index = k;
+            }
+            // reject high values
+            if (range_data[k] > look_ahead_dist) {
+                // RCLCPP_INFO(this->get_logger(), "rejected high values at %d", k);
                 range_data[k] = 0.0f;
-            } else if (range_data[k] > look_ahead_dist) {
-                range_data[k] = look_ahead_dist;
             }
         }
+
+        // only bubbling if it is less than the panic threshold
+        
+        if (smallest_dist < panic_threshold) {
+            double bubble_radian_range = bubble_radius / smallest_dist;
+            int bubble_index_range = (int)ceil(bubble_radian_range / angle_increment);
+
+            int min_range = ((smallest_index - bubble_index_range) < 0) ?
+                            0 : (smallest_index - bubble_index_range);
+            int max_range = ((smallest_index + bubble_index_range) >= (int)range_data.size()) ? 
+                            (int)(range_data.size() - 1) : (smallest_index + bubble_index_range);
+
+            // RCLCPP_INFO(this->get_logger(), "set safety bubble around: %d to %d", min_range, max_range);
+            for (int i = min_range; i <= max_range; i++) {
+                range_data[i] = 0.0f;
+            }
+        }
+        
 
         return;
     }
@@ -220,74 +254,51 @@ private:
 
             // looking for gaps
 
-            // if dist is qualified
-            if (range_data[i] > 0.0f) {
-
-                // if a gap spike is observed
-                if (fabs(range_data[i] - range_data[i - 1]) > gap_depth_diff) {
+            // if dist is qualified AND it is not the last laser scan
+            if (range_data[i] > 0.01f && i != range_data.size() - 1) {
                     
-                    // if haven't seen valid gap before, start recording
-                    if (record_on == false) {
-                        record_on = true; // turn on record mode
-                    } else {
-                        // meaning that currently there is another gap being recorded
-                        
-                        // save the previous gap first
-                        curr_gap_width = i - gap_start;
-                        gap_width.push_back(curr_gap_width);
-
-                        for (size_t j = gap_start; j < i; j++) {
-                            curr_gap_avg_dist += range_data[j];
-                            curr_gap_com += range_data[j] * j;
-                        }
-
-                        // calculate com in radians
-                        curr_gap_com /= curr_gap_avg_dist; // this is still total distance
-                        curr_gap_com = angle_min + (curr_gap_com * angle_increment);
-                        
-                        curr_gap_avg_dist /= curr_gap_width; //  now it's average distance
-
-                        gap_com.push_back(curr_gap_com);
-                        gap_avg_dist.push_back(curr_gap_avg_dist);
-                    }
-
-                    // record start, reset calculations
-                    gap_start = i;
-                    curr_gap_width = 0;
-                    curr_gap_avg_dist = 0.0f;
-                    curr_gap_com = 0.0f;
+                // if haven't seen valid gap before, start recording
+                if (record_on == false) {
+                    // RCLCPP_INFO(this->get_logger(), "start recording at %d", i);
+                    record_on = true; // turn on record mode
+                    gap_start = i; // record gap start
                 }
-            } else {
-                // if dist is not qualified
+
+                // increment counter statistics
+                if (range_data[i] > curr_gap_avg_dist) {
+                    curr_gap_avg_dist = range_data[i];
+                    curr_gap_com = i * angle_increment + angle_min;
+                }
+            
+            } else { // either below the threshold or the last scan
 
                 // if seeing invalid point for the first time, end recording
                 if (record_on == true) {
 
                     record_on = false; // turn off recording
 
-                    // save the data
+                    // save the previous gap
                     curr_gap_width = i - gap_start;
                     gap_width.push_back(curr_gap_width);
 
-                    for (size_t j = gap_start; j < i; j++) {
-                        curr_gap_avg_dist += range_data[j];
-                        curr_gap_com += range_data[j] * j;
-                    }
-
-                    // calculate com in radians
-                    curr_gap_com /= curr_gap_avg_dist; // this is still total distance
-                    curr_gap_com = angle_min + (curr_gap_com * angle_increment);
-                    
-                    curr_gap_avg_dist /= curr_gap_width; //  now it's average distance
+                    // calculate the gap avg dist and com
+                    // curr_gap_com /= curr_gap_avg_dist;
+                    // curr_gap_avg_dist /= curr_gap_width;
 
                     gap_com.push_back(curr_gap_com);
                     gap_avg_dist.push_back(curr_gap_avg_dist);
+
+                    // RCLCPP_INFO(this->get_logger(), "gap from %zu to %d, avg dist: %f com: %f", gap_start, i, curr_gap_avg_dist, curr_gap_com);
+
+                    // reset calculations
+                    curr_gap_width = 0;
+                    curr_gap_avg_dist = 0.0f;
+                    curr_gap_com = 0.0f;
                 }
             
             }
             
         }
-
 
         return;
     }
@@ -318,7 +329,7 @@ private:
             gap_com.pop_back();
 
             // RCLCPP_INFO(this->get_logger(), "[gap option] width: %d avg_dist: %f com: %f",
-            //             curr_width, curr_avg_dist, curr_com);
+            //          curr_width, curr_avg_dist, curr_com);
 
             // evaluate based on the parameters
             double curr_gap_score = k_width * curr_width + k_dist * curr_avg_dist;
@@ -334,7 +345,7 @@ private:
         }
 
         // RCLCPP_INFO(this->get_logger(), "[best] width: %d avg_dist: %f com: %f",
-        //                 best_width, best_avg_dist, best_steering);
+        //                best_width, best_avg_dist, best_steering);
         
         return best_steering;
     }
