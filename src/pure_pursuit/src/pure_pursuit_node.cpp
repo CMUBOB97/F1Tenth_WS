@@ -50,7 +50,7 @@ private:
     // drive publisher
     rclcpp::Publisher<ackermann_msgs::msg::AckermannDriveStamped>::SharedPtr ackermann_publisher_;
 
-    // TODO: create listener to listen updates on ego_racecar/base_link
+    // create listener to listen updates on ego_racecar/base_link
     std::unique_ptr<tf2_ros::Buffer> tf_buffer_;
     std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
     

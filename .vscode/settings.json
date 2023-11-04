@@ -1,5 +1,5 @@
 {
-    "cmake.sourceDirectory": "/sim_ws/src/safety_node",
+    "cmake.sourceDirectory": "/home/chig/16663/sim_ws/src/lab6_pkg",
     "files.associations": {
         "string": "cpp",
         "array": "cpp",
