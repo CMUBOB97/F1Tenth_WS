@@ -7,8 +7,8 @@ pure_pursuit_node:
     waypoint_file_path: /sim_ws/src/pure_pursuit/waypoints/waypoints.txt
     waypoint_frame_id: map
     pose_to_listen: ego_racecar/base_link
-    look_ahead_dist: 1.25
-    forward_velocity: 1.25
+    look_ahead_dist: 1.5
+    forward_velocity: 1.5
     max_steering: 0.5
     steering_scale: 0.35
-    callback_interval: 500
+    odom_topic: ego_racecar/odom

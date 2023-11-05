@@ -44,19 +44,21 @@ private:
     // topic name for tf listener to listen
     std::string pose_to_listen;
 
+    // topic name for odom subscription
+    std::string odom_topic;
+
     // path publisher
     rclcpp::Publisher<nav_msgs::msg::Path>::SharedPtr path_publisher_;
     
     // drive publisher
     rclcpp::Publisher<ackermann_msgs::msg::AckermannDriveStamped>::SharedPtr ackermann_publisher_;
 
+    // subscribe to odom
+    rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odom_subscription_;
+
     // create listener to listen updates on ego_racecar/base_link
     std::unique_ptr<tf2_ros::Buffer> tf_buffer_;
     std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
-    
-    // time-based listener
-    rclcpp::TimerBase::SharedPtr timer_;
-    int time_interval;
 
     // index for last waypoint index
     int last_waypoint_index;
@@ -84,7 +86,7 @@ public:
         this->declare_parameter("forward_velocity", 1.0);
         this->declare_parameter("max_steering", 1.0);
         this->declare_parameter("steering_scale", 0.25);
-        this->declare_parameter("callback_interval", 1);
+        this->declare_parameter("odom_topic", "ego_racecar/odom");
 
         // read parameters
         waypoint_file_path = (this->get_parameter("waypoint_file_path")).as_string();
@@ -94,7 +96,7 @@ public:
         forward_velocity = (this->get_parameter("forward_velocity")).as_double();
         max_steering = (this->get_parameter("max_steering")).as_double();
         steering_scale = (this->get_parameter("steering_scale")).as_double();
-        time_interval = (this->get_parameter("callback_interval")).as_int();
+        odom_topic = (this->get_parameter("odom_topic")).as_string();
 
         // open the file
         waypoint_file.open(waypoint_file_path);
@@ -133,12 +135,13 @@ public:
         // create ackermann publisher
         ackermann_publisher_ = this->create_publisher<ackermann_msgs::msg::AckermannDriveStamped>("drive", 10);
 
+        // create odom subscription
+        odom_subscription_ = this->create_subscription<nav_msgs::msg::Odometry>(
+            odom_topic, 1, std::bind(&PurePursuit::pursuit_callback, this, std::placeholders::_1));
+        
         // transform listener with buffer
         tf_buffer_ = std::make_unique<tf2_ros::Buffer>(this->get_clock());
         tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);
-
-        // create timer
-        timer_ = this->create_wall_timer(100ms, std::bind(&PurePursuit::pursuit_callback, this));
 
         // initialize last waypoint index and path length
         last_waypoint_index = -1;
@@ -161,19 +164,23 @@ public:
         double x_diff = x2 - x1;
         double y_diff = y2 - y1;
         double a = x_diff * x_diff + y_diff * y_diff;
-        double b = 2 * (x_diff + y_diff);
+        double b = 2 * (x_diff * x1 + y_diff * y1);
         double c = x1 * x1 + y1 * y1 - look_ahead_dist * look_ahead_dist;
 
         // get interpolation fraction
         // set to 0 avoid algebra error
-        double frac = (-b + sqrt(max(b * b - 4 * a * c, 0.0))) / 2;
+        double quad_term = sqrt(max(b * b - 4 * a * c, 0.0));
+        double quad_sln = (-b + quad_term) / 2;
+        
+        // solution check, if cannot find a valid solution, set to second goal point
+        double frac = (quad_sln <= 1 && quad_sln >= 0) ? quad_sln : 1.0;
 
         // return y component
         return y1 + frac * y_diff;
 
     }
 
-    void pursuit_callback()
+    void pursuit_callback(const nav_msgs::msg::Odometry::ConstSharedPtr pose_msg)
     {
         // publish path msg
         path_msg.header.stamp = this->get_clock()->now();
@@ -196,6 +203,9 @@ public:
         // find the current waypoint using interpolation method
         int start_search_index = (last_waypoint_index == -1) ? 0 : last_waypoint_index;
         int search_count = 0;
+
+        // set goal found flag
+        bool goal_found = false;
 
         // name input and output poses
         geometry_msgs::msg::PoseStamped first_pose, second_pose;
@@ -228,34 +238,37 @@ public:
             // - both first and second frames are in front of the car
             if (shorter && longer && first_transformed.pose.position.x > 0.0f && second_transformed.pose.position.x > 0.0f) {
                 last_waypoint_index = first_frame_index;
+                goal_found = true;
                 break;
             } else {
                 search_count++;
             }
         }
 
-        // run interpolation
-        double y_heading = interpolate_points(first_transformed.pose.position.x,
-                                              first_transformed.pose.position.y,
-                                              second_transformed.pose.position.x,
-                                              second_transformed.pose.position.y);
+        // only update when a goal is found
+        if (goal_found == true) {
+            // run interpolation
+            double y_heading = interpolate_points(first_transformed.pose.position.x,
+                                                  first_transformed.pose.position.y,
+                                                  second_transformed.pose.position.x,
+                                                  second_transformed.pose.position.y);
+            // calculate curvature/steering angle and velocity (pure pursuit)
+            double steering = steering_scale * 2 * y_heading / (look_ahead_dist * look_ahead_dist);
 
-        // calculate curvature/steering angle and velocity (pure pursuit)
-        double steering = steering_scale * 2 * y_heading / (look_ahead_dist * look_ahead_dist);
+            // limit steering
+            steering = (steering > max_steering) ? max_steering : steering;
+            steering = (steering < -max_steering) ? -max_steering : steering;
 
-        // limit steering
-        steering = (steering > max_steering) ? max_steering : steering;
-        steering = (steering < -max_steering) ? -max_steering : steering;
+            // velocity scaled by steering
+            double velocity = forward_velocity / (0.75 + fabs(steering) * 1.25);
 
-        // velocity scaled by steering
-        double velocity = forward_velocity / (0.75 + fabs(steering) * 1.25);
+            // TODO: publish drive message, don't forget to limit the steering angle.
+            auto drive_msg = ackermann_msgs::msg::AckermannDriveStamped();
+            drive_msg.drive.steering_angle = steering;
+            drive_msg.drive.speed = velocity;
 
-        // TODO: publish drive message, don't forget to limit the steering angle.
-        auto drive_msg = ackermann_msgs::msg::AckermannDriveStamped();
-        drive_msg.drive.steering_angle = steering;
-        drive_msg.drive.speed = velocity;
-
-        ackermann_publisher_->publish(drive_msg);
+            ackermann_publisher_->publish(drive_msg);
+        }
     }
 
     ~PurePursuit() {}

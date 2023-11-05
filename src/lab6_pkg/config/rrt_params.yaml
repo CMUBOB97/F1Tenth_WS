@@ -1,0 +1,11 @@
+rrt_node:
+  ros__parameters:
+    num_of_samples: 100
+    look_ahead_dist: 2.0
+    step_size: 0.3
+    angle_sample_range: 1.5708
+    safety_padding: 0.3302
+    disparity_extend_range: 0.1016
+    waypoint_file_path: /sim_ws/src/lab6_pkg/waypoints/waypoints.txt
+    waypoint_frame_id: map
+    pose_to_listen: ego_racecar/base_link

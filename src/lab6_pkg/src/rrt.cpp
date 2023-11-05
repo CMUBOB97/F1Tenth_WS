@@ -16,6 +16,9 @@ RRT::RRT(): rclcpp::Node("rrt_node"), gen((std::random_device())()) {
     // ROS publishers
     // TODO: create publishers for the the drive topic, and other topics you might need
     drive_pub_ = this->create_publisher<ackermann_msgs::msg::AckermannDriveStamped>("drive", 10);
+    point_pub_ = this->create_publisher<geometry_msgs::msg::PointStamped>("goal_point", 10);
+    path_pub_ = this->create_publisher<nav_msgs::msg::Path>("global_path", 10);
+    processed_scan_pub_ = this->create_publisher<sensor_msgs::msg::LaserScan>("processed_scan", 10);
 
     // ROS subscribers
     // TODO: create subscribers as you need
@@ -52,9 +55,6 @@ RRT::RRT(): rclcpp::Node("rrt_node"), gen((std::random_device())()) {
 
     // initialize the occupancy grid (resize the vector)
     rrt_marks.markers.resize(num_of_samples);
-    
-    // initialize RRT data structure (resize the vector)
-    rrt.resize(num_of_samples);
 
     // transform listener with buffer
     tf_buffer_ = std::make_unique<tf2_ros::Buffer>(this->get_clock());
@@ -62,6 +62,9 @@ RRT::RRT(): rclcpp::Node("rrt_node"), gen((std::random_device())()) {
 
     // initialize last waypoint index
     last_waypoint_index = -1;
+
+    // initialize last heading angle
+    last_heading = 0.0f;
 
     RCLCPP_INFO(rclcpp::get_logger("RRT"), "%s\n", "Created new RRT Object.");
 }
@@ -74,6 +77,28 @@ void RRT::scan_callback(const sensor_msgs::msg::LaserScan::ConstSharedPtr scan_m
     //
 
     // TODO: update your occupancy grid
+    // this is used in step 2 for pose callback
+
+    // acquire the laser scan
+    std::vector<float> laser_values = scan_msg->ranges;
+
+    // process it
+    process_scan(laser_values);
+
+    // publish the processed scan for debugging purpose
+    auto processed_laser_msg = sensor_msgs::msg::LaserScan();
+    processed_laser_msg.header = scan_msg->header;
+    processed_laser_msg.angle_min = angle_min;
+    processed_laser_msg.angle_max = angle_max;
+    processed_laser_msg.angle_increment = angle_increment;
+    processed_laser_msg.time_increment = scan_msg->time_increment;
+    processed_laser_msg.scan_time = scan_msg->scan_time;
+    processed_laser_msg.range_min = scan_msg->range_min;
+    processed_laser_msg.range_max = scan_msg->range_max;
+    processed_laser_msg.ranges = laser_values;
+    processed_laser_msg.intensities = scan_msg->intensities;
+    processed_scan_pub_->publish(processed_laser_msg);
+
 }
 
 void RRT::pose_callback(const nav_msgs::msg::Odometry::ConstSharedPtr pose_msg) {
@@ -89,9 +114,28 @@ void RRT::pose_callback(const nav_msgs::msg::Odometry::ConstSharedPtr pose_msg) 
 
     // TODO: fill in the RRT main loop
 
+    // step 0: publish path
+    path_msg.header.stamp = this->get_clock()->now();
+    path_pub_->publish(path_msg);
+    
 
+    // step 1: find the goal direction with fixed look ahead distance
+    double goal_direction = find_goal_point();
+    goal_direction = (goal_direction == -PI) ? last_heading : goal_direction;
 
-    // path found as Path message
+    // step 2: process lidar scan, check if goal direction is blocked
+
+    // step 3: sample angles and expand the tree (record furtherest route)
+    // during sampling, expand occupancy grid (ros vis marker array)
+
+    // step 4: path selection
+    // - first, select the path to goal
+    // - second, (if goal is blocked) select the path that get to the look ahead distance
+    // - third, (if iterations are exhausted) select the recorded furtherest path
+
+    // step 5: produce a path found as Path message
+
+    // step 6: command steering
 
 }
 
@@ -273,6 +317,9 @@ void RRT::log_waypoints() {
     RCLCPP_INFO(this->get_logger(), "waypoints loaded");
     waypoint_file.close();
 
+    // define path_msg relative frame
+    path_msg.header.frame_id = waypoint_frame_id;
+
     // update path length
     path_length = (int)path_msg.poses.size();
 }
@@ -299,6 +346,10 @@ double RRT::find_goal_point() {
     // find the current waypoint using interpolation method
     int start_search_index = (last_waypoint_index == -1) ? 0 : last_waypoint_index;
     int search_count = 0;
+
+    // set heading found status
+    bool heading_found = false;
+    double heading;
 
     // name input and output poses
     geometry_msgs::msg::PoseStamped first_pose, second_pose;
@@ -331,17 +382,24 @@ double RRT::find_goal_point() {
         // - both first and second frames are in front of the car
         if (shorter && longer && first_transformed.pose.position.x > 0.0f && second_transformed.pose.position.x > 0.0f) {
             last_waypoint_index = first_frame_index;
+            heading_found = true;
             break;
         } else {
             search_count++;
         }
     }
 
-    // run interpolation
-    double heading = interpolate_points(first_transformed.pose.position.x,
-                                        first_transformed.pose.position.y,
-                                        second_transformed.pose.position.x,
-                                        second_transformed.pose.position.y);
+    if (heading_found) {
+        // run interpolation
+        heading = interpolate_points(first_transformed.pose.position.x,
+                                     first_transformed.pose.position.y,
+                                     second_transformed.pose.position.x,
+                                     second_transformed.pose.position.y);
+        // update last heading
+        last_heading = heading;
+    } else {
+        heading = -PI;
+    }
 
     return heading;
 }
@@ -353,8 +411,39 @@ double RRT::interpolate_points(double x1, double y1, double x2, double y2) {
     // return the heading angle of that interpolated
     // goal point
 
-    // to be done
-    return 0.0f;
+    // assuming that x1, y1 are within the radius, and x2, y2 are outside the radius
+    double x_diff = x2 - x1;
+    double y_diff = y2 - y1;
+    double a = x_diff * x_diff + y_diff * y_diff;
+    double b = 2 * (x_diff * x1 + y_diff * y1);
+    double c = x1 * x1 + y1 * y1 - look_ahead_dist * look_ahead_dist;
+
+    // get interpolation fraction
+    // set to 0 avoid algebra error
+    double quad_term = sqrt(max(b * b - 4 * a * c, 0.0));
+    double quad_sln = (-b + quad_term) / 2;
+    
+    // solution check, if cannot find a valid solution, set to second goal point
+    double frac = (quad_sln <= 1 && quad_sln >= 0) ? quad_sln : 1.0;
+
+    // get new x and y
+    double x_new = x1 + frac * x_diff;
+    double y_new = y1 + frac * y_diff;
+
+    // publish that as a point, check correctness on rviz
+    auto point_msg = geometry_msgs::msg::PointStamped();
+    point_msg.header.stamp = this->get_clock()->now();
+    point_msg.header.frame_id = pose_to_listen;
+    point_msg.point.x = x_new;
+    point_msg.point.y = y_new;
+    point_msg.point.z = 0;
+    point_pub_->publish(point_msg);
+
+    // calculate angle
+    double goal_angle = atan2(y_new, x_new);
+
+    // return y component
+    return goal_angle;
 }
 
 double RRT::euclidean_dist(double x, double y) {
@@ -363,5 +452,25 @@ double RRT::euclidean_dist(double x, double y) {
     // assuming from (0, 0)
     // return dist
 
-    return sqrt(x* x + y * y);
+    return sqrt(x * x + y * y);
+}
+
+void RRT::process_scan(std::vector<float>& scan) {
+
+    // process the laser scan to
+    // - buffer the walls by car's length
+    // - extend disparities by car's width
+    // this creates a occupancy grid (configuration space)
+    // for car to traverse through
+
+    for (size_t i = 0; i < scan.size(); i++) {
+
+        // buffer by car's length
+        scan[i] -= safety_padding;
+
+    }
+
+    // (optional) TODO: smooth laser readings over a window (3 or 5)
+
+    // extend disparities observed
 }

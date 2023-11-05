@@ -17,6 +17,7 @@
 #include "nav_msgs/msg/odometry.hpp"
 #include "ackermann_msgs/msg/ackermann_drive_stamped.hpp"
 #include "geometry_msgs/msg/pose_stamped.hpp"
+#include "geometry_msgs/msg/point_stamped.hpp"
 #include "visualization_msgs/msg/marker.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
 #include "nav_msgs/msg/path.hpp"
@@ -29,9 +30,6 @@
 /// CHECK: include needed ROS msg type headers and libraries
 
 using namespace std;
-
-// define constants to use
-const double PI = 3.1415926536;
 
 // Struct defining the RRT_Node object in the RRT tree.
 // defined in polar coordinate fashion
@@ -50,7 +48,7 @@ public:
     virtual ~RRT();
 private:
 
-    // TODO: add the publishers and subscribers you need
+    // add the publishers and subscribers you need
 
     rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr pose_sub_;
     rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr scan_sub_;
@@ -58,10 +56,25 @@ private:
     // add drive publisher
     rclcpp::Publisher<ackermann_msgs::msg::AckermannDriveStamped>::SharedPtr drive_pub_;
 
+    // add path publisher for debug
+    rclcpp::Publisher<nav_msgs::msg::Path>::SharedPtr path_pub_;
+
+    // add point publisher for debug
+    rclcpp::Publisher<geometry_msgs::msg::PointStamped>::SharedPtr point_pub_;
+
+    // add processed laser (occupancy grid) publisher for debug
+    rclcpp::Publisher<sensor_msgs::msg::LaserScan>::SharedPtr processed_scan_pub_;
+
     // random generator, use this
     std::mt19937 gen;
     std::uniform_real_distribution<> x_dist;
     std::uniform_real_distribution<> y_dist;
+
+    // constants for laser properties
+    const double PI = 3.1415926536;
+    const double angle_min = -2.3499999046325684;
+    const double angle_max = 2.3499999046325684;
+    const double angle_increment = 0.004351851996034384;
 
     // parameters for RRT
     int num_of_samples;
@@ -79,6 +92,9 @@ private:
     std::string toFrame;
     int last_waypoint_index;
 
+    // define last heading angle
+    double last_heading;
+
     // listener to listen updates on pose_to_listen
     std::unique_ptr<tf2_ros::Buffer> tf_buffer_;
     std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
@@ -92,7 +108,9 @@ private:
     nav_msgs::msg::Path path_msg;
     int path_length;
     visualization_msgs::msg::MarkerArray rrt_marks;
-    std::vector<RRT_Node> rrt;
+
+    // vector for processed laser scan
+    std::vector<float> processed_scan;
 
     // callbacks
     // where rrt actually happens
@@ -117,5 +135,6 @@ private:
     double find_goal_point();
     double interpolate_points(double x1, double y1, double x2, double y2);
     double euclidean_dist(double x, double y);
+    void process_scan(std::vector<float>& scan);
 };
 
