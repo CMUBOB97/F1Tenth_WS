@@ -109,7 +109,7 @@ void RRT::scan_callback(const sensor_msgs::msg::LaserScan::ConstSharedPtr scan_m
             int angle_index = (angle_cell - angle_min) / angle_increment;
 
             // check if distance match
-            if (dist_cell >= laser_values[angle_index]) {
+            if (dist_cell >= laser_values[angle_index] - safety_padding) {
                 rrt_grid.data[i * grid_width + j] = 100;
             }
         }
@@ -204,9 +204,18 @@ void RRT::pose_callback(const nav_msgs::msg::Odometry::ConstSharedPtr pose_msg) 
     // - third, (if iterations are exhausted) select the recorded furtherest path
     std::vector<RRT_Node> path_points = find_path(tree, tree.back());
 
-    // visualize path found as Path message
-
     // step 4: command steering
+    // strategy: use the first steering
+    RRT_Node steering_node = path_points[path_points.size() - 2];
+    double steering_angle = atan2(steering_node.y, steering_node.x);
+    double velocity = 0.25 + 1 / (steering_angle + 2);
+
+    // command drive
+    auto drive_msg = ackermann_msgs::msg::AckermannDriveStamped();
+    drive_msg.drive.steering_angle = steering_angle;
+    drive_msg.drive.speed = velocity;
+
+    drive_pub_->publish(drive_msg);
 
 }
 
@@ -688,7 +697,7 @@ void RRT::create_marker(RRT_Node &nearest_node, RRT_Node &new_node) {
     new_mark.color.r = 0.0;
     new_mark.color.g = 1.0;
     new_mark.color.b = 0.0;
-    new_mark.lifetime = rclcpp::Duration::from_seconds(0.5);
+    new_mark.lifetime = rclcpp::Duration::from_seconds(0.1);
 
     // push the points in the array
     geometry_msgs::msg::Point start_point, end_point;
