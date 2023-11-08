@@ -35,8 +35,8 @@ using namespace std;
 // defined in polar coordinate fashion
 // distance to current position and angle
 typedef struct RRT_Node {
-    double angle; // relative to current pose heading
-    double dist; // dist to pose, can be used for optimization
+    double x, y; // relative to current pose
+    double cost; // cost to parent, can be used for RRT*
     int parent; // index of parent node in the tree vector
     bool is_root = false;
 } RRT_Node;
@@ -62,11 +62,18 @@ private:
     // add point publisher for debug
     rclcpp::Publisher<geometry_msgs::msg::PointStamped>::SharedPtr point_pub_;
 
-    // add processed laser (occupancy grid) publisher for debug
+    // add processed laser publisher for debug
     rclcpp::Publisher<sensor_msgs::msg::LaserScan>::SharedPtr processed_scan_pub_;
+
+    // add occupancy grid publisher for debug
+    rclcpp::Publisher<nav_msgs::msg::OccupancyGrid>::SharedPtr occupancy_grid_pub_;
+
+    // add visualization marker array publisher for debug
+    rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr vis_marker_array_pub_;
 
     // random generator, use this
     std::mt19937 gen;
+    std::uniform_real_distribution<> sample_type;
     std::uniform_real_distribution<> x_dist;
     std::uniform_real_distribution<> y_dist;
 
@@ -76,10 +83,16 @@ private:
     const double angle_max = 2.3499999046325684;
     const double angle_increment = 0.004351851996034384;
 
+    // constants for tree expansion status
+    const int TRAPPED = 0;
+    const int ADVANCED = 1;
+    const int REACHED = 2;
+
     // parameters for RRT
     int num_of_samples;
     double look_ahead_dist;
     double step_size;
+    double goal_sample_rate;
     double angle_sample_range;
     double safety_padding;
     double disparity_extend_range;
@@ -103,11 +116,18 @@ private:
     // - path file
     // - path
     // - occupancy grid
-    // - rrt
+    // - rrt visualization
     ifstream waypoint_file;
     nav_msgs::msg::Path path_msg;
     int path_length;
+    nav_msgs::msg::OccupancyGrid rrt_grid;
     visualization_msgs::msg::MarkerArray rrt_marks;
+    int marker_id;
+
+    // parameters used for occupancy grid
+    int grid_width;
+    int grid_height;
+    double grid_resolution;
 
     // vector for processed laser scan
     std::vector<float> processed_scan;
@@ -119,11 +139,11 @@ private:
     void scan_callback(const sensor_msgs::msg::LaserScan::ConstSharedPtr scan_msg);
 
     // RRT methods
-    std::vector<double> sample();
+    std::vector<double> sample(std::vector<double> &goal, bool goal_status);
     int nearest(std::vector<RRT_Node> &tree, std::vector<double> &sampled_point);
-    RRT_Node steer(RRT_Node &nearest_node, std::vector<double> &sampled_point);
+    int extend(std::vector<RRT_Node> &tree, int nearest_node_index, std::vector<double> &sampled_point, std::vector<double> &goal_point, bool goal_status);
     bool check_collision(RRT_Node &nearest_node, RRT_Node &new_node);
-    bool is_goal(RRT_Node &latest_added_node, double goal_x, double goal_y);
+    bool is_goal(RRT_Node &latest_added_node, std::vector<double> &goal_point, bool goal_status);
     std::vector<RRT_Node> find_path(std::vector<RRT_Node> &tree, RRT_Node &latest_added_node);
     // RRT* methods
     double cost(std::vector<RRT_Node> &tree, RRT_Node &node);
@@ -132,9 +152,11 @@ private:
 
     // helper functions
     void log_waypoints();
-    double find_goal_point();
-    double interpolate_points(double x1, double y1, double x2, double y2);
+    void find_goal_point(std::vector<double> &goal_point);
+    void interpolate_points(double x1, double y1, double x2, double y2, std::vector<double> &goal_point);
     double euclidean_dist(double x, double y);
     void process_scan(std::vector<float>& scan);
+    void init_grid();
+    void create_marker(RRT_Node &nearest_node, RRT_Node &new_node);
 };
 
