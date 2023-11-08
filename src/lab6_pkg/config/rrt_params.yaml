@@ -6,6 +6,9 @@ rrt_node:
     angle_sample_range: 1.5708
     safety_padding: 0.3302
     disparity_extend_range: 0.1016
+    grid_width: 100
+    grid_height: 100
+    grid_resolution: 0.03
     waypoint_file_path: /sim_ws/src/lab6_pkg/waypoints/waypoints.txt
     waypoint_frame_id: map
     pose_to_listen: ego_racecar/base_link
