@@ -6,9 +6,9 @@ pure_pursuit_node:
   ros__parameters:
     waypoint_file_path: /sim_ws/src/pure_pursuit/waypoints/waypoints.txt
     waypoint_frame_id: map
-    pose_to_listen: ego_racecar/base_link
+    pose_to_listen: base_link
     look_ahead_dist: 1.5
-    forward_velocity: 1.5
+    forward_velocity: 2.0
     max_steering: 0.5
     steering_scale: 0.35
-    odom_topic: ego_racecar/odom
+    odom_topic: odom
