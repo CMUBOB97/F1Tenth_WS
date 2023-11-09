@@ -9,4 +9,4 @@ wall_follow_node:
     angle_range: 1.2217
     valid_reading_range: 20.0
     following_left_wall: True
-    odom_topic_name: ego_racecar/odom
+    odom_topic_name: odom

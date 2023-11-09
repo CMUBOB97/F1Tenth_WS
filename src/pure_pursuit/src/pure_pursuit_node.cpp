@@ -247,6 +247,8 @@ public:
 
         // only update when a goal is found
         if (goal_found == true) {
+	    // debug message
+	    RCLCPP_INFO(this->get_logger(), "goal point found");
             // run interpolation
             double y_heading = interpolate_points(first_transformed.pose.position.x,
                                                   first_transformed.pose.position.y,
