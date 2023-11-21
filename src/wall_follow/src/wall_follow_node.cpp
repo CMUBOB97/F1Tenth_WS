@@ -222,11 +222,11 @@ private:
         // calculate desired velocity based on steering angle
         double velocity;
         if (fabs(angle) >= 0 && fabs(angle) <= 0.15) {
-            velocity = 2.0;
-        } else if (fabs(angle) <= 0.5) {
             velocity = 1.5;
-        } else {
+        } else if (fabs(angle) <= 0.5) {
             velocity = 1.0;
+        } else {
+            velocity = 0.5;
         }
 
         auto drive_msg = ackermann_msgs::msg::AckermannDriveStamped();

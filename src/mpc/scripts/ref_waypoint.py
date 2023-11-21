@@ -22,7 +22,7 @@ class logWaypoint(Node):
         self.lastTime = 0
 
     def pose_back(self, msg):
-        if msg.header.stamp.sec - self.lastTime > 0.1:
+        if msg.header.stamp.sec - self.lastTime > 0.25:
             print("saving waypoint" , msg.header.stamp.sec)
             quaternion = np.array([msg.pose.pose.orientation.x,
                                 msg.pose.pose.orientation.y,
