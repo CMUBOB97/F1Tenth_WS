@@ -58,4 +58,5 @@ def nearest_point(point, trajectory):
         temp = point - projections[i]
         dists[i] = np.sqrt(np.sum(temp*temp))
     min_dist_segment = np.argmin(dists)
+    print("min point: ", min_dist_segment)
     return projections[min_dist_segment], dists[min_dist_segment], t[min_dist_segment], min_dist_segment

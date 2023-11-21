@@ -3,7 +3,7 @@ wall_follow_node:
     kp: 0.5
     ki: 0.0
     kd: 0.1
-    dist: 1.0
+    dist: 1.25
     beam_a_start: 1.5708
     beam_b_start: 0.6345
     angle_range: 1.2217
