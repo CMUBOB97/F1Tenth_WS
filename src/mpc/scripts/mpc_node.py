@@ -30,10 +30,10 @@ class mpc_config:
         default_factory=lambda: np.diag([0.01, 100.0])
     )  # input cost matrix, penalty for inputs - [accel, steering]
     Rdk: list = field(
-        default_factory=lambda: np.diag([0.01, 400.0])
+        default_factory=lambda: np.diag([0.01, 1000.0])
     )  # input difference cost matrix, penalty for change of inputs - [accel, steering]
     Qk: list = field(
-        default_factory=lambda: np.diag([20.0, 20.0, 20.0, 5.5])
+        default_factory=lambda: np.diag([50.0, 50.0, 50.0, 5.5])
     )  # state error cost matrix, for the the next (T) prediction time steps [x, y, v, yaw]
     Qfk: list = field(
         default_factory=lambda: np.diag([15.0, 15.0, 15.0, 5.5])
@@ -53,7 +53,7 @@ class mpc_config:
     MIN_SPEED: float = 0.0  # minimum backward speed [m/s]
     MAX_ACCEL: float = 3.0  # maximum acceleration [m/ss]
 
-    DEBUG: int = 1 # mpc debug flag
+    DEBUG: int = 0 # mpc debug flag
     FRAME_ID = "map" # frame id name
 
 
@@ -97,6 +97,9 @@ class MPC(Node):
                                pose_msg.pose.pose.orientation.z,
                                pose_msg.pose.pose.orientation.w])
         euler = euler_from_quaternion(quaternion)
+        euler_in_2pi = euler[2]
+        if euler_in_2pi < 0:
+            euler_in_2pi += 2 * np.pi
 
         # TODO: Calculate the next reference trajectory for the next T steps
         # with current vehicle pose.
@@ -107,7 +110,7 @@ class MPC(Node):
         vehicle_state = State(x=pose_msg.pose.pose.position.x,
                               y=pose_msg.pose.pose.position.y,
                               v=pose_msg.twist.twist.linear.x,
-                              yaw=euler[2])
+                              yaw=euler_in_2pi)
 
         """                     
         R_map_to_odom = np.array([[np.cos(euler[2]), -np.sin(euler[2])],
@@ -122,6 +125,7 @@ class MPC(Node):
         ref_x = self.waypoints[:, 0]
         ref_y = self.waypoints[:, 1]
         ref_yaw = self.waypoints[:, 2]
+        ref_yaw[ref_yaw < 0] += 2 * np.pi
         ref_v = self.waypoints[:, 3]
 
         ref_path = self.calc_ref_trajectory(vehicle_state, ref_x, ref_y, ref_yaw, ref_v)
@@ -387,9 +391,6 @@ class MPC(Node):
         )
         state.v = state.v + a * self.config.DTK
 
-        if self.config.DEBUG == 1:
-            print("predicted path heading: ", state.yaw)
-
         if state.v > self.config.MAX_SPEED:
             state.v = self.config.MAX_SPEED
         elif state.v < self.config.MIN_SPEED:
@@ -493,6 +494,9 @@ class MPC(Node):
         # Call the Motion Prediction function: Predict the vehicle motion for x-steps
         path_predict = self.predict_motion(x0, oa, od, ref_path)
         poa, pod = oa[:], od[:]
+
+        if self.config.DEBUG == 1:
+            print("predicted path", path_predict)
 
         # Run the MPC optimization: Create and solve the optimization problem
         mpc_a, mpc_delta, mpc_x, mpc_y, mpc_yaw, mpc_v = self.mpc_prob_solve(
