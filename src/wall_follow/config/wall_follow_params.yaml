@@ -3,9 +3,9 @@ wall_follow_node:
     kp: 0.5
     ki: 0.0
     kd: 0.1
-    dist: 1.0
+    dist: 0.75
     beam_a_start: 1.5708
-    beam_b_start: 0.6345
+    beam_b_start: 1.0000
     angle_range: 1.2217
     valid_reading_range: 20.0
     following_left_wall: True

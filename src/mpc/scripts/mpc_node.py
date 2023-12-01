@@ -42,7 +42,7 @@ class mpc_config:
 
     N_IND_SEARCH: int = 20  # Search index number
     DTK: float = 0.1  # time step [s] kinematic
-    dlk: float = 0.4  # dist step [m] kinematic
+    dlk: float = 0.2  # dist step [m] kinematic
     LENGTH: float = 0.58  # Length of the vehicle [m]
     WIDTH: float = 0.31  # Width of the vehicle [m]
     WB: float = 0.33  # Wheelbase [m]
@@ -53,7 +53,7 @@ class mpc_config:
     MIN_SPEED: float = 0.0  # minimum backward speed [m/s]
     MAX_ACCEL: float = 3.0  # maximum acceleration [m/ss]
 
-    DEBUG: int = 0 # mpc debug flag
+    DEBUG: int = 1 # mpc debug flag
     FRAME_ID = "map" # frame id name
 
 
@@ -73,12 +73,12 @@ class MPC(Node):
         super().__init__('mpc_node')
         # create ROS subscribers and publishers
         # use the MPC as a tracker (similar to pure pursuit)
-        self.odom_sub = self.create_subscription(Odometry, 'ego_racecar/odom', self.pose_callback, 10)
+        self.odom_sub = self.create_subscription(Odometry, 'odom', self.pose_callback, 10)
         self.drive_pub = self.create_publisher(AckermannDriveStamped, 'drive', 10)
         self.path_pub = self.create_publisher(Path, 'mpc_path', 10)
 
         # get waypoints here in numpy array format
-        file_path = '/sim_ws/src/mpc/waypoint.csv'
+        file_path = '/home/jmoney3/F1Tenth_WS/src/mpc/waypoint.csv'
         self.waypoints = np.genfromtxt(file_path, delimiter=',')
 
         self.config = mpc_config()

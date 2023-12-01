@@ -13,12 +13,12 @@ from tf_transformations import euler_from_quaternion  # sudo apt install ros-fox
 import time
 import csv
 
-filename = "/sim_ws/src/mpc/waypoint.csv"
+filename = "/home/jmoney3/F1Tenth_WS/src/mpc/waypoint.csv"
 
 class logWaypoint(Node):
     def __init__(self):
         super().__init__('log_waypoint')
-        self.odom_subscriber = self.create_subscription(Odometry, '/ego_racecar/odom',self.pose_back, 10)
+        self.odom_subscriber = self.create_subscription(Odometry, 'odom',self.pose_back, 10)
         self.lastTime = 0
 
     def pose_back(self, msg):
