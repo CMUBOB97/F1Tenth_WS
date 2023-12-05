@@ -34,13 +34,13 @@ public:
         std::string odom_topic = (this->get_parameter("odom_topic_name")).as_string();
 
         // subscribers
-        laser_subscription_ = this->create_subscription<sensor_msgs::msg::LaserScan>("scan", 10,
+        laser_subscription_ = this->create_subscription<sensor_msgs::msg::LaserScan>("opp_scan", 10,
                               std::bind(&WallFollow::scan_callback, this, _1));
         odom_subscription_ = this->create_subscription<nav_msgs::msg::Odometry>(odom_topic, 10,
                               std::bind(&WallFollow::drive_callback, this, _1));
 
         // publishers
-        ackermann_publisher_ = this->create_publisher<ackermann_msgs::msg::AckermannDriveStamped>("drive", 10);
+        ackermann_publisher_ = this->create_publisher<ackermann_msgs::msg::AckermannDriveStamped>("opp_drive", 10);
     }
 
 private:
@@ -222,7 +222,7 @@ private:
         // calculate desired velocity based on steering angle
         double velocity;
         if (fabs(angle) >= 0 && fabs(angle) <= 0.15) {
-            velocity = 1.5;
+            velocity = 1.0;
         } else if (fabs(angle) <= 0.5) {
             velocity = 1.0;
         } else {
