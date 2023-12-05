@@ -27,7 +27,10 @@ RRT::RRT() : rclcpp::Node("rrt_node"), gen((std::random_device())())
     // ROS subscribers
     // TODO: create subscribers as you need
     string pose_topic = "ego_racecar/odom";
+    string drive_topic = "drive";
     string scan_topic = "/scan";
+    drive_sub_ = this->create_subscription<ackermann_msgs::msg::AckermannDriveStamped>(
+      drive_topic, 1, std::bind(&RRT::drive_callback, this, std::placeholders::_1));
     pose_sub_ = this->create_subscription<nav_msgs::msg::Odometry>(
         pose_topic, 1, std::bind(&RRT::pose_callback, this, std::placeholders::_1));
     scan_sub_ = this->create_subscription<sensor_msgs::msg::LaserScan>(
@@ -81,15 +84,14 @@ RRT::RRT() : rclcpp::Node("rrt_node"), gen((std::random_device())())
 
     RCLCPP_INFO(rclcpp::get_logger("RRT"), "%s\n", "Created new RRT Object.");
 }
+// The drive callback, update last steering angle commanded here
+void RRT::drive_callback(const ackermann_msgs::msg::AckermannDriveStamped::ConstSharedPtr drive_msg) {
+    last_steering = drive_msg->drive.steering_angle;
+}
 
-void RRT::scan_callback(const sensor_msgs::msg::LaserScan::ConstSharedPtr scan_msg)
-{
-    // The scan callback, update your occupancy grid here
-    // Args:
-    //    scan_msg (*LaserScan): pointer to the incoming scan message
-    // Returns:
-    //
-
+// The scan callback, update your occupancy grid here
+void RRT::scan_callback(const sensor_msgs::msg::LaserScan::ConstSharedPtr scan_msg) {
+    
     // acquire the laser scan
     std::vector<float> laser_values = scan_msg->ranges;
 
@@ -154,8 +156,6 @@ void RRT::scan_callback(const sensor_msgs::msg::LaserScan::ConstSharedPtr scan_m
  */
 void RRT::pose_callback(const nav_msgs::msg::Odometry::ConstSharedPtr pose_msg)
 {
-    // create kinematic constraints object
-    static KinematicConstraints car_constraints(-3.0, 3.0, 6.0, 0.4189, 0.0);
 
     // tree as std::vector
     std::vector<RRT_Node> tree = {};
@@ -167,8 +167,7 @@ void RRT::pose_callback(const nav_msgs::msg::Odometry::ConstSharedPtr pose_msg)
     root.state.t = 0.0f;
     root.state.yaw = 0.0f;
     root.state.vel = pose_msg->twist.twist.linear.x;
-    // TODO: update steering here (done by subscriber on AckermannDrive)
-    root.state.alpha = 0.0f;
+    root.state.alpha = last_steering;
     root.cost = 0.0f;
     root.parent = -1;
     root.is_root = true;
@@ -228,8 +227,9 @@ void RRT::pose_callback(const nav_msgs::msg::Odometry::ConstSharedPtr pose_msg)
     // step 4: command steering
     // strategy: use the first steering
     RRT_Node steering_node = path_points[path_points.size() - 2];
-    double steering_angle = atan2(steering_node.state.y, steering_node.state.x);
-    double velocity = 0.25 + 1 / (steering_angle + 0.75);
+    double steering_angle = steering_node.state.alpha;
+    // double velocity = 0.25 + 1 / (steering_angle + 0.75);
+    double velocity = steering_node.state.vel;
 
     // command drive
     auto drive_msg = ackermann_msgs::msg::AckermannDriveStamped();
@@ -250,6 +250,9 @@ void RRT::pose_callback(const nav_msgs::msg::Odometry::ConstSharedPtr pose_msg)
  */
 std::vector<double> RRT::sample(std::vector<double> &goal, bool goal_status)
 {
+    // create kinematic constraints object
+    static KinematicConstraints car_constraints(-3.0, 3.0, 6.0, 0.4189, 0.0);
+    
     // random x, y, yaw, velocity
     double rand_x, rand_y, rand_yaw, rand_vel;
 
@@ -269,8 +272,8 @@ std::vector<double> RRT::sample(std::vector<double> &goal, bool goal_status)
     {
         rand_x = grid_resolution * grid_width * x_dist(gen);
         rand_y = grid_resolution * grid_height * (y_dist(gen) - 0.5f);
-        rand_yaw = pi / 4 * (yaw_gen(gen) - 0.5f);
-        rand_vel = 6 * vel_gen(gen);
+        rand_yaw = max_yaw * (yaw_gen(gen) - 0.5f);
+        rand_vel = max_vel * vel_gen(gen);
     }
 
     std::vector<double> sampled_point = {rand_x, rand_y, rand_yaw, rand_vel};

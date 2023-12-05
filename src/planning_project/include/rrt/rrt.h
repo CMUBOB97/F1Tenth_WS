@@ -58,6 +58,7 @@ private:
 
     rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr pose_sub_;
     rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr scan_sub_;
+    rclcpp::Subscription<ackermann_msgs::msg::AckermannDriveStamped>::SharedPtr drive_sub_;
 
     // add drive publisher
     rclcpp::Publisher<ackermann_msgs::msg::AckermannDriveStamped>::SharedPtr drive_pub_;
@@ -114,8 +115,8 @@ private:
     std::string toFrame;
     int last_waypoint_index;
 
-    // define last heading angle
-    double last_heading;
+    // define last steering angle
+    double last_steering;
 
     // listener to listen updates on pose_to_listen
     std::unique_ptr<tf2_ros::Buffer> tf_buffer_;
@@ -146,6 +147,8 @@ private:
     void pose_callback(const nav_msgs::msg::Odometry::ConstSharedPtr pose_msg);
     // updates occupancy grid
     void scan_callback(const sensor_msgs::msg::LaserScan::ConstSharedPtr scan_msg);
+    // subscribe to drive topic steering
+    void drive_callback(const ackermann_msgs::msg::AckermannDriveStamped::ConstSharedPtr drive_msg);
 
     // RRT methods
     std::vector<double> sample(std::vector<double> &goal, bool goal_status);
