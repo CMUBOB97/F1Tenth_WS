@@ -3,7 +3,6 @@
 // Make sure you have read through the header file as well
 
 #include "rrt/rrt.h"
-#include "car_state.h"
 
 // Destructor of the RRT class
 RRT::~RRT() {
@@ -43,6 +42,8 @@ RRT::RRT(): rclcpp::Node("rrt_node"), gen((std::random_device())()) {
     this->declare_parameter("grid_width", 100);
     this->declare_parameter("grid_height", 200);
     this->declare_parameter("grid_resolution", 0.03);
+    this->declare_parameter("max_yaw", PI/4);
+    this->declare_parameter("max_vel", 6.0);
     this->declare_parameter("waypoint_file_path", "/sim_ws/src/planning_project/waypoints/waypoints.txt");
     this->declare_parameter("waypoint_frame_id", "map");
     this->declare_parameter("pose_to_listen", "ego_racecar/base_link");
@@ -57,6 +58,8 @@ RRT::RRT(): rclcpp::Node("rrt_node"), gen((std::random_device())()) {
     grid_width = (this->get_parameter("grid_width")).as_int();
     grid_height = (this->get_parameter("grid_height")).as_int();
     grid_resolution = (this->get_parameter("grid_resolution")).as_double();
+    max_yaw = (this->get_parameter("max_yaw")).as_double();
+    max_vel = (this->get_parameter("max_vel")).as_double();
     waypoint_file_path = (this->get_parameter("waypoint_file_path")).as_string();
     waypoint_frame_id = (this->get_parameter("waypoint_frame_id")).as_string();
     pose_to_listen = (this->get_parameter("pose_to_listen")).as_string();
@@ -146,13 +149,21 @@ void RRT::pose_callback(const nav_msgs::msg::Odometry::ConstSharedPtr pose_msg) 
     // Returns:
     //
 
+    // create kinematic constraints object
+    static KinematicConstraints car_constraints(-3.0, 3.0, 6.0, 0.4189, 0.0);
+
     // tree as std::vector
     std::vector<RRT_Node> tree = {};
 
     // insert the first tree node
     RRT_Node root;
-    root.x = 0.0f;
-    root.y = 0.0f;
+    root.state.x = 0.0f;
+    root.state.y = 0.0f;
+    root.state.t = 0.0f;
+    root.state.yaw = 0.0f;
+    root.state.vel = pose_msg->twist.twist.linear.x;
+    // TODO: update steering here (done by subscriber on AckermannDrive)
+    root.state.alpha = 0.0f;
     root.cost = 0.0f;
     root.parent = -1;
     root.is_root = true;
@@ -177,10 +188,10 @@ void RRT::pose_callback(const nav_msgs::msg::Odometry::ConstSharedPtr pose_msg) 
 
     // step 2: given updated occupancy grid, sample angles and expand the tree (record furtherest route)
     // during sampling, expand occupancy grid (ros vis marker array)
-    for (int i = 0; i < num_of_samples; i++) {
+    for (int i = 0; i < num_of_samples; ) {
 
         // sample a point
-        std::vector<double> random_point = sample(goal, goal_status);
+        std::vector<double> random_point = sample(goal, false);
 
         // find the nearest neighbor in the tree
         int nearest_index = nearest(tree, random_point);
@@ -191,6 +202,8 @@ void RRT::pose_callback(const nav_msgs::msg::Odometry::ConstSharedPtr pose_msg) 
         // check expand status
         if (expand_status == REACHED) {
             break;
+        } else if (expand_status == ADVANCED) {
+            i++;
         }
 
     }
@@ -208,7 +221,7 @@ void RRT::pose_callback(const nav_msgs::msg::Odometry::ConstSharedPtr pose_msg) 
     // step 4: command steering
     // strategy: use the first steering
     RRT_Node steering_node = path_points[path_points.size() - 2];
-    double steering_angle = atan2(steering_node.y, steering_node.x);
+    double steering_angle = atan2(steering_node.state.y, steering_node.state.x);
     double velocity = 0.25 + 1 / (steering_angle + 2);
 
     // command drive
@@ -230,23 +243,27 @@ std::vector<double> RRT::sample(std::vector<double> &goal, bool goal_status) {
     // Returns:
     //     sampled_point (std::vector<double>): the sampled point in free space
 
-    // random x and y
-    double rand_x, rand_y;
+    // random x, y, yaw, velocity
+    double rand_x, rand_y, rand_yaw, rand_vel;
     
     // first, sample to determine if we want to sample the goal
     // if the goal pair is not valid, don't let it be sampled
     double goal_sample = (goal_status) ? sample_type(gen) : 1.0f;
 
-    // determine random x and y using goal sample rate
+    // determine random x, y, yaw, velocity using goal sample rate
     if (goal_sample <= goal_sample_rate) {
         rand_x = goal[0];
         rand_y = goal[1];
+        rand_yaw = atan2(goal[1], goal[0]);
+        rand_vel = euclidean_dist(goal[0], goal[1]) / (dt * extend_step);
     } else {
         rand_x = grid_resolution * grid_width * x_dist(gen);
         rand_y = grid_resolution * grid_height * (y_dist(gen) - 0.5f);
+        rand_yaw = pi / 4 * (yaw_gen(gen) - 0.5f);
+        rand_vel = 6 * vel_gen(gen);
     }
 
-    std::vector<double> sampled_point = {rand_x, rand_y};
+    std::vector<double> sampled_point = {rand_x, rand_y, rand_yaw, rand_vel};
     
     return sampled_point;
 }
@@ -264,10 +281,16 @@ int RRT::nearest(std::vector<RRT_Node> &tree, std::vector<double> &sampled_point
     
     // loop through the tree to find the nearest node
     for (size_t i = 0; i < tree.size(); i++) {
-        double x_diff = tree[i].x - sampled_point[0];
-        double y_diff = tree[i].y - sampled_point[1];
-        double dist = euclidean_dist(x_diff, y_diff);
-
+        double x_diff = std::abs(tree[i].state.x - sampled_point[0]);
+        double y_diff = std::abs(tree[i].state.y - sampled_point[1]);
+        double yaw_diff = std::abs(tree[i].state.yaw - sampled_point[2]);
+        double vel_diff = std::abs(tree[i].state.vel - sampled_point[3]);
+        double x_diff_norm = x_diff / this->grid_height;
+        double y_diff_norm = y_diff / this->grid_width * 2;
+        double yaw_diff_norm = yaw_diff / this->max_yaw * 2;
+        double vel_diff_norm = vel_diff / this->max_vel;
+        double dist = std::sqrt(x_diff_norm * x_diff_norm + y_diff_norm * y_diff_norm + yaw_diff_norm * yaw_diff_norm + vel_diff_norm * vel_diff_norm);
+        
         // update
         if (best_dist < 0 || dist < best_dist) {
             best_dist = dist;
@@ -289,21 +312,48 @@ int RRT::extend(std::vector<RRT_Node> &tree, int nearest_node_index, std::vector
 
     // increment based on the step size
     RRT_Node new_node;
-    double x_diff = sampled_point[0] - tree[nearest_node_index].x;
-    double y_diff = sampled_point[1] - tree[nearest_node_index].y;
-    double ratio = step_size / euclidean_dist(x_diff, y_diff);
-    // cap ratio at minimum of step size or actual distance
-    ratio = (ratio > 1) ? 1 : ratio;
-    
-    new_node.x = tree[nearest_node_index].x + ratio * x_diff;
-    new_node.y = tree[nearest_node_index].y + ratio * y_diff;
+    double x_diff = sampled_point[0] - tree[nearest_node_index].state.x;
+    double y_diff = sampled_point[1] - tree[nearest_node_index].state.y;
+    double yaw_diff = sampled_point[2] - tree[nearest_node_index].state.yaw;
+    double vel_diff = sampled_point[3] - tree[nearest_node_index].state.vel;
 
-    // check collision between nearest and new nodes
-    bool collision_status = check_collision(tree[nearest_node_index], new_node);
+    // check collision variable
+    bool collision_status = false;
+    bool goal_reached = false;
 
-    // if collision occurs
-    if (collision_status == true) {
-        return TRAPPED;
+    // TODO: this cannot be proved to be kinematically feasible
+    // set rate of steering change to be proportional to heading difference
+    double d_alpha = steering_gain * yaw_diff;
+
+    // TODO: this cannot be proved to be kinematically feasible
+    // set acceleration to be proportional to lateral difference
+    double accel = velocity_gain * vel_diff;
+
+    // Construct current car state
+    CarState state_sim = tree[nearest_node_index].state;
+    CarState state_sim_next;
+
+    // forward simulate towards the goal state
+    for (int i = 0; i < extend_step; i++) {
+        state_sim_next = CalcNextState(state_sim, accel, d_alpha);
+
+        // TODO: check if the state is collided with obstacle
+        collision_status = check_collision(state_sim, state_sim_next);
+        if (collision_status == true) {
+            return TRAPPED;
+        }
+
+        // TODO: if the state is close enough to the goal, exit
+        
+        goal_reached = is_goal(new_node, goal_point, false);
+        new_node.state = state_sim_next;
+        if (goal_reached) {
+            break;
+        }
+
+        // update state
+        state_sim = state_sim_next;
+
     }
 
     // if no collision occurs, add the node
@@ -311,11 +361,8 @@ int RRT::extend(std::vector<RRT_Node> &tree, int nearest_node_index, std::vector
     new_node.is_root = false;
     tree.push_back(new_node);
 
-    // TODO: add visualization mark here
+    // add visualization mark here
     create_marker(tree[nearest_node_index], new_node);
-
-    // check if goal is reached
-    bool goal_reached = is_goal(new_node, goal_point, goal_status);
 
     if (goal_reached) {
         return REACHED;
@@ -325,7 +372,7 @@ int RRT::extend(std::vector<RRT_Node> &tree, int nearest_node_index, std::vector
 
 }
 
-bool RRT::check_collision(RRT_Node &nearest_node, RRT_Node &new_node) {
+bool RRT::check_collision(CarState new_state, CarState prev_state) {
     // This method returns a boolean indicating if the path between the 
     // nearest node and the new node created from steering is collision free
     // Args:
@@ -335,15 +382,15 @@ bool RRT::check_collision(RRT_Node &nearest_node, RRT_Node &new_node) {
     //    collision (bool): true if in collision, false otherwise
 
     // find nearest and new nodes' indices in occupancy grid
-    double nearest_grid_x = nearest_node.x / grid_resolution;
-    double nearest_grid_y = nearest_node.y / grid_resolution + grid_height / 2;
-    double new_grid_x = new_node.x / grid_resolution;
-    double new_grid_y = new_node.y / grid_resolution + grid_height / 2;
+    double prev_grid_x = prev_state.x / grid_resolution;
+    double prev_grid_y = prev_state.y / grid_resolution + grid_height / 2;
+    double new_grid_x = new_state.x / grid_resolution;
+    double new_grid_y = new_state.y / grid_resolution + grid_height / 2;
 
-    int start_x = floor((nearest_grid_x < new_grid_x) ? nearest_grid_x : new_grid_x);
-    int end_x = ceil((nearest_grid_x < new_grid_x) ? new_grid_x : nearest_grid_x);
-    int start_y = floor((nearest_grid_y < new_grid_y) ? nearest_grid_y : new_grid_y);
-    int end_y = ceil((nearest_grid_y < new_grid_y) ? new_grid_y : nearest_grid_y);
+    int start_x = floor((prev_grid_x < new_grid_x) ? prev_grid_x : new_grid_x);
+    int end_x = ceil((prev_grid_x < new_grid_x) ? new_grid_x : prev_grid_x);
+    int start_y = floor((prev_grid_y < new_grid_y) ? prev_grid_y : new_grid_y);
+    int end_y = ceil((prev_grid_y < new_grid_y) ? new_grid_y : prev_grid_y);
 
     // draw a square on occupancy grid between these two points
     // check for occupancy within this box
@@ -355,7 +402,6 @@ bool RRT::check_collision(RRT_Node &nearest_node, RRT_Node &new_node) {
             }
         }
     }
-
     return false;
 }
 
@@ -375,13 +421,15 @@ bool RRT::is_goal(RRT_Node &latest_added_node, std::vector<double> &goal, bool g
     
     // the case where goal is valid
     if (goal_status) {
-        double x_diff = fabs(latest_added_node.x - goal[0]);
-        double y_diff = fabs(latest_added_node.y - goal[1]);
+        double x_diff = fabs(latest_added_node.state.x - goal[0]);
+        double y_diff = fabs(latest_added_node.state.y - goal[1]);
+        // TODO: if we need to check yaw and velocity difference, come back later
         if (x_diff + y_diff <= 1e-3) {
             close_enough = true;
         }
     } else { // when goal is invalid, check for distance expanded
-        double expand_dist = euclidean_dist(latest_added_node.x, latest_added_node.y);
+        double expand_dist = euclidean_dist(latest_added_node.state.x, latest_added_node.state.y);
+        // TODO: if we need to check yaw and velocity difference, come back later
         if (expand_dist > look_ahead_dist) {
             close_enough = true;
         }
@@ -415,7 +463,8 @@ std::vector<RRT_Node> RRT::find_path(std::vector<RRT_Node> &tree, RRT_Node &late
     return found_path;
 }
 
-// RRT* methods
+// ---------------------- begin RRT* methods ----------------------
+
 double RRT::cost(std::vector<RRT_Node> &tree, RRT_Node &node) {
     // This method returns the cost associated with a node
     // Args:
@@ -458,6 +507,8 @@ std::vector<int> RRT::near(std::vector<RRT_Node> &tree, RRT_Node &node) {
 
     return neighborhood;
 }
+
+// ---------------------- end RRT* methods ----------------------
 
 void RRT::log_waypoints() {
     // use the waypoint file to fill waypoints in the path message
@@ -625,6 +676,17 @@ double RRT::euclidean_dist(double x, double y) {
     return sqrt(x * x + y * y);
 }
 
+double euclidean_dist(std::vector<double> v1, std::vector<double> v2) {
+        // calculate the euclidean distance between two nodes
+        // return dist
+        double total = 0;
+        for (int i = 0; i < v1.size(); i++) {
+            total += (v1[i] - v2[i]) * (v1[i] - v2[i]);
+        }
+        double dist = sqrt(total);
+        return dist;   
+}
+
 void RRT::process_scan(std::vector<float>& scan) {
 
     // process the laser scan to
@@ -702,11 +764,11 @@ void RRT::create_marker(RRT_Node &nearest_node, RRT_Node &new_node) {
 
     // push the points in the array
     geometry_msgs::msg::Point start_point, end_point;
-    start_point.x = nearest_node.x;
-    start_point.y = nearest_node.y;
+    start_point.x = nearest_node.state.x;
+    start_point.y = nearest_node.state.y;
     start_point.z = 0.0f;
-    end_point.x = new_node.x;
-    end_point.y = new_node.y;
+    end_point.x = new_node.state.x;
+    end_point.y = new_node.state.y;
     end_point.z = 0.0f;
     new_mark.points.push_back(start_point);
     new_mark.points.push_back(end_point);

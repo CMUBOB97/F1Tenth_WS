@@ -13,7 +13,7 @@ public:
 };
 
 class PathConstraint {
-    Constraints(const nav_msgs::msg::OccupancyGrid &map);
+    PathConstraint(const nav_msgs::msg::OccupancyGrid &map);
     bool isCollisionFree(const CarState &new_state, const CarState &old_state);
 };
 

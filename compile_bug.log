@@ -1,0 +1,5 @@
+Starting >>> planning_project
+
+Summary: 0 packages finished [5.21s]
+  1 package failed: planning_project
+  1 package had stderr output: planning_project

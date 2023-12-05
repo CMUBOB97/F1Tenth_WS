@@ -7,13 +7,13 @@
 
 class KinematicConstraints {
 public:
-    float max_brake_accel;
-    float max_gas_accel;
-    float max_vel;
-    float max_steer_angle;
-    float max_lateral_accel;
+    double max_brake_accel;
+    double max_gas_accel;
+    double max_vel;
+    double max_steer_angle;
+    double max_lateral_accel;
 
-    KinematicConstraints(float max_brake_accel, float max_gas_accel, float max_vel, float max_steer_angle, float max_lateral_accel) {
+    KinematicConstraints(double max_brake_accel, double max_gas_accel, double max_vel, double max_steer_angle, double max_lateral_accel) {
         this->max_brake_accel = max_brake_accel;
         this->max_gas_accel = max_gas_accel;
         this->max_vel = max_vel;
@@ -21,7 +21,7 @@ public:
         this->max_lateral_accel = max_lateral_accel;
     }
 
-    bool StateWithinConstraints(CarState state) {
+    bool IsStateWithinConstraints(CarState state) {
         if (state.vel > max_vel || state.vel < 0) {
             return false;
         }
@@ -29,6 +29,7 @@ public:
             return false;
         }
         // TODO check lateral accel
+        
         return true;
     }
 };

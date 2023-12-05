@@ -27,20 +27,26 @@
 #include <tf2_ros/transform_broadcaster.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 
+// car state space and constraint headers
+#include "car_state.h"
+#include "kinematic_constraints.h"
+#include "position_constraints.h"
+
 /// CHECK: include needed ROS msg type headers and libraries
 
 using namespace std;
+
+const double PI = 3.1415926535;
 
 // Struct defining the RRT_Node object in the RRT tree.
 // defined in polar coordinate fashion
 // distance to current position and angle
 typedef struct RRT_Node {
-    double x, y; // relative to current pose
+    CarState state; // current car state
     double cost; // cost to parent, can be used for RRT*
     int parent; // index of parent node in the tree vector
     bool is_root = false;
 } RRT_Node;
-
 
 class RRT : public rclcpp::Node {
 public:
@@ -76,6 +82,8 @@ private:
     std::uniform_real_distribution<> sample_type;
     std::uniform_real_distribution<> x_dist;
     std::uniform_real_distribution<> y_dist;
+    std::uniform_real_distribution<> yaw_gen;
+    std::uniform_real_distribution<> vel_gen;
 
     // constants for laser properties
     const double PI = 3.1415926536;
@@ -90,6 +98,7 @@ private:
 
     // parameters for RRT
     int num_of_samples;
+    double max_yaw, max_vel;
     double look_ahead_dist;
     double step_size;
     double goal_sample_rate;
@@ -142,7 +151,7 @@ private:
     std::vector<double> sample(std::vector<double> &goal, bool goal_status);
     int nearest(std::vector<RRT_Node> &tree, std::vector<double> &sampled_point);
     int extend(std::vector<RRT_Node> &tree, int nearest_node_index, std::vector<double> &sampled_point, std::vector<double> &goal_point, bool goal_status);
-    bool check_collision(RRT_Node &nearest_node, RRT_Node &new_node);
+    bool check_collision(CarState new_state, CarState prev_state);
     bool is_goal(RRT_Node &latest_added_node, std::vector<double> &goal_point, bool goal_status);
     std::vector<RRT_Node> find_path(std::vector<RRT_Node> &tree, RRT_Node &latest_added_node);
     // RRT* methods
@@ -155,6 +164,7 @@ private:
     void find_goal_point(std::vector<double> &goal_point);
     void interpolate_points(double x1, double y1, double x2, double y2, std::vector<double> &goal_point);
     double euclidean_dist(double x, double y);
+    double euclidean_dist(std::vector<double> v1, std::vector<double> v2);
     void process_scan(std::vector<float>& scan);
     void init_grid();
     void create_marker(RRT_Node &nearest_node, RRT_Node &new_node);
