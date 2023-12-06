@@ -222,7 +222,8 @@ void RRT::pose_callback(const nav_msgs::msg::Odometry::ConstSharedPtr pose_msg) 
     // strategy: use the first steering
     RRT_Node steering_node = path_points[path_points.size() - 2];
     double steering_angle = atan2(steering_node.state.y, steering_node.state.x);
-    double velocity = 0.25 + 1 / (steering_angle + 0.75);
+    // double velocity = 0.25 + 1 / (steering_angle + 0.75);
+    double velocity = steering_node.state.vel;
 
     // command drive
     auto drive_msg = ackermann_msgs::msg::AckermannDriveStamped();
