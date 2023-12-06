@@ -3,7 +3,6 @@
 #define ALL_CONSTRAINTS_H
 
 #include "car_state.h"
-#include "kinematic_constraints.h"
 #include "nav_msgs/msg/occupancy_grid.hpp"
 
 class DynamicObstacleConstraint {

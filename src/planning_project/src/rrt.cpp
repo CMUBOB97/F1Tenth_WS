@@ -25,11 +25,14 @@ RRT::RRT(): rclcpp::Node("rrt_node"), gen((std::random_device())()) {
     // ROS subscribers
     // TODO: create subscribers as you need
     string pose_topic = "ego_racecar/odom";
+    string drive_topic = "drive";
     string scan_topic = "/scan";
     pose_sub_ = this->create_subscription<nav_msgs::msg::Odometry>(
       pose_topic, 1, std::bind(&RRT::pose_callback, this, std::placeholders::_1));
     scan_sub_ = this->create_subscription<sensor_msgs::msg::LaserScan>(
       scan_topic, 1, std::bind(&RRT::scan_callback, this, std::placeholders::_1));
+    drive_sub_ = this->create_subscription<ackermann_msgs::msg::AckermannDriveStamped>(
+      drive_topic, 1, std::bind(&RRT::drive_callback, this, std::placeholders::_1));
     
     // define parameters for number of sampling
     this->declare_parameter("num_of_samples", 100);
@@ -78,6 +81,10 @@ RRT::RRT(): rclcpp::Node("rrt_node"), gen((std::random_device())()) {
     last_waypoint_index = -1;
 
     RCLCPP_INFO(rclcpp::get_logger("RRT"), "%s\n", "Created new RRT Object.");
+}
+
+void RRT::drive_callback(const ackermann_msgs::msg::AckermannDriveStamped::ConstSharedPtr drive_msg) {
+    last_steering = drive_msg->drive.steering_angle;
 }
 
 void RRT::scan_callback(const sensor_msgs::msg::LaserScan::ConstSharedPtr scan_msg) {
@@ -149,9 +156,6 @@ void RRT::pose_callback(const nav_msgs::msg::Odometry::ConstSharedPtr pose_msg) 
     // Returns:
     //
 
-    // create kinematic constraints object
-    static KinematicConstraints car_constraints(-3.0, 3.0, 6.0, 0.4189, 0.0);
-
     // tree as std::vector
     std::vector<RRT_Node> tree = {};
 
@@ -162,8 +166,7 @@ void RRT::pose_callback(const nav_msgs::msg::Odometry::ConstSharedPtr pose_msg) 
     root.state.t = 0.0f;
     root.state.yaw = 0.0f;
     root.state.vel = pose_msg->twist.twist.linear.x;
-    // TODO: update steering here (done by subscriber on AckermannDrive)
-    root.state.alpha = 0.0f;
+    root.state.alpha = last_steering;
     root.cost = 0.0f;
     root.parent = -1;
     root.is_root = true;
@@ -188,10 +191,10 @@ void RRT::pose_callback(const nav_msgs::msg::Odometry::ConstSharedPtr pose_msg) 
 
     // step 2: given updated occupancy grid, sample angles and expand the tree (record furtherest route)
     // during sampling, expand occupancy grid (ros vis marker array)
-    for (int i = 0; i < num_of_samples; ) {
+    for (int i = 0; i < num_of_samples; i++) {
 
         // sample a point
-        std::vector<double> random_point = sample(goal, false);
+        std::vector<double> random_point = sample_config(goal, goal_status);
 
         // find the nearest neighbor in the tree
         int nearest_index = nearest(tree, random_point);
@@ -202,8 +205,6 @@ void RRT::pose_callback(const nav_msgs::msg::Odometry::ConstSharedPtr pose_msg) 
         // check expand status
         if (expand_status == REACHED) {
             break;
-        } else if (expand_status == ADVANCED) {
-            i++;
         }
 
     }
@@ -220,21 +221,30 @@ void RRT::pose_callback(const nav_msgs::msg::Odometry::ConstSharedPtr pose_msg) 
 
     // step 4: command steering
     // strategy: use the first steering
-    RRT_Node steering_node = path_points[path_points.size() - 2];
-    double steering_angle = atan2(steering_node.state.y, steering_node.state.x);
-    // double velocity = 0.25 + 1 / (steering_angle + 0.75);
-    double velocity = steering_node.state.vel;
+    if (path_points.size() >= 2) {
+        RRT_Node steering_node = path_points[path_points.size() - 2];
+        double steering_angle = steering_node.state.alpha;
+        double velocity = steering_node.state.vel;
 
-    // command drive
-    auto drive_msg = ackermann_msgs::msg::AckermannDriveStamped();
-    drive_msg.drive.steering_angle = steering_angle;
-    drive_msg.drive.speed = velocity;
+        double steering_diff = steering_angle - last_steering;
+        double change_in_steering = steering_diff / (DT * EXTEND_STEP) * (1.0/50.0);
+        double vel_diff = velocity - pose_msg->twist.twist.linear.x;
+        double change_in_vel = vel_diff / (DT * EXTEND_STEP) * (1.0/25.0);
 
-    drive_pub_->publish(drive_msg);
+        // command drive
+        auto drive_msg = ackermann_msgs::msg::AckermannDriveStamped();
+        drive_msg.drive.steering_angle = last_steering + change_in_steering;
+        // drive_msg.drive.steering_angle_velocity = MAX_STEERING_CHANGE;
+        drive_msg.drive.speed = pose_msg->twist.twist.linear.x + change_in_vel;
+        // drive_msg.drive.jerk = 0.0;
+        // drive_msg.drive.acceleration = MAX_GAS_ACCEL;
+
+        drive_pub_->publish(drive_msg);
+    }
 
 }
 
-std::vector<double> RRT::sample(std::vector<double> &goal, bool goal_status) {
+std::vector<double> RRT::sample_config(std::vector<double> &goal, bool goal_status) {
     // This method returns a sampled point from the free space
     // You should restrict so that it only samples a small region
     // of interest around the car's current position
@@ -245,28 +255,63 @@ std::vector<double> RRT::sample(std::vector<double> &goal, bool goal_status) {
     //     sampled_point (std::vector<double>): the sampled point in free space
 
     // random x, y, yaw, velocity
-    double rand_x, rand_y, rand_yaw, rand_vel;
+    double rand_x, rand_y, rand_yaw, rand_vel, rand_alpha;
     
     // first, sample to determine if we want to sample the goal
     // if the goal pair is not valid, don't let it be sampled
     double goal_sample = (goal_status) ? sample_type(gen) : 1.0f;
-
+    
     // determine random x, y, yaw, velocity using goal sample rate
     if (goal_sample <= goal_sample_rate) {
         rand_x = goal[0];
         rand_y = goal[1];
         rand_yaw = atan2(goal[1], goal[0]);
-        rand_vel = euclidean_dist(goal[0], goal[1]) / (dt * extend_step);
+        rand_vel = euclidean_dist(goal[0], goal[1]) / (DT * EXTEND_STEP);
+        rand_alpha = 0.0;
     } else {
         rand_x = grid_resolution * grid_width * x_dist(gen);
         rand_y = grid_resolution * grid_height * (y_dist(gen) - 0.5f);
-        rand_yaw = pi / 4 * (yaw_gen(gen) - 0.5f);
-        rand_vel = 6 * vel_gen(gen);
+        rand_yaw = MAX_YAW * (yaw_gen(gen) - 0.5f) * 2;
+        rand_vel = MAX_VEL * vel_gen(gen);
+        rand_alpha = (alpha_gen(gen) - 0.5f) * 2 * MAX_STEER_ANGLE;
     }
 
     std::vector<double> sampled_point = {rand_x, rand_y, rand_yaw, rand_vel};
     
     return sampled_point;
+}
+
+std::pair<double, double> RRT::sample_action(){
+    // This method returns a sampled action (steering angle and velocity)
+    // Args:
+    //     None
+    // Returns:
+    //     sampled_action (std::pair<double, double>): the sampled action pair
+
+    // random steering angle and velocity
+    double rand_delta_alpha = (alpha_gen(gen) - 0.5f) * 2.0 * MAX_STEERING_CHANGE * DT * 4.0;
+    double accel_diff = MAX_GAS_ACCEL - MAX_BRAKE_ACCEL; 
+    double rand_accel = accel_diff * accel_gen(gen) + MAX_BRAKE_ACCEL;
+
+    if (rand_accel < MAX_BRAKE_ACCEL)
+    {
+        rand_accel = MAX_BRAKE_ACCEL;
+    }
+    else if (rand_accel > MAX_GAS_ACCEL)
+    {
+        rand_accel = MAX_GAS_ACCEL;
+    }
+    if (rand_delta_alpha < -MAX_STEERING_CHANGE)
+    {
+        rand_delta_alpha = -MAX_STEERING_CHANGE;
+    }
+    else if (rand_delta_alpha > MAX_STEERING_CHANGE)
+    {
+        rand_delta_alpha = MAX_STEERING_CHANGE;
+    }
+
+    std::pair<double, double> sampled_action = {rand_delta_alpha, rand_accel};
+    return sampled_action;
 }
 
 int RRT::nearest(std::vector<RRT_Node> &tree, std::vector<double> &sampled_point) {
@@ -286,11 +331,13 @@ int RRT::nearest(std::vector<RRT_Node> &tree, std::vector<double> &sampled_point
         double y_diff = std::abs(tree[i].state.y - sampled_point[1]);
         double yaw_diff = std::abs(tree[i].state.yaw - sampled_point[2]);
         double vel_diff = std::abs(tree[i].state.vel - sampled_point[3]);
-        double x_diff_norm = x_diff / this->grid_height;
-        double y_diff_norm = y_diff / this->grid_width * 2;
+        double alpha_diff = std::abs(tree[i].state.alpha - sampled_point[4]);
+        double x_diff_norm = x_diff / (this->grid_width * this->grid_resolution);
+        double y_diff_norm = y_diff / (this->grid_height * this->grid_resolution * 2);
         double yaw_diff_norm = yaw_diff / this->max_yaw * 2;
         double vel_diff_norm = vel_diff / this->max_vel;
-        double dist = std::sqrt(x_diff_norm * x_diff_norm + y_diff_norm * y_diff_norm + yaw_diff_norm * yaw_diff_norm + vel_diff_norm * vel_diff_norm);
+        double alpha_diff_norm = alpha_diff / MAX_STEER_ANGLE * 2;
+        double dist = std::sqrt(x_diff_norm * x_diff_norm + y_diff_norm * y_diff_norm + yaw_diff_norm * yaw_diff_norm + vel_diff_norm * vel_diff_norm + alpha_diff_norm * alpha_diff_norm);
         
         // update
         if (best_dist < 0 || dist < best_dist) {
@@ -313,39 +360,44 @@ int RRT::extend(std::vector<RRT_Node> &tree, int nearest_node_index, std::vector
 
     // increment based on the step size
     RRT_Node new_node;
-    double x_diff = sampled_point[0] - tree[nearest_node_index].state.x;
-    double y_diff = sampled_point[1] - tree[nearest_node_index].state.y;
-    double yaw_diff = sampled_point[2] - tree[nearest_node_index].state.yaw;
-    double vel_diff = sampled_point[3] - tree[nearest_node_index].state.vel;
 
     // check collision variable
     bool collision_status = false;
     bool goal_reached = false;
+    bool kin_feasible = true;
 
-    // TODO: this cannot be proved to be kinematically feasible
-    // set rate of steering change to be proportional to heading difference
-    double d_alpha = steering_gain * yaw_diff;
+    std::pair<double, double> action = sample_action();
+    double d_alpha = action.first;
+    double accel = action.second;
 
-    // TODO: this cannot be proved to be kinematically feasible
-    // set acceleration to be proportional to lateral difference
-    double accel = velocity_gain * vel_diff;
+    // // increment based on the step size
+    // double x_diff = sampled_point[0] - tree[nearest_node_index].state.x;
+    // double y_diff = sampled_point[1] - tree[nearest_node_index].state.y;
+    // double yaw_diff = sampled_point[2] - tree[nearest_node_index].state.yaw;
+    // double vel_diff = sampled_point[3] - tree[nearest_node_index].state.vel;
+
+    // // TODO: this cannot be proved to be kinematically feasible
+    // // set rate of steering change to be proportional to heading difference
+    // double d_alpha = STEERING_GAIN * yaw_diff * DT;
+
+    // // TODO: this cannot be proved to be kinematically feasible
+    // // set acceleration to be proportional to lateral difference
+    // double accel = VELOCITY_GAIN * vel_diff;
 
     // Construct current car state
     CarState state_sim = tree[nearest_node_index].state;
     CarState state_sim_next;
 
     // forward simulate towards the goal state
-    for (int i = 0; i < extend_step; i++) {
+    for (int i = 0; i < EXTEND_STEP; i++) {
         state_sim_next = CalcNextState(state_sim, accel, d_alpha);
 
-        // TODO: check if the state is collided with obstacle
         collision_status = check_collision(state_sim, state_sim_next);
-        if (collision_status == true) {
+        // kin_feasible = is_kinematically_feasible(state_sim_next);
+        if (collision_status || !kin_feasible) {
             return TRAPPED;
         }
 
-        // TODO: if the state is close enough to the goal, exit
-        
         goal_reached = is_goal(new_node, goal_point, false);
         new_node.state = state_sim_next;
         if (goal_reached) {
@@ -462,6 +514,38 @@ std::vector<RRT_Node> RRT::find_path(std::vector<RRT_Node> &tree, RRT_Node &late
     }
 
     return found_path;
+}
+
+
+bool RRT::is_kinematically_feasible(CarState &state) {
+    // This method returns a boolean indicating if the state is kinematically
+    // feasible
+    // Args:
+    //    state (CarState): the state to check
+    // Returns:
+    //    feasible (bool): true if feasible, false otherwise
+
+    if (state.vel > max_vel || state.vel < 0) {
+        std::cout << "Velocity Failure: " << state.vel << std::endl;
+        return false;
+    }
+    if (state.alpha > MAX_STEER_ANGLE || state.alpha < -MAX_STEER_ANGLE) {
+        std::cout << "Steering angle Failure: " << state.alpha << endl;
+        return false;
+    }
+
+    // Check lateral accel (avoid divide by zero)
+    if (state.alpha == 0) {
+        return true;
+    }
+    double radius = WHEEL_BASE / tan(state.alpha);
+    double accel = state.vel * state.vel / abs(radius);
+    if (accel > MAX_LATERAL_ACCEL) {
+        std::cout << "Lateral accel Failure: " << accel << std::endl;
+        return false;
+    }
+
+    return true;
 }
 
 // ---------------------- begin RRT* methods ----------------------
@@ -760,7 +844,7 @@ void RRT::create_marker(RRT_Node &nearest_node, RRT_Node &new_node) {
     new_mark.color.a = 1.0;
     new_mark.color.r = 0.0;
     new_mark.color.g = 1.0;
-    new_mark.color.b = 0.0;
+    new_mark.color.b = 1.0*(nearest_node.state.vel / MAX_VEL);
     new_mark.lifetime = rclcpp::Duration::from_seconds(0.1);
 
     // push the points in the array

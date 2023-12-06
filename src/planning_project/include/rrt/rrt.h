@@ -29,14 +29,10 @@
 
 // car state space and constraint headers
 #include "car_state.h"
-#include "kinematic_constraints.h"
-#include "position_constraints.h"
 
 /// CHECK: include needed ROS msg type headers and libraries
 
 using namespace std;
-
-const double PI = 3.1415926535;
 
 // Struct defining the RRT_Node object in the RRT tree.
 // defined in polar coordinate fashion
@@ -85,6 +81,9 @@ private:
     std::uniform_real_distribution<> y_dist;
     std::uniform_real_distribution<> yaw_gen;
     std::uniform_real_distribution<> vel_gen;
+    std::uniform_real_distribution<> alpha_gen;
+    std::uniform_real_distribution<> delta_alpha_gen;
+    std::uniform_real_distribution<> accel_gen;
 
     // constants for laser properties
     const double PI = 3.1415926536;
@@ -116,7 +115,7 @@ private:
     int last_waypoint_index;
 
     // define last heading angle
-    double last_heading;
+    double last_steering;
 
     // listener to listen updates on pose_to_listen
     std::unique_ptr<tf2_ros::Buffer> tf_buffer_;
@@ -147,14 +146,18 @@ private:
     void pose_callback(const nav_msgs::msg::Odometry::ConstSharedPtr pose_msg);
     // updates occupancy grid
     void scan_callback(const sensor_msgs::msg::LaserScan::ConstSharedPtr scan_msg);
+    // updates last steering command
+    void drive_callback(const ackermann_msgs::msg::AckermannDriveStamped::ConstSharedPtr drive_msg);
 
     // RRT methods
-    std::vector<double> sample(std::vector<double> &goal, bool goal_status);
+    std::vector<double> sample_config(std::vector<double> &goal, bool goal_status);
+    std::pair<double, double> sample_action();
     int nearest(std::vector<RRT_Node> &tree, std::vector<double> &sampled_point);
     int extend(std::vector<RRT_Node> &tree, int nearest_node_index, std::vector<double> &sampled_point, std::vector<double> &goal_point, bool goal_status);
     bool check_collision(CarState new_state, CarState prev_state);
     bool is_goal(RRT_Node &latest_added_node, std::vector<double> &goal_point, bool goal_status);
     std::vector<RRT_Node> find_path(std::vector<RRT_Node> &tree, RRT_Node &latest_added_node);
+    
     // RRT* methods
     double cost(std::vector<RRT_Node> &tree, RRT_Node &node);
     double line_cost(RRT_Node &n1, RRT_Node &n2);
@@ -169,5 +172,8 @@ private:
     void process_scan(std::vector<float>& scan);
     void init_grid();
     void create_marker(RRT_Node &nearest_node, RRT_Node &new_node);
+
+    bool is_kinematically_feasible(CarState &state);
+    
 };
 

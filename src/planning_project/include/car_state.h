@@ -8,19 +8,28 @@
 // constants used for kinematic updates
 
 // pi and wheel base
-const double pi = 3.141592653589793;
-const double wheel_base = 0.3302;
+const double PI = 3.141592653589793;
+const double WHEEL_BASE = 0.3302;
 
 // time-step related constants (can be tuned)
-const double dt = 0.05;
-const int extend_step = 10;
+const double DT = 0.05;
+const int EXTEND_STEP = 10;
 
 // opponent's velocity
-const double opponent_velocity = 1.0;
+const double OPPONENT_VELOCITY = 1.0;
 
 // steering and velocity error gain
-const double steering_gain = 1.0;
-const double velocity_gain = 1.0;
+const double STEERING_GAIN = 1.0;
+const double VELOCITY_GAIN = 0.5;
+
+const double MAX_YAW = 1.5707;
+const double MAX_BRAKE_ACCEL = -8.0;
+const double MAX_GAS_ACCEL = 9.0;
+const double MAX_VEL = 10.0;
+const double MAX_STEER_ANGLE = 0.5236;
+const double MAX_LATERAL_ACCEL = 10.0;
+static const double TIME_FULL_STEER = 0.5;
+const double MAX_STEERING_CHANGE = MAX_STEER_ANGLE * 2.0 / TIME_FULL_STEER;
 
 struct CarState {
     double t;

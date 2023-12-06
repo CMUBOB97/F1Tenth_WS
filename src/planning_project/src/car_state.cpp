@@ -8,23 +8,29 @@ CarState CalcNextState(CarState state, double accel, double delta_alpha) {
     CarState next;
 
     // update time
-    next.t = state.t + dt;
+    next.t = state.t + DT;
+    next.x = state.x + DT * cos(state.yaw + delta_alpha) * state.vel;
+    next.y = state.y + DT * sin(state.yaw + delta_alpha) * state.vel;
+    next.yaw = state.yaw + DT * state.vel * tan(state.alpha) / WHEEL_BASE;
+    next.vel = state.vel + DT * accel;
+    next.alpha = state.alpha + delta_alpha;
 
-    // TODO(chig): update x
-    next.x = state.x + dt * cos(state.yaw + delta_alpha) * state.vel;
+    if (next.alpha > MAX_STEER_ANGLE) {
+        next.alpha = MAX_STEER_ANGLE;
+    } else if (next.alpha < -MAX_STEER_ANGLE) {
+        next.alpha = -MAX_STEER_ANGLE;
+    }
+    if (next.vel > MAX_VEL) {
+        next.vel = MAX_VEL;
+    } else if (next.vel < 0.0) {
+        next.vel = 0.0;
+    }
 
-    // TODO(chig): update y
-    next.y = state.y + dt * sin(state.yaw + delta_alpha) * state.vel;
-    
-    // TODO(chig): update yaw
-    next.yaw = state.yaw + dt * state.vel * tan(state.alpha) / wheel_base;
-
-    // TODO(chig): update vel
-    next.vel = state.vel + dt * accel;
-    
-    // TODO(chig): update steering
-    next.alpha = state.alpha + dt * delta_alpha;
+    double radius = WHEEL_BASE / tan(next.alpha);
+    double max_val = sqrt(MAX_LATERAL_ACCEL * abs(radius));
+    if (next.vel > max_val) {
+        next.vel = max_val;
+    }
 
     return next;
-
 }
