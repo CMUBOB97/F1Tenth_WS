@@ -37,7 +37,7 @@ include_directories(
 )
 
 # Create Cpp executable
-add_executable(planning_project src/rrt_ROS_run.cpp src/rrt.cpp src/car_state.cpp src/planner.cpp)
+add_executable(planning_project src/rrt_node.cpp src/rrt.cpp src/car_state.cpp)
 
 ament_target_dependencies(planning_project 
   rclcpp geometry_msgs ackermann_msgs nav_msgs sensor_msgs std_msgs visualization_msgs tf2_ros tf2_geometry_msgs

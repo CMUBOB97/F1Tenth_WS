@@ -208,7 +208,7 @@ class RRT(Node):
 def main(args=None):
     rclpy.init(args=args)
     print("RRT Initialized")
-    rrt_node = RRT_ROS_Node()
+    rrt_node = RRT()
     rclpy.spin(rrt_node)
 
     rrt_node.destroy_node()

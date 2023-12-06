@@ -21,7 +21,6 @@ struct kd_node
     kd_node *left, *right;
 };
 
-
 class KDTree
 {
 
@@ -44,7 +43,7 @@ public:
 
     kd_node *nearest(const double *pos)
     {
-        return nearest(root, pos, root, this->distance(pos, root->pos, dim));
+        return nearest(root, pos, root, distance(pos, root->pos, dim));
     }
 
     std::vector<std::pair<int, double>> radius_search(const double *pos, double radius)
@@ -63,16 +62,6 @@ private:
     kd_node *root;
     int dim;
     int max_depth;
-
-    double distance(const double *a, const double *b, int dim)
-    {
-    double dist_sq = 0;
-    for (int i = 0; i < dim; i++)
-    {
-        dist_sq += (a[i] - b[i]) * (a[i] - b[i]);
-    }
-    return sqrt(dist_sq);
-    }
 
     kd_node *insert(kd_node *node, double *pos, int id, int depth)
     {
@@ -106,7 +95,7 @@ private:
             return NULL;
         }
 
-        double dist = this->distance(pos, node->pos, dim);
+        double dist = distance(pos, node->pos, dim);
         if (dist < best_dist)
         {
             best_dist = dist;
@@ -132,7 +121,7 @@ private:
         double temp_dist;
         if (temp != NULL)
         {
-            temp_dist = this->distance(pos, temp->pos, dim);
+            temp_dist = distance(pos, temp->pos, dim);
             if (temp_dist < best_dist)
             {
                 best_dist = temp_dist;
@@ -147,7 +136,7 @@ private:
             temp = nearest(further, pos, best, best_dist);
             if (temp != NULL)
             {
-                temp_dist = this->distance(pos, temp->pos, dim);
+                temp_dist = distance(pos, temp->pos, dim);
                 if (temp_dist < best_dist)
                 {
                     best_dist = temp_dist;
@@ -166,7 +155,7 @@ private:
             return;
         }
 
-        double dist = this->distance(pos, node->pos, dim);
+        double dist = distance(pos, node->pos, dim);
         if (dist < radius)
         {
             ids.push_back(std::make_pair(node->id, dist));

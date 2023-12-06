@@ -29,7 +29,8 @@
 
 // car state space and constraint headers
 #include "car_state.h"
-#include "planner.h"
+#include "kinematic_constraints.h"
+#include "position_constraints.h"
 
 /// CHECK: include needed ROS msg type headers and libraries
 
@@ -37,18 +38,20 @@ using namespace std;
 
 const double PI = 3.1415926535;
 
-class RRT_ROS_Node : public rclcpp::Node {
-public:
-    RRT_ROS_Node();
-    virtual ~RRT_ROS_Node();
-    std::mt19937 gen;
-    std::uniform_real_distribution<> sample_type;
-    std::uniform_real_distribution<> x_dist;
-    std::uniform_real_distribution<> y_dist;
-    std::uniform_real_distribution<> yaw_gen;
-    std::uniform_real_distribution<> vel_gen;
+// Struct defining the RRT_Node object in the RRT tree.
+// defined in polar coordinate fashion
+// distance to current position and angle
+typedef struct RRT_Node {
+    CarState state; // current car state
+    double cost; // cost to parent, can be used for RRT*
+    int parent; // index of parent node in the tree vector
+    bool is_root = false;
+} RRT_Node;
 
-    void add_marker(CarState *parent, CarState *child);
+class RRT : public rclcpp::Node {
+public:
+    RRT();
+    virtual ~RRT();
 private:
 
     // add the publishers and subscribers you need
@@ -75,13 +78,26 @@ private:
     // add visualization marker array publisher for debug
     rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr vis_marker_array_pub_;
 
+    // random generator, use this
+    std::mt19937 gen;
+    std::uniform_real_distribution<> sample_type;
+    std::uniform_real_distribution<> x_dist;
+    std::uniform_real_distribution<> y_dist;
+    std::uniform_real_distribution<> yaw_gen;
+    std::uniform_real_distribution<> vel_gen;
+
     // constants for laser properties
     const double PI = 3.1415926536;
     const double angle_min = -2.3499999046325684;
     const double angle_max = 2.3499999046325684;
     const double angle_increment = 0.004351851996034384;
 
-    // parameters for RRT_ROS_Node
+    // constants for tree expansion status
+    const int TRAPPED = 0;
+    const int ADVANCED = 1;
+    const int REACHED = 2;
+
+    // parameters for RRT
     int num_of_samples;
     double max_yaw, max_vel;
     double look_ahead_dist;
@@ -134,14 +150,26 @@ private:
     // subscribe to drive topic steering
     void drive_callback(const ackermann_msgs::msg::AckermannDriveStamped::ConstSharedPtr drive_msg);
 
-    
+    // RRT methods
+    std::vector<double> sample(std::vector<double> &goal, bool goal_status);
+    int nearest(std::vector<RRT_Node> &tree, std::vector<double> &sampled_point);
+    int extend(std::vector<RRT_Node> &tree, int nearest_node_index, std::vector<double> &sampled_point, std::vector<double> &goal_point, bool goal_status);
+    bool check_collision(CarState new_state, CarState prev_state);
+    bool is_goal(RRT_Node &latest_added_node, std::vector<double> &goal_point, bool goal_status);
+    std::vector<RRT_Node> find_path(std::vector<RRT_Node> &tree, RRT_Node &latest_added_node);
+    // RRT* methods
+    double cost(std::vector<RRT_Node> &tree, RRT_Node &node);
+    double line_cost(RRT_Node &n1, RRT_Node &n2);
+    std::vector<int> near(std::vector<RRT_Node> &tree, RRT_Node &node);
+
     // helper functions
     void log_waypoints();
-    void find_goal_point(Goal *goal_point);
-    void interpolate_points(double x1, double y1, double x2, double y2, Goal *goal_point);
-    double dist_x_y(double x, double y);
+    void find_goal_point(std::vector<double> &goal_point);
+    void interpolate_points(double x1, double y1, double x2, double y2, std::vector<double> &goal_point);
+    double euclidean_dist(double x, double y);
+    double euclidean_dist(std::vector<double> v1, std::vector<double> v2);
     void process_scan(std::vector<float>& scan);
     void init_grid();
-
+    void create_marker(RRT_Node &nearest_node, RRT_Node &new_node);
 };
 
