@@ -13,4 +13,4 @@ planning_project:
     grid_resolution: 0.03
     waypoint_file_path: /sim_ws/src/planning_project/waypoints/waypoints.txt
     waypoint_frame_id: map
-    pose_to_listen: base_link
+    pose_to_listen: laser
