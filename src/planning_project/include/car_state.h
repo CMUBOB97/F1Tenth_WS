@@ -23,11 +23,11 @@ const double STEERING_GAIN = 1.0;
 const double VELOCITY_GAIN = 0.5;
 
 const double MAX_YAW = 1.5707;
-const double MAX_BRAKE_ACCEL = -8.0;
-const double MAX_GAS_ACCEL = 9.0;
+const double MAX_BRAKE_ACCEL = -10.0;
+const double MAX_GAS_ACCEL = 8.0;
 const double MAX_VEL = 10.0;
 const double MAX_STEER_ANGLE = 0.5236;
-const double MAX_LATERAL_ACCEL = 10.0;
+const double MAX_LATERAL_ACCEL = 7.0;
 static const double TIME_FULL_STEER = 0.5;
 const double MAX_STEERING_CHANGE = MAX_STEER_ANGLE * 2.0 / TIME_FULL_STEER;
 

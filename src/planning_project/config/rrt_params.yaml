@@ -1,9 +1,9 @@
 planning_project:
   ros__parameters:
     num_of_samples: 300
-    look_ahead_dist: 4.0
+    look_ahead_dist: 3.0
     step_size: 0.3
-    goal_sample_rate: 0.2
+    goal_sample_rate: 0.1
     angle_sample_range: 1.5708
     safety_padding: 0.3305
     disparity_extend_range: 0.1016

@@ -189,6 +189,12 @@ void RRT::pose_callback(const nav_msgs::msg::Odometry::ConstSharedPtr pose_msg) 
         goal_status = true;
     }
 
+    // keep the minimum distance to goal to determine the best action to pick
+    double best_dist = euclidean_dist(goal[0], goal[1]);
+    RRT_Node best_node = root;
+
+    std::vector<double> point = {0.0f, 0.0f};
+
     // step 2: given updated occupancy grid, sample angles and expand the tree (record furtherest route)
     // during sampling, expand occupancy grid (ros vis marker array)
     for (int i = 0; i < num_of_samples; i++) {
@@ -207,6 +213,17 @@ void RRT::pose_callback(const nav_msgs::msg::Odometry::ConstSharedPtr pose_msg) 
             break;
         }
 
+        // check the distance to best dist
+        if (expand_status != TRAPPED) {
+            point[0] = tree.back().state.x;
+            point[1] = tree.back().state.y;
+            double curr_dist = euclidean_dist(goal, point);
+            if (curr_dist < best_dist) {
+                best_node = tree.back();
+                best_dist = curr_dist;
+            }
+        }
+
     }
 
     // for debug purpose, publish the visualization marker array
@@ -217,7 +234,7 @@ void RRT::pose_callback(const nav_msgs::msg::Odometry::ConstSharedPtr pose_msg) 
     // - first, select the path to goal
     // - second, (if goal is blocked) select the path that get to the look ahead distance
     // - third, (if iterations are exhausted) select the recorded furtherest path
-    std::vector<RRT_Node> path_points = find_path(tree, tree.back());
+    std::vector<RRT_Node> path_points = find_path(tree, best_node);
 
     // step 4: command steering
     // strategy: use the first steering
@@ -226,18 +243,19 @@ void RRT::pose_callback(const nav_msgs::msg::Odometry::ConstSharedPtr pose_msg) 
         double steering_angle = steering_node.state.alpha;
         double velocity = steering_node.state.vel;
 
+        double time_scaling = 1.0 / (DT * EXTEND_STEP) / 100.0;
         double steering_diff = steering_angle - last_steering;
-        double change_in_steering = steering_diff / (DT * EXTEND_STEP) * (1.0/50.0);
+        double change_in_steering = steering_diff * time_scaling;
         double vel_diff = velocity - pose_msg->twist.twist.linear.x;
-        double change_in_vel = vel_diff / (DT * EXTEND_STEP) * (1.0/25.0);
+        double change_in_vel = vel_diff * time_scaling * 2.0;
 
         // command drive
         auto drive_msg = ackermann_msgs::msg::AckermannDriveStamped();
         drive_msg.drive.steering_angle = last_steering + change_in_steering;
-        // drive_msg.drive.steering_angle_velocity = MAX_STEERING_CHANGE;
+        drive_msg.drive.steering_angle_velocity = MAX_STEERING_CHANGE;
         drive_msg.drive.speed = pose_msg->twist.twist.linear.x + change_in_vel;
-        // drive_msg.drive.jerk = 0.0;
-        // drive_msg.drive.acceleration = MAX_GAS_ACCEL;
+        drive_msg.drive.jerk = 0.0;
+        drive_msg.drive.acceleration = MAX_GAS_ACCEL;
 
         drive_pub_->publish(drive_msg);
     }
@@ -761,7 +779,7 @@ double RRT::euclidean_dist(double x, double y) {
     return sqrt(x * x + y * y);
 }
 
-double euclidean_dist(std::vector<double> v1, std::vector<double> v2) {
+double RRT::euclidean_dist(std::vector<double> v1, std::vector<double> v2) {
         // calculate the euclidean distance between two nodes
         // return dist
         double total = 0;
@@ -842,9 +860,9 @@ void RRT::create_marker(RRT_Node &nearest_node, RRT_Node &new_node) {
     new_mark.scale.y = 0.1;
     new_mark.scale.z = 0.1;
     new_mark.color.a = 1.0;
-    new_mark.color.r = 0.0;
-    new_mark.color.g = 1.0;
-    new_mark.color.b = 1.0*(nearest_node.state.vel / MAX_VEL);
+    new_mark.color.r = 1.0 - (nearest_node.state.vel / MAX_VEL);
+    new_mark.color.g = 0.0;
+    new_mark.color.b = nearest_node.state.vel / MAX_VEL;
     new_mark.lifetime = rclcpp::Duration::from_seconds(0.1);
 
     // push the points in the array
