@@ -9,7 +9,7 @@ planning_project:
     disparity_extend_range: 0.1016
     grid_width: 250
     grid_height: 300
-    max_yaw: 1.047197551
+    max_yaw: 1.5707
     max_vel: 6.0
     grid_resolution: 0.03
     waypoint_file_path: /sim_ws/src/planning_project/waypoints/waypoints.txt
