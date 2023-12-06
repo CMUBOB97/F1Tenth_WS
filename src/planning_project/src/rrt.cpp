@@ -257,6 +257,8 @@ void RRT::pose_callback(const nav_msgs::msg::Odometry::ConstSharedPtr pose_msg) 
         drive_msg.drive.jerk = 0.0;
         drive_msg.drive.acceleration = MAX_GAS_ACCEL;
 
+        RCLCPP_INFO(this->get_logger(), ", %f, %f, %f, %f, %f, %f", pose_msg->pose.pose.position.x, pose_msg->pose.pose.position.y, drive_msg.drive.speed, drive_msg.drive.acceleration, drive_msg.drive.steering_angle, drive_msg.drive.steering_angle_velocity);
+
         drive_pub_->publish(drive_msg);
     }
 
