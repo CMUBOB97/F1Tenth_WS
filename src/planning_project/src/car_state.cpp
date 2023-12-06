@@ -2,22 +2,18 @@
 #include "car_state.h"
 
 // next car state kinematic update
-CarState CalcNextState(CarState state, double accel, double delta_alpha)
+CarState *CalcNextState(CarState *state, double accel, double delta_alpha)
 {
-    // next car state
-    CarState next;
+    float next_t = state->get_t() + dt;
+    float next_x = state->get_x() + dt * cos(state->get_yaw() + delta_alpha) * state->get_vel();
+    float next_y = state->get_y() + dt * sin(state->get_yaw() + delta_alpha) * state->get_vel();
+    float next_yaw = state->get_yaw() + dt * state->get_vel() * tan(state->get_alpha()) / wheel_base;
 
-    // update time
-    next.t = state.t + dt;
-    next.x = state.x + dt * cos(state.yaw + delta_alpha) * state.vel;
-    next.y = state.y + dt * sin(state.yaw + delta_alpha) * state.vel;
-    next.yaw = state.yaw + dt * state.vel * tan(state.alpha) / wheel_base;
-    if (next.yaw < 0) {
-        next.yaw += 2 * pi;
-    }
     // TODO(chig): update vel
-    next.vel = state.vel + dt * accel;
-    next.alpha = state.alpha + dt * delta_alpha;
+    float next_vel = state->get_vel() + dt * accel;
+    float next_alpha = state->get_alpha() + dt * delta_alpha;
+
+    CarState *next = new CarState(next_t, next_x, next_y, next_yaw, next_vel, next_alpha);
 
     return next;
 }
