@@ -2,8 +2,14 @@
 * kinematic_constraints.h
 */
 
+
 #ifndef KINEMATIC_CONSTRAINTS_H
 #define KINEMATIC_CONSTRAINTS_H
+
+#include "math.h"
+
+static const double TRACK_WIDTH = 1.5; // TODO hardcoded
+static const double WHEEL_BASE = 2.5; // TODO hardcoded
 
 class KinematicConstraints {
 public:
@@ -23,14 +29,23 @@ public:
         max_steer_change = 0.1; // TODO hardcoded
     }
 
-    bool IsStateWithinConstraints(CarState state) {
-        if (state.get_vel() > max_vel || state.get_vel() < 0) {
+    bool IsStateWithinConstraints(CarState *state) {
+        if (state->get_vel() > max_vel || state->get_vel() < 0) {
             return false;
         }
-        if (state.get_alpha() > max_alpha || state.get_alpha() < -max_alpha) {
+        if (state->get_alpha() > max_alpha || state->get_alpha() < -max_alpha) {
             return false;
         }
-        // TODO check lateral accel
+        
+        // Check lateral accel (avoid divide by zero)
+        if (state->get_alpha() == 0) {
+            return true;
+        }
+        double radius = WHEEL_BASE / tan(state->get_alpha());
+        double accel = state->get_vel() * state->get_vel() / abs(radius);
+        if (accel > max_lateral_accel) {
+            return false;
+        }
         
         return true;
     }

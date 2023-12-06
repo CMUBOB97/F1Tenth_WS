@@ -85,6 +85,7 @@ int Planner_RRT::extend(RRT_Node *parent_node)
     // check collision variable
     bool collision_status = false;
     bool goal_reached = false;
+    bool invalid_state = false;
 
     std::tuple<double, double> actions = sample_actions();
     double d_alpha = std::get<0>(actions);
@@ -105,6 +106,13 @@ int Planner_RRT::extend(RRT_Node *parent_node)
             return TRAPPED;
         }
         // TODO (ejenny): do dynamic collision check here
+
+        invalid_state = !kin_constr->IsStateWithinConstraints(state_sim_next);
+        if (invalid_state)
+        {
+            std::cout << "Invalid state" << std::endl;
+            return TRAPPED;
+        }
 
         std::cout << "state_sim_next: " << state_sim_next->get_x() << ", " << state_sim_next->get_y();
         std::cout << ", " << state_sim_next->get_yaw() << ", " << state_sim_next->get_vel() << ", " << state_sim_next->get_alpha() << std::endl;
