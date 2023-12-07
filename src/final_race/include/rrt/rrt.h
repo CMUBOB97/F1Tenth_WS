@@ -140,11 +140,16 @@ private:
     // parameters for topic name
     std::string pose_topic;
 
+    // parameters for drive dynamics
+    double max_accel, max_jerk;
+    double temporal_filter_ratio;
+
     // ----------------------------- END PARAMETERS -----------------------------
 
     // ----------------------------- BEGIN INTERNAL VARIABLES -----------------------------
 
     // define last heading angle to be paired with drive sub
+    double last_velocity;
     double last_steering;
 
     // define transform from/to frames and waypoint index

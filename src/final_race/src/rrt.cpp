@@ -34,6 +34,9 @@ RRT::RRT(): rclcpp::Node("rrt_node"), gen((std::random_device())()) {
     this->declare_parameter("waypoint_frame_id", "map");
     this->declare_parameter("pose_to_listen", "ego_racecar/base_link");
     this->declare_parameter("pose_topic", "ego_racecar/odom");
+    this->declare_parameter("max_accel", 1.0);
+    this->declare_parameter("max_jerk", 1.0);
+    this->declare_parameter("temporal_filter_ratio", 0.9);
 
     num_of_samples = (this->get_parameter("num_of_samples")).as_int();
     look_ahead_dist = (this->get_parameter("look_ahead_dist")).as_double();
@@ -55,6 +58,9 @@ RRT::RRT(): rclcpp::Node("rrt_node"), gen((std::random_device())()) {
     waypoint_frame_id = (this->get_parameter("waypoint_frame_id")).as_string();
     pose_to_listen = (this->get_parameter("pose_to_listen")).as_string();
     pose_topic = (this->get_parameter("pose_topic")).as_string();
+    max_accel = (this->get_parameter("max_accel")).as_double();
+    max_jerk = (this->get_parameter("max_jerk")).as_double();
+    temporal_filter_ratio = (this->get_parameter("temporal_filter_ratio")).as_double();
 
     // create ROS publishers
     drive_pub_ = this->create_publisher<ackermann_msgs::msg::AckermannDriveStamped>("drive", 10);
@@ -93,6 +99,7 @@ RRT::RRT(): rclcpp::Node("rrt_node"), gen((std::random_device())()) {
 // drive callback function for updating latest vehicle steering angle
 void RRT::drive_callback(const ackermann_msgs::msg::AckermannDriveStamped::ConstSharedPtr drive_msg) {
     
+    last_velocity = drive_msg->drive.speed;
     last_steering = drive_msg->drive.steering_angle;
 
 }
@@ -248,7 +255,10 @@ void RRT::pose_callback(const nav_msgs::msg::Odometry::ConstSharedPtr pose_msg) 
 
         // command drive
         drive_msg.drive.steering_angle = steering_angle;
-        drive_msg.drive.speed = velocity;
+        // apply velocity using temporal filter
+        drive_msg.drive.speed = (1 - temporal_filter_ratio) * velocity + temporal_filter_ratio * last_velocity;
+        drive_msg.drive.acceleration = max_accel;
+        drive_msg.drive.jerk = max_jerk;
     } else {
         // safety mechanism, no movement
         drive_msg.drive.steering_angle = last_steering;

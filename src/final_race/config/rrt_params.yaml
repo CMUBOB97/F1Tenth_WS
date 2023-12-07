@@ -1,10 +1,10 @@
 final_race:
   ros__parameters:
     num_of_samples: 300
-    look_ahead_dist: 1.75
+    look_ahead_dist: 1.5
     goal_sample_rate: 0.3
     max_yaw: 1.25
-    max_vel: 6.0
+    max_vel: 8.0
     max_steering: 0.4236
     steering_gain: 0.5
     velocity_gain: 0.5
@@ -15,8 +15,11 @@ final_race:
     grid_resolution: 0.02
     safety_padding: 0.3305
     disparity_extend_range: 0.2032
-    valid_path_length: 4
-    waypoint_file_path: /sim_ws/src/final_race/waypoints/atrium_waypoints.txt
+    valid_path_length: 3
+    waypoint_file_path: /home/jmoney3/F1Tenth_WS/src/final_race/waypoints/atrium_final_waypoints.txt
     waypoint_frame_id: map
-    pose_to_listen: ego_racecar/base_link
-    pose_topic: ego_racecar/odom
+    pose_to_listen: laser
+    pose_topic: pf/pose/odom
+    max_accel: 1.0
+    max_jerk: 1.0
+    temporal_filter_ratio: 0.9
