@@ -3,7 +3,7 @@ final_race:
     num_of_samples: 300
     look_ahead_dist: 1.5
     goal_sample_rate: 0.3
-    max_yaw: 1.25
+    max_yaw: 1.40
     max_vel: 8.0
     max_steering: 0.4236
     steering_gain: 0.5
@@ -16,7 +16,7 @@ final_race:
     safety_padding: 0.3305
     disparity_extend_range: 0.2032
     valid_path_length: 3
-    waypoint_file_path: /home/jmoney3/F1Tenth_WS/src/final_race/waypoints/atrium_final_waypoints.txt
+    waypoint_file_path: /home/jmoney3/F1Tenth_WS/src/final_race/waypoints/simmons_waypoints.txt
     waypoint_frame_id: map
     pose_to_listen: laser
     pose_topic: pf/pose/odom
