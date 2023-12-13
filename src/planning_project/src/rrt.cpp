@@ -179,6 +179,7 @@ void RRT::pose_callback(const nav_msgs::msg::Odometry::ConstSharedPtr pose_msg) 
     root.state.alpha = last_steering;
     root.state.accel = 0.0f;
     root.state.delta_alpha = 0.0f;
+    root.state.num_extensions = 0;
     root.cost = 0.0f;
     root.parent = -1;
     root.is_root = true;

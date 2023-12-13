@@ -13,7 +13,7 @@
 const double WHEEL_BASE = 0.3302;
 
 // time-step related constants (can be tuned)
-const double DT = 0.01;
+const double DT = 0.001;
 const int EXTEND_STEP = 10;
 
 // opponent's velocity
@@ -33,7 +33,7 @@ const double MAX_STEERING_CHANGE = MAX_STEER_ANGLE * 2.0 / TIME_FULL_STEER;
 const double PROBABILITY_STRAIGHT = 0.3;
 const double PROBABILITY_COAST = 0.3;
 
-const double AT_GOAL_RADIUS = 0.01; // meters
+const double AT_GOAL_RADIUS = 0.1; // meters
 
 extern double MAX_YAW; // 1.5707
 extern double MAX_VEL; // 10.0
@@ -54,6 +54,7 @@ struct CarState_t {
     double alpha; 
     double accel;
     double delta_alpha;
+    int num_extensions;
 };
 
 typedef struct CarState_t CarState;

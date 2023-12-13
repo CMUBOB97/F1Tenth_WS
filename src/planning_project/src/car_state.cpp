@@ -44,6 +44,9 @@ CarState CalcNextState(CarState &state, double accel, double delta_alpha)
 
     next.accel = accel;
     next.delta_alpha = delta_alpha; 
+    next.num_extensions = state.num_extensions + 1;
+
+    // (ejenny) Redudant limits
 
     if (next.alpha > MAX_STEER_ANGLE)
     {
@@ -67,7 +70,7 @@ CarState CalcNextState(CarState &state, double accel, double delta_alpha)
     }
 
     double radius = WHEEL_BASE / tan(next.alpha);
-    double max_val = std::sqrt(MAX_LATERAL_ACCEL * std::fabs(radius));
+    double max_val = 0.99 * std::sqrt(MAX_LATERAL_ACCEL * std::fabs(radius));
     if (next.vel > max_val)
     {
         next.vel = max_val;
