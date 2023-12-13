@@ -8,10 +8,14 @@
 RRT::~RRT() {
     // Do something in here, free up used memory, print message, etc.
     RCLCPP_INFO(rclcpp::get_logger("RRT"), "%s\n", "RRT shutting down");
+    path_file.close();
 }
 
 // Constructor of the RRT class
 RRT::RRT(): rclcpp::Node("rrt_node") {
+
+    path_file.open("/sim_ws/src/planning_project/waypoints/path.txt");
+    path_file << "time, x, y, yaw, velocity, steering, throttle, steering velocity";
 
     // ROS publishers
     // TODO: create publishers for the the drive topic, and other topics you might need
@@ -431,23 +435,20 @@ std::vector<RRT_Node> RRT::find_path(std::vector<RRT_Node> &tree, RRT_Node &late
         found_path.push_back(search_node);
     }
 
-    // CarState state_next, state_current;
-    // RCLCPP_INFO(this->get_logger(), "------------------------- showing a new path -------------------------");
-    // RCLCPP_INFO(this->get_logger(), ", time, x, y, yaw, velocity, steering, throttle, steering velocity");
-    // for (int i = found_path.size() - 1; i >= 1; i--) {
-    //     state_current = found_path[i].state;
-    //     state_next = found_path[i - 1].state;
-    //     RCLCPP_INFO(this->get_logger(), ", %f, %f, %f, %f, %f, %f, %f, %f",
-    //                 state_current.t, state_current.x, state_current.y, state_current.yaw,
-    //                 state_current.vel, state_current.alpha, state_next.accel, state_next.delta_alpha);
-    //     for (int j = 0; j < EXTEND_STEP - 1; j++) {
-    //         state_next = CalcNextState(state_current, state_next.accel, state_next.delta_alpha);
-    //         RCLCPP_INFO(this->get_logger(), ", %f, %f, %f, %f, %f, %f, %f, %f",
-    //                 state_next.t, state_next.x, state_next.y, state_next.yaw,
-    //                 state_next.vel, state_next.alpha, state_next.accel, state_next.delta_alpha);
-    //         state_current = state_next;
-    //     }
-    // }
+    CarState state_next, state_current;
+    path_file << "--------------------------------------------------";
+    for (int i = found_path.size() - 1; i >= 1; i--) {
+        state_current = found_path[i].state;
+        state_next = found_path[i - 1].state;
+        path_file << state_current.t << ", " << state_current.x << ", " << state_current.y << ", " << state_current.yaw
+                  << ", " << state_current.vel << ", " << state_current.alpha << ", " << state_next.accel << ", " << state_next.delta_alpha << std::endl;
+        for (int j = 0; j < EXTEND_STEP - 1; j++) {
+            state_next = CalcNextState(state_current, state_next.accel, state_next.delta_alpha);
+            path_file << state_next.t << ", " << state_next.x << ", " << state_next.y << ", " << state_next.yaw
+                      << ", " << state_next.vel << ", " << state_next.alpha << ", " << state_next.accel << ", " << state_next.delta_alpha << std::endl;
+            state_current = state_next;
+        }
+    }
 
     return found_path;
 }

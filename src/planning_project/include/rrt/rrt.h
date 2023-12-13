@@ -116,6 +116,7 @@ private:
     // - occupancy grid
     // - rrt visualization
     ifstream waypoint_file;
+    ofstream path_file;
     nav_msgs::msg::Path path_msg;
     int path_length;
     nav_msgs::msg::OccupancyGrid rrt_grid;
