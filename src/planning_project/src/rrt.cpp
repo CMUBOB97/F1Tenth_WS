@@ -76,6 +76,8 @@ RRT::RRT(): rclcpp::Node("rrt_node") {
     
     GOAL_SAMPLE_RATE = goal_sample_rate;
 
+    LOOK_AHEAD_DIST = look_ahead_dist;
+
     // create path using waypoints in the file
     log_waypoints();
 
@@ -205,6 +207,7 @@ void RRT::pose_callback(const nav_msgs::msg::Odometry::ConstSharedPtr pose_msg) 
 
     std::vector<double> point = {0.0f, 0.0f};
 
+    int expand_status = ADVANCED;
     // step 2: given updated occupancy grid, sample angles and expand the tree (record furtherest route)
     // during sampling, expand occupancy grid (ros vis marker array)
     for (int i = 0; i < num_of_samples; i++) {
@@ -216,10 +219,11 @@ void RRT::pose_callback(const nav_msgs::msg::Odometry::ConstSharedPtr pose_msg) 
         int nearest_index = nearest(tree, random_point);
 
         // expand that node
-        int expand_status = extend(tree, nearest_index, goal, goal_is_reachable);
+        expand_status = extend(tree, nearest_index, goal, goal_is_reachable);
 
         // check expand status
         if (expand_status == REACHED) {
+            std::cout << "goal reached" << std::endl;
             break;
         }
 
@@ -233,6 +237,10 @@ void RRT::pose_callback(const nav_msgs::msg::Odometry::ConstSharedPtr pose_msg) 
                 best_dist = curr_dist;
             }
         }
+    }
+
+    if (expand_status != REACHED) {
+        std::cout << "goal not reached" << std::endl;
     }
 
     // for debug purpose, publish the visualization marker array
@@ -320,8 +328,8 @@ int RRT::extend(std::vector<RRT_Node> &tree, int nearest_node_index, std::vector
     bool kin_feasible = true;
 
     std::pair<double, double> action = sample_actions();
-    double d_alpha = action.first;
-    double accel = action.second;
+    double accel = action.first;
+    double d_alpha = action.second;
 
     // Construct current car state
     CarState state_sim = tree[nearest_node_index].state;
@@ -334,7 +342,7 @@ int RRT::extend(std::vector<RRT_Node> &tree, int nearest_node_index, std::vector
         collision_status = check_collision(state_sim, state_sim_next);
         kin_feasible = is_kinematically_feasible(state_sim_next); // TODO!
         if (collision_status || !kin_feasible) {
-            std::cout << "collision detected: " << collision_status << ", kin_feasible: " << kin_feasible << std::endl;
+            // std::cout << "collision detected: " << collision_status << ", kin_feasible: " << kin_feasible << std::endl;
             return TRAPPED;
         }
 
@@ -358,10 +366,9 @@ int RRT::extend(std::vector<RRT_Node> &tree, int nearest_node_index, std::vector
     create_marker(tree[nearest_node_index], new_node);
 
     if (goal_reached) {
-        std::cout << "goal reached" << std::endl;
         return REACHED;
     } else {
-        std::cout << "advanced" << std::endl;
+        // std::cout << "advanced" << std::endl;
         return ADVANCED;
     }
 
@@ -398,42 +405,6 @@ bool RRT::check_collision(CarState new_state, CarState prev_state) {
         }
     }
     return false;
-}
-
-bool RRT::is_goal(CarState &state, std::vector<double> &goal, bool goal_is_reachable) {
-    // This method checks if the latest node added to the tree is close
-    // enough (defined by goal_threshold) to the goal so we can terminate
-    // the search and find a path
-    // Args:
-    //   latest_added_node (RRT_Node): latest addition to the tree
-    //   goal (double vector): vector of goal point {x, y}
-    //   goal_is_reachable (bool): if x and y are not goals, just check for how far latest_added_node has expanded
-    // Returns:
-    //   close_enough (bool): true if node close enough to the goal
-
-    bool close_enough = false;
-    
-    // the case where goal is valid
-    if (goal_is_reachable) {
-        double x_diff = fabs(state.x - goal[0]);
-        double y_diff = fabs(state.y - goal[1]);
-        if (x_diff + y_diff <= 1e-3) {
-            close_enough = true;
-        }
-    } else { // when goal is invalid, check for distance expanded
-        double expand_dist = euclidean_dist(state.x, state.y);
-        // TODO: if we need to check yaw and velocity difference, come back later
-        if (expand_dist > look_ahead_dist) {
-            close_enough = true;
-        }
-    }
-    // if (close_enough)
-    // {
-    //     // std::cout << goal_is_reachable;
-    //     // print_car_state(state);
-    // }
-
-    return close_enough;
 }
 
 std::vector<RRT_Node> RRT::find_path(std::vector<RRT_Node> &tree, RRT_Node &latest_added_node) {

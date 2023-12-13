@@ -8,6 +8,7 @@
 static std::mt19937 generator;
 static std::uniform_real_distribution<double> uniform_sampler(0.0, 1.0);
 static std::normal_distribution<double> normal_sampler(0.0, 1.0);
+static std::uniform_real_distribution<double> accel_sampler(MAX_BRAKE_ACCEL, MAX_GAS_ACCEL);
 
 
 double MAX_YAW = 0.0; // 1.5707
@@ -16,13 +17,14 @@ double GRID_RESOLUTION = 0.0;
 int GRID_WIDTH = 0;
 int GRID_HEIGHT = 0; 
 double GOAL_SAMPLE_RATE = 0.0;
+double LOOK_AHEAD_DIST = 0.0;
 
 /**
  * Prints on one line
  */
 void print_car_state(CarState &state)
 {
-    std::cout << "t: " << state.t << ", x: " << state.x << ", y: " << state.y << ", yaw: " << state.yaw << ", vel: " << state.vel << ", alpha: " << state.alpha << std::endl;
+    std::cout << " State t: " << state.t << ", x: " << state.x << ", y: " << state.y << ", yaw: " << state.yaw << ", vel: " << state.vel << ", alpha: " << state.alpha << std::endl;
 }
 
 // next car state kinematic update
@@ -31,7 +33,6 @@ CarState CalcNextState(CarState &state, double accel, double delta_alpha)
     // next car state
     CarState next;
 
-    std::cout << "accel: " << accel << ", delta_alpha: " << delta_alpha;
     // update time
     next.t = state.t + DT;
     double next_vel = state.vel + DT * accel;
@@ -40,8 +41,6 @@ CarState CalcNextState(CarState &state, double accel, double delta_alpha)
     next.yaw = state.yaw + DT * next_vel * tan(state.alpha) / WHEEL_BASE;
     next.alpha = state.alpha + delta_alpha;
     next.vel = next_vel;
-
-    std::cout << ", next_vel: " << next_vel << ", state.alpha: " << state.alpha;
 
     next.accel = accel;
     next.delta_alpha = delta_alpha; 
@@ -63,14 +62,21 @@ CarState CalcNextState(CarState &state, double accel, double delta_alpha)
         next.vel = 0.0;
     }
 
+    if (fabs(next.alpha) < 1e-5) {
+        return next;
+    }
+
     double radius = WHEEL_BASE / tan(next.alpha);
     double max_val = std::sqrt(MAX_LATERAL_ACCEL * std::fabs(radius));
     if (next.vel > max_val)
     {
         next.vel = max_val;
     }
-    std::cout << ", max_val: " << max_val << ", radius: " << radius;
-    std::cout << ", MAX_VEL: " << MAX_VEL << std::endl;
+
+    // std::cout << "accel: " << accel << ", delta_alpha: " << delta_alpha;
+    // std::cout << ", next_vel: " << next_vel << ", state.alpha: " << state.alpha;
+    // std::cout << ", max_val: " << max_val << ", radius: " << radius;
+    // std::cout << ", MAX_VEL: " << MAX_VEL << std::endl;
 
     return next;
 }
@@ -148,9 +154,11 @@ std::pair<double, double> sample_actions_extreme(void)
 
 std::pair<double, double> sample_actions()
 {
-    double rand_delta_alpha = (uniform_sampler(generator) - 0.5f) * 2.0 * MAX_STEERING_CHANGE * DT * 4.0; // TODO what is this 4.0?
+    double rand_delta_alpha = (uniform_sampler(generator) - 0.5f) * 2.0 * MAX_STEERING_CHANGE * DT; // TODO what is this 4.0?
     double accel_diff = MAX_GAS_ACCEL - MAX_BRAKE_ACCEL;
-    double rand_accel = accel_diff * uniform_sampler(generator) + MAX_BRAKE_ACCEL;
+    double accel_sample = uniform_sampler(generator);
+    double rand_accel = accel_diff * accel_sample + MAX_BRAKE_ACCEL;
+    // std::cout << "Sample: " << accel_sample << ", accel: " << rand_accel << std::endl;
 
     return limit_actions(rand_accel, rand_delta_alpha);
 }
@@ -236,16 +244,55 @@ bool is_kinematically_feasible(CarState &state) {
         return false;
     }
 
-    // Check lateral accel (avoid divide by zero)
-    if (state.alpha == 0) {
+    // Check lateral accel (avoid divide by zero if tan(alpha) == 0
+    if (fabs(state.alpha) < 1e-5) {
         return true;
     }
+
     double radius = WHEEL_BASE / tan(state.alpha);
-    double accel = state.vel * state.vel / abs(radius);
+    double accel = state.vel * state.vel / fabs(radius);
     if (accel > MAX_LATERAL_ACCEL) {
-        std::cout << "Lateral accel Failure: " << accel << std::endl;
+        std::cout << "Lateral accel Failure: " << accel << ", vel: " << state.vel << ", radius: " << radius << std::endl;
         return false;
     }
 
     return true;
 }
+
+
+bool is_goal(CarState &state, std::vector<double> &goal, bool goal_is_reachable) {
+    // This method checks if the latest node added to the tree is close
+    // enough (defined by goal_threshold) to the goal so we can terminate
+    // the search and find a path
+    // Args:
+    //   latest_added_node (RRT_Node): latest addition to the tree
+    //   goal (double vector): vector of goal point {x, y}
+    //   goal_is_reachable (bool): if x and y are not goals, just check for how far latest_added_node has expanded
+    // Returns:
+    //   close_enough (bool): true if node close enough to the goal
+
+    bool close_enough = false;
+    
+    // the case where goal is valid
+    if (goal_is_reachable) {
+        double x_diff = state.x - goal[0];
+        double y_diff = state.y - goal[1];
+        if (euclidean_dist(x_diff, y_diff) <= AT_GOAL_RADIUS) {
+            close_enough = true;
+        }
+    } else { // when goal is invalid, check for distance expanded
+        double expand_dist = euclidean_dist(state.x, state.y);
+        // TODO: if we need to check yaw and velocity difference, come back later
+        if (expand_dist > LOOK_AHEAD_DIST) {
+            close_enough = true;
+        }
+    }
+    // if (close_enough)
+    // {
+    //     std::cout << "GOAL FOUND!, reachable: " << goal_is_reachable;
+    //     print_car_state(state);
+    // }
+
+    return close_enough;
+}
+

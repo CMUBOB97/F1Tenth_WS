@@ -13,8 +13,8 @@
 const double WHEEL_BASE = 0.3302;
 
 // time-step related constants (can be tuned)
-const double DT = 0.05;
-const int EXTEND_STEP = 5;
+const double DT = 0.01;
+const int EXTEND_STEP = 10;
 
 // opponent's velocity
 const double OPPONENT_VELOCITY = 1.0;
@@ -33,6 +33,8 @@ const double MAX_STEERING_CHANGE = MAX_STEER_ANGLE * 2.0 / TIME_FULL_STEER;
 const double PROBABILITY_STRAIGHT = 0.3;
 const double PROBABILITY_COAST = 0.3;
 
+const double AT_GOAL_RADIUS = 0.01; // meters
+
 extern double MAX_YAW; // 1.5707
 extern double MAX_VEL; // 10.0
 
@@ -41,6 +43,7 @@ extern int GRID_WIDTH;
 extern int GRID_HEIGHT; 
 
 extern double GOAL_SAMPLE_RATE;
+extern double LOOK_AHEAD_DIST;
 
 struct CarState_t {
     double t;
@@ -68,5 +71,8 @@ double car_state_distance(CarState &a, std::vector<double> &b);
 std::pair<double, double> sample_actions(void);
 std::pair<double, double> sample_actions_extreme(void);
 std::vector<double> sample_config(std::vector<double> &goal, bool goal_status);
+
+
+bool is_goal(CarState &state, std::vector<double> &goal_point, bool goal_is_reachable); // TODO move?
 
 #endif // CAR_STATE_H
