@@ -27,12 +27,20 @@
 #include <tf2_ros/transform_broadcaster.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 
-// car state space and constraint headers
-#include "car_state.h"
-
 /// CHECK: include needed ROS msg type headers and libraries
 
 using namespace std;
+
+// Struct defining the car state model used in RRT tree.
+// use time, x, y, heading (yaw), velocity, and steering (alpha)
+typedef struct CarState {
+    double t;
+    double x;
+    double y;
+    double yaw;
+    double vel;
+    double alpha; 
+} CarState;
 
 // Struct defining the RRT_Node object in the RRT tree.
 // defined in polar coordinate fashion
@@ -50,43 +58,47 @@ public:
     virtual ~RRT();
 private:
 
-    // add the publishers and subscribers you need
+    // ----------------------------- BEGIN PUBLISHER/SUBSCRIPTION -----------------------------
 
+    // add the following subscribers:
+    // - pose subscriber for pose callback (rrt routine)
+    // - scan subscriber for scan callback (occupancy grid update)
+    // - drive subscriber for drive callback (steering angle update for kinematics)
     rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr pose_sub_;
     rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr scan_sub_;
     rclcpp::Subscription<ackermann_msgs::msg::AckermannDriveStamped>::SharedPtr drive_sub_;
 
-    // add drive publisher
+    // add the following publishers:
+    // - drive publisher
+    // - path publisher for waypoint debug
+    // - point publisher for goal point debug
+    // - processed laser publisher for preprocessing debug (OPTIONAL)
+    // - occupancy grid publisher for rrt grid debug
+    // - visualization marker array publisher for rrt tree node debug
     rclcpp::Publisher<ackermann_msgs::msg::AckermannDriveStamped>::SharedPtr drive_pub_;
-
-    // add path publisher for debug
     rclcpp::Publisher<nav_msgs::msg::Path>::SharedPtr path_pub_;
-
-    // add point publisher for debug
     rclcpp::Publisher<geometry_msgs::msg::PointStamped>::SharedPtr point_pub_;
-
-    // add processed laser publisher for debug
     rclcpp::Publisher<sensor_msgs::msg::LaserScan>::SharedPtr processed_scan_pub_;
-
-    // add occupancy grid publisher for debug
     rclcpp::Publisher<nav_msgs::msg::OccupancyGrid>::SharedPtr occupancy_grid_pub_;
-
-    // add visualization marker array publisher for debug
     rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr vis_marker_array_pub_;
 
+    // ----------------------------- END PUBLISHER/SUBSCRIPTION -----------------------------
+
+    // ----------------------------- BEGIN RANDOM GENERATOR -----------------------------
+    
     // random generator, use this
     std::mt19937 gen;
     std::uniform_real_distribution<> sample_type;
     std::uniform_real_distribution<> x_dist;
     std::uniform_real_distribution<> y_dist;
-    std::uniform_real_distribution<> yaw_gen;
-    std::uniform_real_distribution<> vel_gen;
-    std::uniform_real_distribution<> alpha_gen;
-    std::uniform_real_distribution<> delta_alpha_gen;
-    std::uniform_real_distribution<> accel_gen;
+
+    // ----------------------------- END RANDOM GENERATOR -----------------------------
+
+    // ----------------------------- BEGIN CONSTANTS -----------------------------
 
     // constants for laser properties
     const double PI = 3.1415926536;
+    const double wheel_base = 0.3302;
     const double angle_min = -2.3499999046325684;
     const double angle_max = 2.3499999046325684;
     const double angle_increment = 0.004351851996034384;
@@ -96,26 +108,49 @@ private:
     const int ADVANCED = 1;
     const int REACHED = 2;
 
+    // ----------------------------- END CONSTANTS -----------------------------
+
+    // ----------------------------- BEGIN PARAMETERS -----------------------------
+
     // parameters for RRT
     int num_of_samples;
-    double max_yaw, max_vel;
     double look_ahead_dist;
-    double step_size;
     double goal_sample_rate;
-    double angle_sample_range;
+
+    // parameters for kinematic constraints
+    double max_yaw, max_vel;
+    double max_steering;
+    double steering_gain, velocity_gain;
+    double time_step;
+    int extend_step;
+
+    // parameters for occupancy grid
+    int grid_width;
+    int grid_height;
+    double grid_resolution;
+    int valid_path_length;
     double safety_padding;
     double disparity_extend_range;
+
+    // parameters for waypoints
     std::string waypoint_file_path;
     std::string waypoint_frame_id;
     std::string pose_to_listen;
+
+    // parameters for topic name
+    std::string pose_topic;
+
+    // ----------------------------- END PARAMETERS -----------------------------
+
+    // ----------------------------- BEGIN INTERNAL VARIABLES -----------------------------
+
+    // define last heading angle to be paired with drive sub
+    double last_steering;
 
     // define transform from/to frames and waypoint index
     std::string fromFrame;
     std::string toFrame;
     int last_waypoint_index;
-
-    // define last heading angle
-    double last_steering;
 
     // listener to listen updates on pose_to_listen
     std::unique_ptr<tf2_ros::Buffer> tf_buffer_;
@@ -133,13 +168,12 @@ private:
     visualization_msgs::msg::MarkerArray rrt_marks;
     int marker_id;
 
-    // parameters used for occupancy grid
-    int grid_width;
-    int grid_height;
-    double grid_resolution;
-
-    // vector for processed laser scan
+    // TODO: vector for processed laser scan, for better obstacle avoidance
     std::vector<float> processed_scan;
+
+    // ----------------------------- END INTERNAL VARIABLES -----------------------------
+
+    // ----------------------------- BEGIN FUNCTIONS -----------------------------
 
     // callbacks
     // where rrt actually happens
@@ -151,17 +185,11 @@ private:
 
     // RRT methods
     std::vector<double> sample_config(std::vector<double> &goal, bool goal_status);
-    std::pair<double, double> sample_action();
     int nearest(std::vector<RRT_Node> &tree, std::vector<double> &sampled_point);
-    int extend(std::vector<RRT_Node> &tree, int nearest_node_index, std::vector<double> &goal_point, bool goal_status);
+    int extend(std::vector<RRT_Node> &tree, int nearest_node_index, std::vector<double> &sampled_point, std::vector<double> &goal_point, bool goal_status);
     bool check_collision(CarState new_state, CarState prev_state);
     bool is_goal(RRT_Node &latest_added_node, std::vector<double> &goal_point, bool goal_status);
     std::vector<RRT_Node> find_path(std::vector<RRT_Node> &tree, RRT_Node &latest_added_node);
-    
-    // RRT* methods
-    double cost(std::vector<RRT_Node> &tree, RRT_Node &node);
-    double line_cost(RRT_Node &n1, RRT_Node &n2);
-    std::vector<int> near(std::vector<RRT_Node> &tree, RRT_Node &node);
 
     // helper functions
     void log_waypoints();
@@ -172,7 +200,8 @@ private:
     void process_scan(std::vector<float>& scan);
     void init_grid();
     void create_marker(RRT_Node &nearest_node, RRT_Node &new_node);
-    bool is_kinematically_feasible(CarState &state);
+    CarState CalcNextState(CarState state, double accel, double delta_alpha);
     
+    // ----------------------------- END FUNCTIONS -----------------------------
 };
 

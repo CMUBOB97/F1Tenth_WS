@@ -13,7 +13,7 @@ const double WHEEL_BASE = 0.3302;
 
 // time-step related constants (can be tuned)
 const double DT = 0.05;
-const int EXTEND_STEP = 10;
+const int EXTEND_STEP = 5;
 
 // opponent's velocity
 const double OPPONENT_VELOCITY = 1.0;
@@ -38,6 +38,8 @@ struct CarState {
     double yaw;
     double vel;
     double alpha; 
+    double accel;
+    double delta_alpha;
 };
 
 typedef struct CarState CarState;
