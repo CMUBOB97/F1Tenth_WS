@@ -140,9 +140,9 @@ private:
 
     // RRT methods
     int nearest(std::vector<RRT_Node> &tree, std::vector<double> &sampled_point); // TODO move
-    int extend(std::vector<RRT_Node> &tree, int nearest_node_index, std::vector<double> &sampled_point, std::vector<double> &goal_point, bool goal_status);
+    int extend(std::vector<RRT_Node> &tree, int nearest_node_index, std::vector<double> &goal_point, bool goal_is_reachable);
     bool check_collision(CarState new_state, CarState prev_state);
-    bool is_goal(RRT_Node &latest_added_node, std::vector<double> &goal_point, bool goal_status); // TODO move?
+    bool is_goal(CarState &state, std::vector<double> &goal_point, bool goal_is_reachable); // TODO move?
     std::vector<RRT_Node> find_path(std::vector<RRT_Node> &tree, RRT_Node &latest_added_node);
     
     // RRT* methods

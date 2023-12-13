@@ -5,19 +5,43 @@
 
 #include "car_state.h"
 
+static std::mt19937 generator;
+static std::uniform_real_distribution<double> uniform_sampler(0.0, 1.0);
+static std::normal_distribution<double> normal_sampler(0.0, 1.0);
+
+
+double MAX_YAW = 0.0; // 1.5707
+double MAX_VEL = 0.0; // 10.0
+double GRID_RESOLUTION = 0.0;
+int GRID_WIDTH = 0;
+int GRID_HEIGHT = 0; 
+double GOAL_SAMPLE_RATE = 0.0;
+
+/**
+ * Prints on one line
+ */
+void print_car_state(CarState &state)
+{
+    std::cout << "t: " << state.t << ", x: " << state.x << ", y: " << state.y << ", yaw: " << state.yaw << ", vel: " << state.vel << ", alpha: " << state.alpha << std::endl;
+}
+
 // next car state kinematic update
 CarState CalcNextState(CarState &state, double accel, double delta_alpha)
 {
     // next car state
     CarState next;
 
+    std::cout << "accel: " << accel << ", delta_alpha: " << delta_alpha;
     // update time
     next.t = state.t + DT;
-    next.x = state.x + DT * cos(state.yaw + delta_alpha) * state.vel;
-    next.y = state.y + DT * sin(state.yaw + delta_alpha) * state.vel;
-    next.yaw = state.yaw + DT * state.vel * tan(state.alpha) / WHEEL_BASE;
-    next.vel = state.vel + DT * accel;
+    double next_vel = state.vel + DT * accel;
+    next.x = state.x + DT * cos(state.yaw + delta_alpha) * next_vel;
+    next.y = state.y + DT * sin(state.yaw + delta_alpha) * next_vel;
+    next.yaw = state.yaw + DT * next_vel * tan(state.alpha) / WHEEL_BASE;
     next.alpha = state.alpha + delta_alpha;
+    next.vel = next_vel;
+
+    std::cout << ", next_vel: " << next_vel << ", state.alpha: " << state.alpha;
 
     next.accel = accel;
     next.delta_alpha = delta_alpha; 
@@ -40,24 +64,26 @@ CarState CalcNextState(CarState &state, double accel, double delta_alpha)
     }
 
     double radius = WHEEL_BASE / tan(next.alpha);
-    double max_val = sqrt(MAX_LATERAL_ACCEL * abs(radius));
+    double max_val = std::sqrt(MAX_LATERAL_ACCEL * std::fabs(radius));
     if (next.vel > max_val)
     {
         next.vel = max_val;
     }
+    std::cout << ", max_val: " << max_val << ", radius: " << radius;
+    std::cout << ", MAX_VEL: " << MAX_VEL << std::endl;
 
     return next;
 }
 
 double car_state_distance(CarState &a, CarState &b)
 {
-    double x_diff = std::abs(a.x - b.x);
-    double y_diff = std::abs(a.y - b.y);
-    double yaw_diff = std::abs(a.yaw - b.yaw);
-    double vel_diff = std::abs(a.vel - b.vel);
-    double alpha_diff = std::abs(a.alpha - b.alpha);
+    double x_diff = std::fabs(a.x - b.x);
+    double y_diff = std::fabs(a.y - b.y);
+    double yaw_diff = std::fabs(a.yaw - b.yaw);
+    double vel_diff = std::fabs(a.vel - b.vel);
+    double alpha_diff = std::fabs(a.alpha - b.alpha);
     double x_diff_norm = x_diff / (GRID_WIDTH * GRID_RESOLUTION);
-    double y_diff_norm = y_diff / (GRID_HEIGHT * GRID_RESOLUTION * 2);
+    double y_diff_norm = y_diff / (GRID_HEIGHT * GRID_RESOLUTION);
     double yaw_diff_norm = yaw_diff / MAX_YAW * 2;
     double vel_diff_norm = vel_diff / MAX_VEL;
     double alpha_diff_norm = alpha_diff / MAX_STEER_ANGLE * 2;
@@ -66,7 +92,7 @@ double car_state_distance(CarState &a, CarState &b)
             + y_diff_norm * y_diff_norm
             + yaw_diff_norm * yaw_diff_norm 
             + vel_diff_norm * vel_diff_norm 
-            + alpha_diff_norm * alpha_diff_norm);
+            + alpha_diff_norm * alpha_diff_norm * 0.0);
     return dist;
 }
 
@@ -81,7 +107,7 @@ double car_state_distance(CarState &a, std::vector<double> &b)
     return car_state_distance(a, b_state);
 }
 
-std::pair<double, double> limit_actions(double accel, double delta_alpha)
+static std::pair<double, double> limit_actions(double accel, double delta_alpha)
 {
     if (accel > MAX_GAS_ACCEL)
     {
@@ -110,7 +136,7 @@ std::pair<double, double> sample_actions_extreme(void)
     double accel_sample = uniform_sampler(generator);
     if (steering_sample > PROBABILITY_STRAIGHT)
     {
-        delta_alpha = steering_sample > 0.5 * (1.0 - PROBABILITY_STRAIGHT) + PROBABILITY_STRAIGHT ? MAX_STEERING_CHANGE : -MAX_STEERING_CHANGE;
+        delta_alpha = steering_sample > 0.5 * (1.0 - PROBABILITY_STRAIGHT) + PROBABILITY_STRAIGHT ? MAX_STEERING_CHANGE * DT : -MAX_STEERING_CHANGE * DT;
     }
     if (accel_sample > PROBABILITY_COAST)
     {
@@ -120,9 +146,9 @@ std::pair<double, double> sample_actions_extreme(void)
     return limit_actions(accel, delta_alpha);
 }
 
-std::pair<double, double> sample_action()
+std::pair<double, double> sample_actions()
 {
-    double rand_delta_alpha = (uniform_sampler(generator) - 0.5f) * 2.0 * MAX_STEERING_CHANGE * DT * 4.0;
+    double rand_delta_alpha = (uniform_sampler(generator) - 0.5f) * 2.0 * MAX_STEERING_CHANGE * DT * 4.0; // TODO what is this 4.0?
     double accel_diff = MAX_GAS_ACCEL - MAX_BRAKE_ACCEL;
     double rand_accel = accel_diff * uniform_sampler(generator) + MAX_BRAKE_ACCEL;
 

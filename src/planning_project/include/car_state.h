@@ -7,10 +7,6 @@
 
 #include <random>
 
-std::mt19937 generator;
-std::uniform_real_distribution<double> uniform_sampler(0.0, 1.0);
-std::normal_distribution<double> normal_sampler(0.0, 1.0);
-
 // constants used for kinematic updates
 
 // pi and wheel base
@@ -27,9 +23,6 @@ const double OPPONENT_VELOCITY = 1.0;
 const double STEERING_GAIN = 1.0;
 const double VELOCITY_GAIN = 0.5;
 
-extern const double MAX_YAW; // 1.5707
-extern const double MAX_VEL; // 10.0
-
 const double MAX_BRAKE_ACCEL = -10.0;
 const double MAX_GAS_ACCEL = 8.0;
 const double MAX_LATERAL_ACCEL = 7.0;
@@ -40,11 +33,14 @@ const double MAX_STEERING_CHANGE = MAX_STEER_ANGLE * 2.0 / TIME_FULL_STEER;
 const double PROBABILITY_STRAIGHT = 0.3;
 const double PROBABILITY_COAST = 0.3;
 
-extern const double GRID_RESOLUTION;
-extern const int GRID_WIDTH;
-extern const int GRID_HEIGHT; 
+extern double MAX_YAW; // 1.5707
+extern double MAX_VEL; // 10.0
 
-extern const double GOAL_SAMPLE_RATE;
+extern double GRID_RESOLUTION;
+extern int GRID_WIDTH;
+extern int GRID_HEIGHT; 
+
+extern double GOAL_SAMPLE_RATE;
 
 struct CarState_t {
     double t;
@@ -59,6 +55,7 @@ struct CarState_t {
 
 typedef struct CarState_t CarState;
 
+void print_car_state(CarState &state);
 CarState CalcNextState(CarState &state, double accel, double delta_alpha);
 bool is_kinematically_feasible(CarState &state);  
 
