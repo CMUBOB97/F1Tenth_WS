@@ -14,7 +14,7 @@ const double WHEEL_BASE = 0.3302;
 
 // time-step related constants (can be tuned)
 const double DT = 0.001;
-const int EXTEND_STEP = 10;
+const int EXTEND_STEP = 100;
 
 // opponent's velocity
 const double OPPONENT_VELOCITY = 1.0;
